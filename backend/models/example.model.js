@@ -1,0 +1,1 @@
+//this will be a schema for the database(need to research this more)
