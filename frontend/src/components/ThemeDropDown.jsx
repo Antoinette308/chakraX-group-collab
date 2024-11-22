@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 "use client"
 
 import {
@@ -19,8 +20,8 @@ const themes = createListCollection({
 )
 
 
-function ThemeDropDown(){
-    return (<SelectRoot collection={themes}>
+function ThemeDropDown(props){
+    return (<SelectRoot collection={themes} onValueChange={props.onChange}>
     <SelectLabel> Themes</SelectLabel>
     <SelectTrigger>
         <SelectValueText placeholder="Choose Your Theme" />
