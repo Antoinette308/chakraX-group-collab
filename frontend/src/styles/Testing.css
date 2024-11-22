@@ -1,0 +1,17 @@
+.first-header {
+    color:firebrick;
+}
+.second-header {
+    background-color: darkgreen;
+    border-radius: 20px;
+    padding: 20px;
+    color:rgb(8, 28, 8);
+    
+}
+
+.second-header.greens {
+    background-color: darkgreen;
+    border-radius: 20px;
+    padding: 20px;
+    color:rgb(8, 28, 8)
+}
