@@ -5,7 +5,7 @@ function UniButton(props){
     return <Button 
     borderRadius="30px"
     size={props.size} 
-    colorPalette={props.colorPalette}
+    bg={props.bg}
     width={props.width}>
         {props.text}
         </Button>

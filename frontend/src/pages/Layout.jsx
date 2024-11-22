@@ -5,6 +5,8 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import NavBarButton from "../components/NavBarButton";
 import { useState } from "react";
 import NavBar from "../components/Navbar";
+import themes from "../components/themes";
+
 
 
 //Made by Sascha. This is the layout page. This is the parent of all other pages. The sidebar will show on every page. 
@@ -22,7 +24,7 @@ function handleClick() {
 if(active === false){
     return (
         <Grid height="100vh" width="100vw" gridTemplateColumns="max-content 4fr" gridTemplateRows="1fr max-content" gap={2}>
-            <GridItem my={6} mx={3} colStart={1}><NavBarButton onClick={handleClick} isActive={active} colorPalette="cyan.500"/></GridItem> 
+            <GridItem my={6} mx={3} colStart={1}><NavBarButton onClick={handleClick} isActive={active} colorPalette={themes.blue.navIcon} /></GridItem> 
             <GridItem className="page">
                 <Outlet /> 
             </GridItem>
