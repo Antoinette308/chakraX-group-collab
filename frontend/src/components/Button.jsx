@@ -6,6 +6,7 @@ function UniButton(props){
     borderRadius="30px"
     size={props.size} 
     bg={props.bg}
+    color={props.color}
     width={props.width}>
         {props.text}
         </Button>
