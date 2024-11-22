@@ -21,7 +21,7 @@ if(props.isActive){
                     <ButtonLink className='topButtons' text="Sign Up" route="test" colorPalette={buttonColor}/>
                 </Flex> 
     
-            <ButtonLink  text="To Dos" route="test" width="250px" colorPalette={buttonColor}/>
+            <ButtonLink  text="To Dos" route="todo-list" width="250px" colorPalette={buttonColor}/>
             <ButtonLink  text="Journal" route="test" width="250px" colorPalette={buttonColor}/>
             <ButtonLink  text="Energy Tracker" route="test" width="250px" colorPalette={buttonColor}/>
             <ButtonLink  text="Habit Tracker" route="test" width="250px" colorPalette={buttonColor}/>

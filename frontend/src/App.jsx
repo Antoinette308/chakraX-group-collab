@@ -2,6 +2,7 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
+import ToDoList from "./pages/todoList.jsx"
 import Test from './pages/testPage.jsx';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="test" element={<Test />} />
+          <Route path="todo-list" element={<ToDoList />} />
           {/* <Route path="to-do" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}
