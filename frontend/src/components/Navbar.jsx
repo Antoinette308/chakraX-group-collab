@@ -23,7 +23,9 @@ if(props.isActive){
                         className='topButtons' 
                         text="Sign In" 
                         route="test" 
-                        bg={props.theme.navButtonBg}/>
+                        bg={props.theme.navButtonBg}
+                        color={props.theme.ButtonColor}
+                        />
                     <ButtonLink 
                         className='topButtons' 
                         text="Sign Up" 

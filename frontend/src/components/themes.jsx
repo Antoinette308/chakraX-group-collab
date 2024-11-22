@@ -3,7 +3,7 @@ const themes = {
   blue: {
     navIcon: "blue.600",
     navButtonBg: "cyan.100",
-    ButtonColor: "blue.950",
+    ButtonColor: {base: "blue.950", _dark: "blue.950"},
     sideBarBg: "blue.400",
     pageBg: {base: "blue.100", _dark: "blue.950"}, 
     pageButtons: {base: "blue.400", _dark:"cyan.100"},
