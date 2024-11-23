@@ -5,7 +5,7 @@ import { json } from 'body-parser';
 import cors from 'cors';
 /*===============================================================
                         REQUIRE ROUTES
-        const featureRoute = require('./routes/featureRoute');
+        import featureRoute './routes/featureRoute';
 ===============================================================*/
 
 const app = express();
