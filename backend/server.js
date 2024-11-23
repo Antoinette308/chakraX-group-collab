@@ -1,8 +1,8 @@
 //This is the entry point for the server
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import express from 'express';
+import { json } from 'body-parser';
+import cors from 'cors';
 /*===============================================================
                         REQUIRE ROUTES
         const featureRoute = require('./routes/featureRoute');
@@ -10,7 +10,7 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(json());
 app.use(cors());
 
 /* ===============================================================
