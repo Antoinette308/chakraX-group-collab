@@ -1,0 +1,12 @@
+/*Made by Antoinette*/
+/*Trying to style the AddToDo component*/
+.todobutton {
+    background: #ffcece;
+    cursor: pointer;
+    border-radius: 40px;
+}
+
+.custom-hstack {
+    border-radius: 30px;
+}
+
