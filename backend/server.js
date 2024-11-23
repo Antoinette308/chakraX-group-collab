@@ -1,7 +1,7 @@
 //This is the entry point for the server
 
 import express from 'express';
-import { json } from 'body-parser';
+import pkg from 'body-parser';
 import cors from 'cors';
 /*===============================================================
                         REQUIRE ROUTES
@@ -9,6 +9,7 @@ import cors from 'cors';
 ===============================================================*/
 
 const app = express();
+const { json } = pkg;
 
 app.use(json());
 app.use(cors());
