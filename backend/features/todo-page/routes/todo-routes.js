@@ -1,7 +1,12 @@
 // imports
-
+import { Router } from 'express';
+import { welcomeMessage } from '../controllers/todo-controller.js';
 
 // declare router
+const router = Router();
+
+// welcomeMessage test
+router.get('/', welcomeMessage);
 
 // Create new todo
 
@@ -12,3 +17,4 @@
 // Delete a todo by ID
 
 // export router
+export default router;
