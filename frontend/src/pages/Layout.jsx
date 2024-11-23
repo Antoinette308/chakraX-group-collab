@@ -59,6 +59,7 @@ if(active === false){
     return ( <Grid height="100vh" width="100vw" gridTemplateColumns="1fr 4fr" gridTemplateRows="1fr max-content" gap={2} bg={themes[theme].pageBg}>
                 <GridItem  rowEnd={2} display={'flex'} justifyContent={"center"} zIndex={1}> <NavBar isActive={active} onClick={handleClick} theme={themes[theme]}/></GridItem> 
                 <GridItem className="page">
+                <ThemeDropDown onChange={(e) => handleChange(e)} />
                 <Outlet context={themes[theme]}/> 
                 </GridItem>
                 <Footer theme={themes[theme]} /> 
