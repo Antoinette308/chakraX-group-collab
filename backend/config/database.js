@@ -1,9 +1,21 @@
-import { createConnection } from 'mysql2';
-import dotenv from "dotenv";
+/* ==================================================================
+                    ES6 SYNTAX IMPORTS
+================================================================== */
+// import { createConnection } from 'mysql2';
+// import dotenv from "dotenv";
+
+const mysql = require('mysql2');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-const connection = createConnection({
+/* ==================================================================
+                    ES6 SYNTAX IMPORTS
+================================================================== */
+// const connection = createConnection({
+
+
+const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
@@ -11,8 +23,13 @@ const connection = createConnection({
 });
 
 connection.connect(error => {
-    if(error) throw error;
+    if (error) throw error;
     console.log('Database connected successfully')
 });
 
-export default connection;
+/* ==================================================================
+                    ES6 SYNTAX IMPORTS
+================================================================== */
+// export default connection;
+
+module.exports = connection;

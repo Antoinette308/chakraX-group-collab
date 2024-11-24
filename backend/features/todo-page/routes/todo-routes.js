@@ -1,9 +1,15 @@
 // imports
-import { Router } from 'express';
-import { welcomeMessage } from '../controllers/todo-controller.js';
+/* ==================================================================
+                    ES6 SYNTAX IMPORTS
+================================================================== */
+// import { Router } from 'express';
+// import { welcomeMessage } from '../controllers/todo-controller.js';
+
+const express = require('express');
+const { welcomeMessage } = require('../controllers/todo-controller.js')
 
 // declare router
-const router = Router();
+const router = express.Router();
 
 // welcomeMessage test
 router.get('/', welcomeMessage);
@@ -17,4 +23,4 @@ router.get('/', welcomeMessage);
 // Delete a todo by ID
 
 // export router
-export default router;
+module.exports = router;
