@@ -2,11 +2,8 @@
 /* ==================================================================
                     ES6 SYNTAX IMPORTS
 ================================================================== */
-// import { Router } from 'express';
-// import { welcomeMessage } from '../controllers/todo-controller.js';
-
-const express = require('express');
-const { welcomeMessage } = require('../controllers/todo-controller.js')
+import { Router } from 'express';
+import { welcomeMessage } from '../controllers/todo-controller.js';
 
 // declare router
 const router = express.Router();
@@ -23,4 +20,4 @@ router.get('/', welcomeMessage);
 // Delete a todo by ID
 
 // export router
-module.exports = router;
+export default router;

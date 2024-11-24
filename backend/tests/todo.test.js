@@ -29,35 +29,3 @@ describe('GET /todo', () => {
         expect(response.text).toBe("What's on the agenda?")
     })
 })
-
-/* ==================================================================
-                    COMMONJS REQUIREMENTS
-================================================================== */
-// const request = require('supertest');
-// const express = require('express');
-// const todoRoute = require('../features/todo-page/routes/todo-routes.js');
-// const connection = require('../config/database.js')
-
-// const app = express();
-// app.use('/todo', todoRoute);
-
-// beforeAll((done) => {
-//     connection.connect(done);
-// });
-
-// afterAll((done) => {
-//     connection.end((err) => {
-//         if (err) {
-//             console.error('Error terminating the database connection:', err);
-//         }
-//         done();
-//     });
-// });
-
-// describe('GET /todo', () => {
-//     it('should return the welcome message', async () => {
-//         const response = await request(app).get('/todo');
-//         expect(response.status).toBe(200);
-//         expect(response.text).toBe("What's on the agenda?")
-//     });
-// });

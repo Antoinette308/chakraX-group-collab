@@ -4,13 +4,10 @@ console.log("CG Start");
                     ES6 SYNTAX IMPORTS
 ================================================================== */
 // import db connection
-// import connection from "../../../config/database.js";
-
-const connection = require('../../../config/database.js')
+import connection from "../../../config/database.js";
 
 // test welcome message
-// export < ES6 syntax 
-const welcomeMessage = (req, res) => {
+export const welcomeMessage = (req, res) => {
     res.send(`What's on the agenda?`);
 }
 
@@ -22,6 +19,6 @@ const welcomeMessage = (req, res) => {
 
 // Delete a todo by ID
 
-module.exports = { welcomeMessage };
+export default { welcomeMessage };
 
 console.log("CG finish");
