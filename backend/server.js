@@ -1,5 +1,8 @@
 //This is the entry point for the server
 
+/* ==================================================================
+                    ES6 SYNTAX IMPORTS
+================================================================== */
 import express from 'express';
 import pkg from 'body-parser';
 import cors from 'cors';
@@ -17,7 +20,7 @@ app.use(cors());
 
 /* ===============================================================
                         USE ROUTES
-        app.use('/api/feature'. featureRoute);
+        app.use('/feature', featureRoute);
 ===============================================================*/
 app.use('/todo', todoRoute)
 

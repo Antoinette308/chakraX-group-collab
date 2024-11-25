@@ -1,3 +1,6 @@
+/* ==================================================================
+                    ES6 SYNTAX IMPORTS
+================================================================== */
 import { createConnection } from 'mysql2';
 import dotenv from "dotenv";
 
@@ -11,7 +14,7 @@ const connection = createConnection({
 });
 
 connection.connect(error => {
-    if(error) throw error;
+    if (error) throw error;
     console.log('Database connected successfully')
 });
 

@@ -1,9 +1,12 @@
 // imports
+/* ==================================================================
+                    ES6 SYNTAX IMPORTS
+================================================================== */
 import { Router } from 'express';
 import { welcomeMessage } from '../controllers/todo-controller.js';
 
 // declare router
-const router = Router();
+const router = express.Router();
 
 // welcomeMessage test
 router.get('/', welcomeMessage);
