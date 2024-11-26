@@ -2,7 +2,7 @@ import models from "../models/journal-models.js"
 
 function getJournalEntries(req, res){
     //Get the journal entries from the backend to be used in the rendering
-    const {userId} = req.body;
+    const userId = req.params.id;
     models.getAllEntries(userId, (err, results) => {
         if(err) { 
             console.log("Error getting journal entries", err)
