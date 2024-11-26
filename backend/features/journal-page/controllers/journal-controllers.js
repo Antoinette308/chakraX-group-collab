@@ -26,8 +26,17 @@ function createJournalEntry(req, res){
     })
 }
 
-function updateJournalEntry(id){
+function updateJournalEntry(req, res){
     //Update the journal entry using the id number of the entry being changed. 
+    const entryInfo = req.body;
+    models.updateJournalEntry(entryInfo, (err, results) => {
+        if(err){
+            console.log("Error updating journal entry", err);
+            res.status(500).json({error: err.message});
+        } else {
+            res.status(201).json(results);
+        }
+    })
 }
 
 function deleteJournalEntry(id){

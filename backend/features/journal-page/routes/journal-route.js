@@ -8,11 +8,11 @@ router.get("/", controller.getJournalEntries)
 
 
 //This will create a new journal for the user 
-router.post("/", controller.createJournalEntry)
+router.post("/new-entry", controller.createJournalEntry)
 
 
 //This will update journal entry using the entry id 
-router.put("/:id", controller.updateJournalEntry)
+router.put("/", controller.updateJournalEntry)
 
 
 //This will delete journal entry using the entry id 

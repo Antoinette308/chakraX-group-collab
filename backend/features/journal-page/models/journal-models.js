@@ -19,4 +19,13 @@ function createNewEntry(entryInfo, response){
     });
 }
 
-export default {getAllEntries, createNewEntry};
+function updateJournalEntry(entryInfo, response){
+    const query = "UPDATE journal SET title = ?, entry = ? WHERE entryId = ?"
+    connection.query(query, [entryInfo.title, entryInfo.entry, entryInfo.entryId], (err, results) => {
+        return err ? response(err) : response(null, (results, entryInfo));
+    });
+}
+
+
+
+export default {getAllEntries, createNewEntry, updateJournalEntry};
