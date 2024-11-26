@@ -1,0 +1,38 @@
+import models from "../models/journal-models.js"
+
+function getJournalEntries(req, res){
+    //Get the journal entries from the backend to be used in the rendering
+    const {userId} = req.body;
+    models.getAllEntries(userId, (err, results) => {
+        if(err) { 
+            console.log("Error getting journal entries", err)
+            res.status(500).json({error : err.message})
+        } else {
+            res.status(200).json(results);
+        }
+    })
+}
+
+function createJournalEntry(req, res){
+    //Create a journal entry in the database using info sent from the frontend
+    const entryInfo = req.body
+    models.createNewEntry(entryInfo, (err, results) => {
+        if(err) {
+            console.log("Error creating journal entry", err);
+            res.status(500).json({error : err.message});
+        } else {
+            res.status(201).json(results);
+        }
+    })
+}
+
+function updateJournalEntry(id){
+    //Update the journal entry using the id number of the entry being changed. 
+}
+
+function deleteJournalEntry(id){
+    //Delete the journal entry from the database using the id of the entry
+}
+
+
+export default {getJournalEntries, createJournalEntry, updateJournalEntry, deleteJournalEntry}
