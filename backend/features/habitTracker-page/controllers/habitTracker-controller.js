@@ -4,7 +4,10 @@
 ================================================================== */
 
 // imports
-import { createHabit } from "../models/habitTracker-model.js";
+import { 
+    createHabit,
+    getHabitById
+ } from "../models/habitTracker-model.js";
 
 // welcome message
 export const welcomeMessage = (req, res) => {
@@ -25,7 +28,13 @@ export const createHabitController = (req, res) => {
 };
 
 // read habit by ID
-
+export const getHabitByIdController = (req, res) => {
+    const { id } = req.params;
+    getHabitById(id, (error, results) => {
+        if (error) return res.status(500).json({ error: error.message });
+        res.status(200).json(results);
+    });
+};
 
 // update habit by ID
 

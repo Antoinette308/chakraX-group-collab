@@ -14,7 +14,13 @@ export const createHabit = (habit, callback) => {
 };
 
 // read habit by ID
-
+export const getHabitById = (req, res) => {
+    const { id } = req.params;
+    getHabitById(id, (error, results) => {
+        if (error) return res.status(500).json({ error: error.message });
+        res.status(200).json(results);
+    });
+};
 
 // update habit by ID
 
