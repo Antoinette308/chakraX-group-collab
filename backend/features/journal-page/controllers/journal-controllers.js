@@ -41,6 +41,7 @@ function updateJournalEntry(req, res){
 
 function deleteJournalEntry(id){
     //Delete the journal entry from the database using the id of the entry
+    
 }
 
 
