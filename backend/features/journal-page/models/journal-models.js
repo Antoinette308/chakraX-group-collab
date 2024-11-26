@@ -26,6 +26,11 @@ function updateJournalEntry(entryInfo, response){
     });
 }
 
+function deleteJournalEntry(entryId, response){
+    const query = "DELETE FROM journal WHERE entryId = ?";
+    connection.query(query, [entryId], (err, results) => {
+        return err ? response(err) : response(null, (results, entryId));
+    })
+}
 
-
-export default {getAllEntries, createNewEntry, updateJournalEntry};
+export default {getAllEntries, createNewEntry, updateJournalEntry, deleteJournalEntry};
