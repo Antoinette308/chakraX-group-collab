@@ -3,7 +3,7 @@
 USE exec_function_db;
 
 CREATE TABLE habits ( 
-    id INT PRIMARY KEY, 
+    id INT PRIMARY KEY AUTO_INCREMENT, 
     habit_name VARCHAR(255) NOT NULL, 
     description TEXT, 
     frequency INT, -- Number of times the habit should be done 

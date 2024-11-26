@@ -38,11 +38,19 @@ describe('GET /habit-tracker', () => {
     });
 });
 
-describe('POST /habit-tracker/new-habit', () => {
-    it('should create a new habit', async () => {
-        const newHabit = { habit_name: "practice coding skills", description: "Use hackerrank to improve JavaScript knowledge base", frequency: 1, recurrence: "daily", start_date: "2024-11-26", last_completed: "null" };
-        const response = await request(app).post('/habit-tracker/new-habit').send(newHabit);
-        expect(response.status).toBe(201);
-        express(response.body).toMatchObject(newHabit);
+describe('Habit-Tracker API', () => {
+    describe('POST /habit-tracker/new-habit', () => {
+        it('should create a new habit', async () => {
+            const newHabit = { 
+                habit_name: "practice coding skills", 
+                description: "Use hackerrank to improve JavaScript knowledge base", 
+                frequency: 1, 
+                recurrence: "daily", 
+                start_date: "2024-11-26"
+            };
+            const response = await request(app).post('/habit-tracker/new-habit').send(newHabit);
+            expect(response.status).toBe(201);
+            expect(response.body).toMatchObject(newHabit);
+        });
     });
 });
