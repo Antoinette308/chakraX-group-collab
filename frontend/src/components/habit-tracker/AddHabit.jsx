@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
+import {  parseColor } from "@chakra-ui/react"
 import ColourPicker from './ColourPicker'
 
 function AddHabit({ addHabit }) {
-    const [colour, setColour] = useState('#000000');
+    
+    const [colour, setColour] = useState(parseColor('#14B8A6'));
     const [text, setText] = useState('');
     const [frequency, setFrequency] = useState('');
     const [unit, setUnit] = useState('day');
 
     function handleAddHabit() {
         if (!text) return; //Prevent empty habits
-        addHabit({ colour, text, frequency, unit});
+        addHabit({ colour, text, frequency, unit });
 
         //Reset inputs after habit is added
         setText(''); //resets input
         setFrequency(''); //resets frequency
         setUnit('day');
-        setColour('000000')
+        setColour(parseColor('#14B8A6'));
+
+        console.log('colourString: ', colourString )
     }
+
 
     return (
         <div className='addHabit'>
@@ -27,7 +32,7 @@ function AddHabit({ addHabit }) {
             <input
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder='Add a habit'
+                placeholder='Write new habit here'
             />
             <input
                 type="number"

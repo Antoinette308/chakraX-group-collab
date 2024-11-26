@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
+import { FaCircle } from "react-icons/fa";
 import DeleteHabit from './DeleteHabit';
 
+
 function HabitItem({ habit, deleteHabit }) {
-    //Add # to colour, as colour picker only includes 6 digits
-    const habitColour = `#${habit.colour}`;
-    console.log("Colour with # is ", habitColour);
+    console.log("habit:", habit)
+
+    // Converting from rgba object to string format, e.g. rgba(0, 0, 0, 1)
+    const colourString = habit.colour.toString('rgba');
+    console.log("colourString: ", colourString)
+
+    
 
     // When habit is added, create coloured icon, paragraph, and delete button.
     return (
-        <div className='habit-item'>
-            <i
-                className='pi pi-circle-fill'
-                style={{ color: habitColour }} 
-            />
-            <p style={{ color: habitColour }}>{habit.text} {habit.frequency} {habit.frequency == 1 ? "time per" : "times per"} {habit.unit}</p>
+        <div className='habit-item' style={{ color: colourString }}>
+            <FaCircle style={{ color: colourString }} />
+            <p>{habit.text} {habit.frequency} {habit.frequency == 1 ? "time per" : "times per"} {habit.unit}</p>
             <DeleteHabit
                 habitId={habit.id}
-                deleteHabit={deleteHabit} 
+                deleteHabit={deleteHabit}
             />
         </div>
     );
