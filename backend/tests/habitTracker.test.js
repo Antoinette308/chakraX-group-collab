@@ -53,4 +53,14 @@ describe('Habit-Tracker API', () => {
             expect(response.body).toMatchObject(newHabit);
         });
     });
+
+    describe('GET /habit-tracker/habit/:id', () => {
+        it('should update a habit by its id', async () => {
+            const id = 1;
+            const response = await request(app).get(`/habit-tracker/habit/${id}`);
+            expect(response.status).toBe(200);
+        });
+    });
+
+    
 });

@@ -19,7 +19,7 @@ router.get('/', welcomeMessage);
 // CRUD routes
 router.post('/new-habit', createHabitController);
 
-router.get('./habit/:id', getHabitByIdController);
+router.get('/habit/:id', getHabitByIdController);
 
 
 export default router;
