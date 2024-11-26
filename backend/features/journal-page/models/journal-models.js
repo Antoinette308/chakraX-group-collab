@@ -8,8 +8,9 @@ function getAllEntries(userId, response){
         }
         else {
             return response(null, results)
-        }
-    })
+            
+        } 
+    }); 
 }
 
 function createNewEntry(entryInfo, response){

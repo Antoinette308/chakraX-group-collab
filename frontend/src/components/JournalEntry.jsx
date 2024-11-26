@@ -4,19 +4,19 @@ import { Field } from "../components/ui/field"
 
 // Keely-Ann notes: Journal 'form' created to submit journal entries.
 
-function JournalEntry({ size, colorPalette, width }) {
+function JournalEntry( /*{size, colorPalette, width} */) {
 
     // Store the title and body of the journal entry
     const [title, setTitle] = useState("");
-    const [text, setText] = useState("");
+    const [entry, setEntry] = useState("");
 
     // Handling the journal submission
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevents a default form submission
-        console.log({ title, text });
+        console.log({ title, entry });
         // Clear the form after submitting
         setTitle("");
-        setText("");
+        setEntry("");
     };
     // Setting up the form
     return (
@@ -33,12 +33,12 @@ function JournalEntry({ size, colorPalette, width }) {
                     {/* Text Input */}
                     <Textarea
                         placeholder="Write your thoughts"
-                        value={body}
-                        onChange={(e) => setText(e.target.value)} />
+                        value={entry}
+                        onChange={(e) => setEntry(e.target.value)} />
                 </Field>
                 <Button type="submit"
                     borderRadius="30px"
-                    colorPalette={buttonColor}
+                    colorPalette="teal.500"
                     width="250px">Submit</Button>
             </Stack>
         </form>

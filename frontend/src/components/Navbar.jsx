@@ -22,7 +22,7 @@ function NavBar(props) {
             </Flex>
 
             <ButtonLink text="To Dos" route="test" width="250px" colorPalette={buttonColor} />
-            <ButtonLink text="Journal" route="all-entries" width="250px" colorPalette={buttonColor} />
+            <ButtonLink text="Journal" route="journal" width="250px" colorPalette={buttonColor} />
             <ButtonLink text="Energy Tracker" route="test" width="250px" colorPalette={buttonColor} />
             <ButtonLink text="Habit Tracker" route="test" width="250px" colorPalette={buttonColor} />
             <ButtonLink text="test" route="test" width="250px" colorPalette={buttonColor} />

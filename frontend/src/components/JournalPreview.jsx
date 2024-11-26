@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Card } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 
@@ -12,7 +13,7 @@ function JournalCard({ entry }) {
             <Card.Body gap="2">
                 <Card.Title mt="2">{entry.title}</Card.Title>
                 <Card.Description>
-                    {getSnippet(entry.text)}
+                    {getSnippet(entry.entry)}
                 </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">

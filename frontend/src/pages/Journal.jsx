@@ -1,6 +1,7 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import Header from "../components/Header";
 import JournalCard from "../components/JournalPreview";
+import AddNewButton from "../components/AddNewEntry";
 import { useEffect, useState } from "react";
 
 function AllEntries() {
@@ -13,7 +14,7 @@ function AllEntries() {
             { id: 2, title: "Second Entry", text: "This is the second journal entry." },
             { id: 3, title: "Third Entry", text: "This is the third journal entry." }
         ];
-        setEntries(mockEntries);
+        setEntries(mockEntries); 
     }, []);
 
     return (
