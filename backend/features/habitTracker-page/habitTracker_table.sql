@@ -2,7 +2,7 @@
 
 USE exec_function_db;
 
-CREATE TABLE HabitTracker ( 
+CREATE TABLE habits ( 
     id INT PRIMARY KEY, 
     habit_name VARCHAR(255) NOT NULL, 
     description TEXT, 

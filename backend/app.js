@@ -8,6 +8,8 @@ import cors from 'cors';
                         REQUIRE ROUTES
         import featureRoute './routes/featureRoute';
 ===============================================================*/
+import habitRoute from './features/habitTracker-page/routes/habitTracker-route.js';
+
 
 const app = express();
 const { json } = pkg;
@@ -20,6 +22,6 @@ app.use(cors());
         app.use('/api/feature'. featureRoute);
 ===============================================================*/
 
-app.use('/habitTracker', habitTrackerRoute);
+app.use('/habit-tracker', habitRoute);
 
 export default app;
