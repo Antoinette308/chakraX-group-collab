@@ -15,9 +15,9 @@ function ColourPicker({ colour, setColour }) {
     // const [colour, setColour] = useState(parseColor('#14B8A6'));
 // { hue: 173.41, saturation: 80.39, lightness: 40, alpha: 1 }
 
-    console.log("colour from ColourPicker is:", colour);
+    //console.log("colour from ColourPicker is:", colour);
 
-    console.log("colour.toString('rgba'):", colour.toString('rgba'))
+   // console.log("colour.toString('rgba'):", colour.toString('rgba'))
 
 
     return (

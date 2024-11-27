@@ -19,7 +19,6 @@ function AddHabit({ addHabit }) {
         setUnit('day');
         setColour(parseColor('#14B8A6'));
 
-        console.log('colourString: ', colourString )
     }
 
 
