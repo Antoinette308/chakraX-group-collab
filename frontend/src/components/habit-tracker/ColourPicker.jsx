@@ -12,19 +12,24 @@ import {
 
 
 function ColourPicker({ colour, setColour }) {
-    // const [colour, setColour] = useState(parseColor('#14B8A6'));
-// { hue: 173.41, saturation: 80.39, lightness: 40, alpha: 1 }
+const [colourValue, setColourValue] = useState(parseColor('#14B8A6'))
 
-    //console.log("colour from ColourPicker is:", colour);
 
-   // console.log("colour.toString('rgba'):", colour.toString('rgba'))
+function handleChange(e){
+    const colourString = e.value.toString('rgba');
+    setColourValue(parseColor(colourString));
+}
 
+function handleColorEnd(){
+    setColour(colourValue.toString('rgba'));
+}
 
     return (
         <ColorPickerRoot
-            value={colour}
+            value={colourValue}
             format="rgba"
-            onValueChange={(e) => setColour(e.value)}
+            onValueChange={(e) => handleChange(e)}
+            onValueChangeEnd ={handleColorEnd}
             maxW="200px"
         >
             {/*<ColorPickerLabel>Color</ColorPickerLabel>*/}

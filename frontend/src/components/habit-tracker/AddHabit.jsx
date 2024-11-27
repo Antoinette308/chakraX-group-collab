@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {  parseColor } from "@chakra-ui/react"
 import ColourPicker from './ColourPicker'
@@ -21,12 +22,15 @@ function AddHabit({ addHabit }) {
 
     }
 
+    
+
 
     return (
         <div className='addHabit'>
             <ColourPicker
                 colour={colour}
                 setColour={setColour}
+
             />
             <input
                 value={text}

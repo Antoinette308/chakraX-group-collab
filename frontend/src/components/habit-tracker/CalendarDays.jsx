@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 
 function CalendarDays(props) {
@@ -32,7 +33,7 @@ function CalendarDays(props) {
             {currentDays.map((day, index) => {
                 return (
                     <div className={"calendar-day" + (day.currentMonth ? " current" : "") + (day.selected ? " selected" : "")}
-                        onClick={() => props.changeCurrentDay(day)}>
+                        onClick={() => props.changeCurrentDay(day)} key={index}>
                         <p>{day.number}</p>
                     </div>
                 );
