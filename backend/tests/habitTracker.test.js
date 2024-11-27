@@ -65,7 +65,13 @@ describe('Habit-Tracker API', () => {
     describe('PUT /habit-tracker/update-habit/:id', () => {
         it('should update a habit by its id', async () => {
             const id = 2;
-            const updatedHabit = { habit_name: "practice coding skills", recurrence: "daily" };
+            const updatedHabit = { 
+                habit_name: "practice coding skills", 
+                description: "Use leetcode to practice",
+                frequency: 4,
+                recurrence: "weekly" ,
+                start_date: "2024-11-26"
+            };
             const response = await request(app).put(`/habit-tracker/update-habit/${id}`).send(updatedHabit);
             expect(response.status).toBe(200);
         });

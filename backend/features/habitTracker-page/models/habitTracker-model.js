@@ -3,15 +3,19 @@
 ================================================================== */
 // import db connection
 import connection from "../../../config/database.js";
+import { format  } from "date-fns";
 
 // create new habit
 export const createHabit = (habit, callback) => {
     const query = 'INSERT INTO habits (habit_name, description, frequency, recurrence, start_date, last_completed) VALUES (?, ?, ?, ?, ?, ?)';
-    // console.log('Query:', query);
-    // console.log('Data:', [])
     connection.query(query, [habit.habit_name, habit.description, habit.frequency, habit.recurrence, habit.start_date, habit.last_completed], (error, results) => {
         if (error) return callback(error);
-        callback(null, { id: results.insertId, ...habit});
+        const formattedHabit = {
+            id: results.insertId,
+            ...habit,
+            start_date: format(new Date(habit.start_date), 'yyyy-MM-dd')
+        };
+        callback(null, formattedHabit);
     });
 };
 
