@@ -21,7 +21,7 @@ function JournalEntry({ size, colorPalette, width }) {
     // Setting up the form
     return (
         <form onSubmit={handleSubmit}>
-            <Stack gap="4" align="flex-start" maxW="sm">
+            <Stack gap="4" align="center" width="1800px">
                 <Field>
                     {/* Title Input */}
                     <Input placeholder="Enter title"
@@ -33,12 +33,12 @@ function JournalEntry({ size, colorPalette, width }) {
                     {/* Text Input */}
                     <Textarea
                         placeholder="Write your thoughts"
-                        value={body}
+                        value={text}
                         onChange={(e) => setText(e.target.value)} />
                 </Field>
                 <Button type="submit"
                     borderRadius="30px"
-                    colorPalette={buttonColor}
+                    colorPalette="teal.500"
                     width="250px">Submit</Button>
             </Stack>
         </form>
