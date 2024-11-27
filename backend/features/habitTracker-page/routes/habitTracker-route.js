@@ -4,10 +4,12 @@
 ================================================================== */
 // imports
 import express from 'express';
-import { welcomeMessage } from '../controllers/habitTracker-controller.js';
+import { updateHabitByIdController, welcomeMessage } from '../controllers/habitTracker-controller.js';
 import { 
     createHabitController,
-    getHabitByIdController
+    getHabitByIdController,
+    updateHabitByIdController,
+    deleteHabitByIdController
  } from '../controllers/habitTracker-controller.js';
 
 // declare router
@@ -21,5 +23,8 @@ router.post('/new-habit', createHabitController);
 
 router.get('/habit/:id', getHabitByIdController);
 
+router.put('/update-habit/:id', updateHabitByIdController);
+
+router.delete('/delete-habit/:id', deleteHabitByIdController);
 
 export default router;
