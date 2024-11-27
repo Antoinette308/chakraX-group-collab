@@ -55,12 +55,27 @@ describe('Habit-Tracker API', () => {
     });
 
     describe('GET /habit-tracker/habit/:id', () => {
-        it('should update a habit by its id', async () => {
+        it('should get a habit by its id', async () => {
             const id = 1;
             const response = await request(app).get(`/habit-tracker/habit/${id}`);
             expect(response.status).toBe(200);
         });
     });
 
+    describe('PUT /habit-tracker/update-habit/:id', () => {
+        it('should update a habit by its id', async () => {
+            const id = 2;
+            const updatedHabit = { habit_name: "practice coding skills", recurrence: "daily" };
+            const response = await request(app).put(`/habit-tracker/update-habit/${id}`).send(updatedHabit);
+            expect(response.status).toBe(200);
+        });
+    });
     
+    describe('DELETE /habit-tracker/delete-habit/:id', () => {
+        it('should delete a habit by its id', async () => {
+            const id = 4;
+            const response = await request(app).delete(`/habit-tracker/delete-habit/${id}`);
+            expect(response.status).toBe(200);
+        })
+    })
 });

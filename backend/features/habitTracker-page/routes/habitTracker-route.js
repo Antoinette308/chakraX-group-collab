@@ -4,7 +4,7 @@
 ================================================================== */
 // imports
 import express from 'express';
-import { updateHabitByIdController, welcomeMessage } from '../controllers/habitTracker-controller.js';
+import { welcomeMessage } from '../controllers/habitTracker-controller.js';
 import { 
     createHabitController,
     getHabitByIdController,
