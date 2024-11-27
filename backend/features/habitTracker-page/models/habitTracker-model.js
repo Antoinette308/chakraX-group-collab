@@ -23,8 +23,20 @@ export const getHabitById = (id, callback) => {
 };
 
 // update habit by ID
-
+export const updateHabitById = (id, updatedHabit, callback) => {
+    const query = 'UPDATE habits SET habit_name = ?, description = ?, frequency = ?, reccurence = ?, start_date = ?, last_completed = ? WHERE id = ?';
+    connection.query(query, [updatedHabit.habit_name, updatedHabit.description, updatedHabit.frequency, updatedHabit.reccurence, updatedHabit.start_date, updatedHabit.last_completed, id], (error, results) => {
+        if (error) return callback(error);
+        callback(null, results)
+    });
+};
 
 // delete habit by ID
-
+export const deleteHabitById = (id, callback) => {
+    const query = 'DELETE FROM habits WHERE id = ?';
+    connection.query(query, [id], (error, results) => {
+        if (error) return callback(error);
+        callback(null, results);
+    });
+};
 
