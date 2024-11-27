@@ -3,6 +3,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
 import Test from './pages/testPage.jsx';
+import EnergyTracker from './pages/EnergyTracker.jsx'
 
 function App() {
   
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="test" element={<Test />} />
+          <Route path="energy-tracker" element={<EnergyTracker />}/>
           {/* <Route path="to-do" element={<Blogs />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}
