@@ -24,20 +24,28 @@ function EnergyTracker() {
         window.addEventListener("resize", handleResize)
       }, [])
 
+
     useEffect(() => {
         // Simulated fetch (replace with actual API call)
         const mockActivities = [
             { id: 1, activity: "Get Out Of Bed", spoons: 1},
             { id: 2, activity: "brush teeth", spoons: 2 },
             { id: 3, activity: "Stuff", spoons: 1 },
-            {id: 4, activity: "Sleep", spoons: 1},
-            {id: 5, activity: "Sleep", spoons: 1},
-            {id: 6, activity: "Sleep", spoons: 1},
-            {id: 7, activity: "Sleep", spoons: 1},
-            {id: 8, activity: "Sleep", spoons: 1}
+            {id: 4, activity: "Sleep", spoons: 0},
+            {id: 5, activity: "Watch TV", spoons: 0},
+            {id: 6, activity: "Exercise", spoons: 3},
+            {id: 7, activity: "Make Dinner", spoons: 2},
+            {id: 8, activity: "Appointments", spoons: 3}
         ];
         setActivities(mockActivities);
     }, []);
+
+    useEffect(() =>{
+        console.log(activities)
+    }
+    , [activities])
+
+
 
     return (
         <Box>
@@ -49,12 +57,15 @@ function EnergyTracker() {
                     </Flex>
                     <Flex width="75%" justifyContent={"space-evenly"} marginTop="10px" flexWrap={"wrap"} gap="10px">
                     {activities.map((a) => {
-                        return <ActivityButton key={a.id} text={a.activity} default={a.spoons} />
+                        return <ActivityButton key={a.id} id={a.id}
+                                text={a.activity} value={a.spoons} 
+                                setActivities={setActivities} activities={activities} /> 
                         })}
                     </Flex>
                     
                 </Flex>
         </Box>
+
     )
 }
                     
