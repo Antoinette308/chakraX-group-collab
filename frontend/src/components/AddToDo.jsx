@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HStack, Input } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
+import styles from '../styles/AddToDo.module.css'
 
 // Made by Antoinette. AddToDo component
 
@@ -28,15 +29,16 @@ function AddToDo({ addTodo }) { // A. Extract addTodo function as a prop
     // A. Submit button 
 
     return (
-        <form className='TodoForm' onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit}>
             <HStack> 
                 <Input
                     type="text"
                     placeholder="Write new task"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
+                    colorPalette='cyan'
                 />
-                <button type='submit' className='todobutton'>Add Task</button>
+                <button type='submit' className={styles.button}>Add Task</button>
             </HStack>
         </form>
     );
