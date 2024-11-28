@@ -1,0 +1,52 @@
+
+
+/*Styling for the add habit input*/
+.addHabit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: lightgray;
+    margin: 40px 0;
+}
+
+/*styling for habits added*/
+.habit-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.habit-item {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Distribute items evenly */
+    gap: 10px; /* Optional: space between items */
+    margin: 10px 10px;
+}
+
+.habit-item i {
+    margin-right: 10px;
+}
+
+.habit-item p {
+    margin: 0; flex-grow: 1; /* Allow paragraph to take available space */
+}
+
+/*Styling for ViewWeekly*/
+table {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.table th, td {
+    border: 1px solid;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.icons-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
