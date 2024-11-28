@@ -39,7 +39,7 @@ const toggleStatus = (habitIndex,day) => {
 
 return (
     <div className='view-weekly'>
-        <h4>Weekly Habits Progress:</h4>
+        <h1>Weekly Habits Progress:</h1>
         <table className='table'>
             <thead>
                 <tr>

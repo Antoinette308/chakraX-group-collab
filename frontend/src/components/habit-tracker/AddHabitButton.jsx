@@ -11,7 +11,7 @@ function AddHabitButton({ addHabit}) {
     return (
         <div>
             <div>
-                <button onClick={toggleVisibility}>Add new habit</button>
+                <button className='add-habit-button' onClick={toggleVisibility}>Add a new habit</button>
             </div>
             <div style={{ display: isVisible ? 'block' : 'none' }}>
                 <AddHabit addHabit={addHabit}/>
