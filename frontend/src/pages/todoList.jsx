@@ -28,9 +28,9 @@ function TodoList(){
         );
 
         // A. Commented out useEffect
-        /*useEffect(() => {
+        useEffect(() => {
             localStorage.setItem('todos', JSON.stringify(todos));
-        }, [todos])*/
+        }, [todos])
 
         // A. deleteTodo function that takes in the id of the todo to delete
         function deleteTodo(id) {

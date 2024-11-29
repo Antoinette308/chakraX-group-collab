@@ -25,17 +25,10 @@ function ToDoList({ todos, deleteTodo }) {  // A. Extract todos and deleteToDos 
     return (
         <VStack width='100%' alignItems='stretch'>
             {todos.map(todo => (
-                <HStack key={todo.id} p={2} borderWidth={1} borderRadius="md">
+                <HStack key={todo.id} p={2} borderWidth={1} borderRadius="30px">
                     <input type="checkbox" className={styles.checkbox} />
                     <Text>{todo.body}</Text>
                     <Spacer />
-                    {/*<IconButton
-                        onClick={() => deleteTodo(todo.id)}
-                        aria-label="Delete Task"
-                        size="sm"
-                        variant="surface"
-                        icon={<FaRegTrashCan />}
-                    /> */}
                     <HiOutlinePencilSquare />
                     <FaRegTrashCan 
                     onClick={() => deleteTodo(todo.id)}
