@@ -6,7 +6,7 @@ import { IconButton } from "@chakra-ui/react";
 function NavBarButton(props){
 
     return ( 
-    <IconButton rounded="full" bg={props.colorPalette} color="gray.100" onClick={props.onClick}>
+    <IconButton rounded="full" bg={props.colorPalette} color={props.color}   onClick={props.onClick}>
         <RxHamburgerMenu />
     </IconButton>)
     }
