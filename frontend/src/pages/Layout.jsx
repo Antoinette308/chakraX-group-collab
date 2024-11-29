@@ -34,7 +34,7 @@ if(active === false){
 //If active the button will be replaced with the navbar 
     else {
     return ( <Grid height="100vh" width="100vw" gridTemplateColumns="1fr 4fr" gridTemplateRows="1fr max-content" gap={2}>
-                <GridItem   rowEnd={2} display={'flex'} justifyContent={"center"} zIndex={1}> <NavBar isActive={active} onClick={handleClick}/></GridItem> 
+                <GridItem rowEnd={2} display={'flex'} justifyContent={"center"} zIndex={1}> <NavBar isActive={active} onClick={handleClick}/></GridItem> 
                 <GridItem className="page">
                 <Outlet /> 
                 </GridItem>
