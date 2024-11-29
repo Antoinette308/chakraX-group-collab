@@ -22,7 +22,7 @@ const themes = createListCollection({
 
 
 function ThemeDropDown(props){
-    return (<SelectRoot collection={themes} onValueChange={props.onChange}>
+    return (<SelectRoot marginBottom="10px" collection={themes} onValueChange={props.onChange}>
     <SelectLabel> Themes</SelectLabel>
     <SelectTrigger>
         <SelectValueText placeholder="Choose Your Theme" />
