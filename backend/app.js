@@ -9,6 +9,7 @@ import cors from 'cors';
                         REQUIRE ROUTES
         import featureRoute './routes/featureRoute';
 ===============================================================*/
+import authRoutes from './features/authentication/routes/auth-route.js'
 
 const app = express();
 const { json } = pkg;
@@ -20,6 +21,6 @@ app.use(cors());
                         USE ROUTES
         app.use('/api/feature'. featureRoute);
 ===============================================================*/
-
+app.use('/', authRoutes);
 
 export default app;

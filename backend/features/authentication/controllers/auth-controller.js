@@ -41,7 +41,7 @@ export const createUserController = (req, res) => {
 };
 
 // Log in to existing user
-export const loging = (req, res) => {
+export const existingUserController = (req, res) => {
     const { email, password } = req.body;
     console.log('Login request body:', req.body);
 
