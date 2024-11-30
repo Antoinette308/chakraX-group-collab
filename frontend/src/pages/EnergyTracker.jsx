@@ -2,8 +2,10 @@ import { Box, Flex} from "@chakra-ui/react";
 import ActivityButton from "../components/energy-tracker/ActivityButton";
 import Header from "../components/Header";
 import { useState, useEffect } from "react";
-import DailyEnergy from "../components/energy-tracker/DailyEnergy";
+// import DailyEnergy from "../components/energy-tracker/DailyEnergy";
 import Instructions from "../components/energy-tracker/Instructions";
+import DailyEnergyV2 from "../components/energy-tracker/DailyEnergyV2";
+
 
 function EnergyTracker() {
     const [activities, setActivities] = useState([]);
@@ -82,10 +84,8 @@ function EnergyTracker() {
                         width="75%" 
                         marginTop="10px" 
                         gap={"10px"}>
-                    <DailyEnergy 
-                        isMobile={isMobile} 
-                        spoons={spoons} 
-                        onValueChange={(e) => setSpoons(e.value)} />
+                        <DailyEnergyV2 
+                        value={spoons} />
                     <Instructions 
                         isMobile={isMobile} />
                     </Flex>
@@ -104,7 +104,9 @@ function EnergyTracker() {
                                 activities={activities} 
                                 onClick={() => handleActivityChoice(a)} 
                                 overallSpoons = {spoons} /> 
+                            
                         })}
+                        
                     </Flex>
                     
                 </Flex>
