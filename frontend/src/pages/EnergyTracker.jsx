@@ -11,6 +11,7 @@ function EnergyTracker() {
     const [activities, setActivities] = useState([]);
     const [isMobile, setIsMobile] = useState(false);
     const [spoons, setSpoons] = useState("12")
+    const [prevActivities, setPrevActivities] = useState(activities)
     
 
     const handleResize = () => {
@@ -21,23 +22,23 @@ function EnergyTracker() {
         }
     }
 
-    function handleActivityChoice(e){
+    // function handleActivityChoice(e){
         
-        if((spoons - e.spoons)< 0 && !e.active){
-            console.log("no")
+    //     if((spoons - e.spoons)< 0 && !e.active){
+    //         console.log("no")
             
-        } else if((!e.active && spoons - e.spoons >= 0)){
-            console.log(e, spoons)
-            setSpoons(prev => prev - e.spoons)
-        }
-        else if(e.active) {
-            console.log(e, spoons)
-        setSpoons(prev => prev + e.spoons)
-        console.log(e, spoons)
+    //     } else if((!e.active && spoons - e.spoons >= 0)){
+    //         console.log(e, spoons, prevActivities[e.id-1].spoons)
+    //         setSpoons(prev => prev - e.spoons)
+    //     }
+    //     else if(e.active) {
+    //         console.log(e, spoons)
+    //     setSpoons(prev => prev + e.spoons)
+    //     console.log(e, spoons)
         
-        }
+    //     }
     
-    }
+    // }
 
     useEffect(() => {
         window.addEventListener("resize", handleResize)
@@ -63,6 +64,24 @@ function EnergyTracker() {
 
     useEffect(() =>{
         console.log(activities)
+        if(prevActivities.length > 0){
+        
+        activities.map((activity, index) => {
+            const prevAct = prevActivities[index];
+            if(activity.active === true 
+                && activity.active !== prevAct.active 
+                && activity.spoons === prevAct.spoons
+                && spoons - activity.spoons >= 0){
+                    setSpoons(prev => prev - activity.spoons)
+            } else if (!activity.active && activity.active !== prevAct.active ) {
+                if(activity.spoons !== prevAct.spoon){
+                    setSpoons(prev => prev + prevAct.spoons)
+                } else {
+                    setSpoons(prev => prev + activity.spoons)
+                }
+            } 
+        })
+        }
     }
     , [activities])
 
@@ -108,8 +127,7 @@ function EnergyTracker() {
                                 value={a.spoons} 
                                 setActivities={setActivities} 
                                 activities={activities} 
-                                onClick={() => {console.log(a)
-                                    handleActivityChoice(a)}} 
+                                onClick={() => {console.log(a); setPrevActivities(activities)}} 
                                 overallSpoons = {spoons} /> 
                             
                         })}

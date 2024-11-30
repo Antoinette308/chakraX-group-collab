@@ -31,7 +31,7 @@ function ActivityButton(props){
     function handleActivate() {
         props.setActivities([...props.activities].map(activity => {
             if(activity.id === props.id) { 
-                if(activity.active === true){
+                if(activity.active === true || activity.spoons > props.overallSpoons){
                     setIsActive(false);
                     return {
                         ...activity, 
