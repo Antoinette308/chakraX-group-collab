@@ -12,17 +12,19 @@ function ActivityButton(props){
 
     function handleSpoonChange(e) {
         {
-
-            setEnergy(e.value);
+            setIsActive(false)
+            setEnergy(e);
             props.setActivities([...props.activities].map(activity => {
-                if(activity.id === props.id) {
+                if(activity.id === props.id) { 
                     return {
-                    ...activity, 
-                    spoons: e.value
+                    ...activity,
+                    active: false, 
+                    spoons: e
                 }
             }else 
                 return activity; 
             }))
+        props.onClick();
         }
     }
 
@@ -56,8 +58,9 @@ return  ( <Box
             borderRadius="20px" 
             textAlign="center" 
             alignContent={"center"} 
-            onClick={(e) => {
-                handleActivate(e); 
+            onClick={() => {
+                handleActivate(); 
+                console.log(props.activities)
                 props.onClick()
         }}>
             <Text>
@@ -69,7 +72,12 @@ return  ( <Box
                 value={props.value} 
                 readOnly
                 count="5"/> 
-            <EditDialog onValueChange={handleSpoonChange} value={props.energy} text={props.text} />
+            <EditDialog onValueChange={handleSpoonChange} 
+                value={energy} 
+                text={props.text} 
+                activities={props.activities} 
+                setActivities={props.setActivities} 
+                id={props.id}/>
 
     </Box> )
     

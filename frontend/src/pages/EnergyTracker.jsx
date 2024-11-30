@@ -22,15 +22,21 @@ function EnergyTracker() {
     }
 
     function handleActivityChoice(e){
+        
         if((spoons - e.spoons)< 0 && !e.active){
             console.log("no")
             
-        } else if((!e.active && spoons - e.spoons >= 0))
+        } else if((!e.active && spoons - e.spoons >= 0)){
+            console.log(e, spoons)
             setSpoons(prev => prev - e.spoons)
+        }
         else if(e.active) {
+            console.log(e, spoons)
         setSpoons(prev => prev + e.spoons)
+        console.log(e, spoons)
         
         }
+    
     }
 
     useEffect(() => {
@@ -44,7 +50,7 @@ function EnergyTracker() {
         // Simulated fetch (replace with actual API call)
         const mockActivities = [
             { id: 1, activity: "Get Out Of Bed", spoons: 5, active: false},
-            { id: 2, activity: "brush teeth", spoons: 6, active: false},
+            { id: 2, activity: "brush teeth", spoons: 5, active: false},
             { id: 3, activity: "Stuff", spoons: 1, active: false},
             {id: 4, activity: "Sleep", spoons: 0, active: false},
             {id: 5, activity: "Watch TV", spoons: 0, active: false},
@@ -102,7 +108,8 @@ function EnergyTracker() {
                                 value={a.spoons} 
                                 setActivities={setActivities} 
                                 activities={activities} 
-                                onClick={() => handleActivityChoice(a)} 
+                                onClick={() => {console.log(a)
+                                    handleActivityChoice(a)}} 
                                 overallSpoons = {spoons} /> 
                             
                         })}
