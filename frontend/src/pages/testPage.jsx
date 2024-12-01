@@ -1,13 +1,18 @@
 import Header from "../components/Header"
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
+import { useOutletContext } from "react-router-dom";
+
 function Test(){
+
+const theme= useOutletContext()
 
 
     return (
-        <>
-        <Header size="6xl" bg="teal.500" color="gray.900" text="Hello World"/>
+        <Box height="100%" bg={theme.pageBg}>
+        <Header size="6xl" bg={theme.sideBarBg} color={theme.ButtonColor} text="Hello World"/>
         <Text textAlign={"center"} fontSize={20}>Hello There. How nice to see you</Text>
-    </>
+
+    </Box>
 )
 }
 

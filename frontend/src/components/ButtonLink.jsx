@@ -6,7 +6,7 @@ import UniButton from './Button';
 function ButtonLink(props){
 
 
-    return <Link to={props.route}><UniButton size="lg" colorPalette={props.colorPalette} width={props.width} text={props.text} /></Link>
+    return <Link to={props.route}><UniButton size="lg" bg={props.bg} color={props.color} width={props.width} text={props.text} /></Link>
 
 }
 

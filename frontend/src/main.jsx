@@ -1,6 +1,7 @@
 import {Provider} from "./components/ui/provider.jsx"
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import "@fontsource-variable/lexend"
 
 import App from './App.jsx'
 
