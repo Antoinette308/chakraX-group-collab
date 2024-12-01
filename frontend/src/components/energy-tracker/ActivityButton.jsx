@@ -9,17 +9,21 @@ import EditDialog from "./EditDialog";
 function ActivityButton(props){ 
     const [energy, setEnergy] = useState(props.value);
     const [isActive, setIsActive] = useState(false);
+    const [activity, setActivity] = useState(props.activity)
 
-    function handleSpoonChange(e) {
+    function handleSpoonChange(e, a) {
         {
             setIsActive(false)
             setEnergy(e);
+            setActivity(a);
             props.setActivities([...props.activities].map(activity => {
                 if(activity.id === props.id) { 
+                    console.log(activity)
                     return {
                     ...activity,
                     active: false, 
-                    spoons: e
+                    spoons: e,
+                    activity: a
                 }
             }else 
                 return activity; 
@@ -27,6 +31,8 @@ function ActivityButton(props){
         props.onClick();
         }
     }
+
+
 
     function handleActivate() {
         props.setActivities([...props.activities].map(activity => {
@@ -54,9 +60,10 @@ function ActivityButton(props){
 return  ( <Box 
             width="125px" 
             height={'125px'} 
-            bg= { isActive ? "teal.600" : "teal.500"} 
+            bg= { isActive ? {base:"teal.700",_hover:"teal.600"} : {base:"teal.500", _hover:"teal.600"}} 
             borderRadius="20px" 
             textAlign="center" 
+            color={isActive ? {base: "gray", _hover: "white"} : {base: "white"}}
             alignContent={"center"} 
             onClick={() => {
                 handleActivate(); 
@@ -66,12 +73,13 @@ return  ( <Box
             <Text>
                 {props.text}
             </Text>
-            <Rating 
-                icon={<FaUtensilSpoon />} 
+            <Rating
+                icon={<FaUtensilSpoon/>} 
                 defaultValue="0" 
                 value={props.value} 
                 readOnly
-                count="5"/> 
+                count="5"
+                /> 
             <EditDialog onValueChange={handleSpoonChange} 
                 value={energy} 
                 text={props.text} 

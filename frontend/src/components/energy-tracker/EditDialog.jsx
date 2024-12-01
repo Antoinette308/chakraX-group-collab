@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Button} from "../ui/button"
-import { Text } from "@chakra-ui/react";
+
 import { DialogActionTrigger,
         DialogBody,
         DialogCloseTrigger,
@@ -13,16 +13,20 @@ import { DialogActionTrigger,
 import { Rating } from "../ui/rating";
 import { FaUtensilSpoon } from "react-icons/fa";
 import { useState } from "react";
+import { Input } from "@chakra-ui/react"
+import { Field } from "../ui/field"
 
 
 function EditDialog(props) {
 const [open, setOpen] = useState(false)
 const [energy, setEnergy] = useState(props.value);
+const [activity, setActivity] = useState(props.text)
 
 function handleClicks(e, openState){
     e.stopPropagation();
     setOpen(openState)
 }
+
 
 
 
@@ -35,8 +39,13 @@ function handleClicks(e, openState){
                 <DialogHeader>
                     <DialogTitle>Edit Activity</DialogTitle>
                 </DialogHeader>
-                <DialogBody>
-                    <Text>{props.text}</Text>
+                <DialogBody textAlign={"center"}>
+                <Field marginBottom="10px" label="New Activity">
+                        <Input placeholder="See Friends"
+                        onClick={e => e.stopPropagation()} 
+                        value={activity} 
+                        onChange={(e) => setActivity(e.target.value)} />
+                    </Field>
                     <Rating icon={<FaUtensilSpoon />} 
                         defaultValue="0" value={energy} 
                         onClick={e => e.stopPropagation()} 
@@ -52,7 +61,7 @@ function handleClicks(e, openState){
                     </DialogActionTrigger>
                     <Button onClick={(e) => 
                         {handleClicks(e, false);
-                        props.onValueChange(energy);
+                        props.onValueChange(energy, activity);
                         }}>
                         Save
                     </Button>

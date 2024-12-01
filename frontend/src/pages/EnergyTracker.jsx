@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import Instructions from "../components/energy-tracker/Instructions";
 import DailyEnergyV2 from "../components/energy-tracker/DailyEnergyV2";
 
+import AddActivityDialog from "../components/energy-tracker/addActivityDialog";
+
 
 function EnergyTracker() {
     const [activities, setActivities] = useState([]);
@@ -57,7 +59,18 @@ function EnergyTracker() {
             {id: 5, activity: "Watch TV", spoons: 0, active: false},
             {id: 6, activity: "Exercise", spoons: 3, active: false},
             {id: 7, activity: "Make Dinner", spoons: 2, active: false},
-            {id: 8, activity: "Appointments", spoons: 3, active: false}
+            {id: 8, activity: "Appointments", spoons: 3, active: false},
+            {id: 9, activity: "Appointments", spoons: 4, active: false},
+            {id: 10, activity: "Appointments", spoons: 3, active: false},
+            {id: 11, activity: "Appointments", spoons: 2, active: false},
+            {id: 12, activity: "Appointments", spoons: 3, active: false},
+            {id: 13, activity: "Appointments", spoons: 3, active: false},
+            {id: 14, activity: "Appointments", spoons: 1, active: false},
+            {id: 15, activity: "Appointments", spoons: 3, active: false},
+            {id: 16, activity: "Appointments", spoons: 3, active: false},
+            {id: 17, activity: "Appointments", spoons: 3, active: false}
+
+
         ];
         setActivities(mockActivities);
     }, []);
@@ -65,7 +78,11 @@ function EnergyTracker() {
     useEffect(() =>{
         console.log(activities)
         if(prevActivities.length > 0){
-        
+            if(prevActivities.length < activities.length){
+                setPrevActivities(activities);
+                console.log(prevActivities)
+            }
+        else{
         activities.map((activity, index) => {
             const prevAct = prevActivities[index];
             if(activity.active === true 
@@ -82,6 +99,7 @@ function EnergyTracker() {
             } 
         })
         }
+    }
     }
     , [activities])
 
@@ -105,21 +123,24 @@ function EnergyTracker() {
                     flexDir={"column"} 
                     alignItems={"center"}>
                     <Flex 
+                        alignItems={"stretch"}
                         justifyContent={"space-evenly"} 
                         width="75%" 
                         marginTop="10px" 
                         gap={"10px"}>
-                        <DailyEnergyV2 
-                        value={spoons} />
-                    <Instructions 
-                        isMobile={isMobile} />
+                            <DailyEnergyV2 
+                            value={spoons} />
+                            <Instructions 
+                            isMobile={isMobile} />
                     </Flex>
                     <Flex 
                         width="75%" 
-                        justifyContent={"space-evenly"} 
+                        justifyContent={"flex-start"} 
                         marginTop="10px" 
                         flexWrap={"wrap"} 
                         gap="10px">
+                        <AddActivityDialog activities={activities} setActivities={setActivities} />
+                        
                         {activities.map((a) => {
                             return <ActivityButton key={a.id} 
                                 id={a.id}
@@ -131,9 +152,7 @@ function EnergyTracker() {
                                 overallSpoons = {spoons} /> 
                             
                         })}
-                        
                     </Flex>
-                    
                 </Flex>
         </Box>
 
