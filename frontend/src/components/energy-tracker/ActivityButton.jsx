@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Button, IconButton, Text } from "@chakra-ui/react";
 import { Rating } from "../ui/rating";
 import { FaUtensilSpoon } from "react-icons/fa";
 import { useState } from "react";
 import EditDialog from "./EditDialog";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 
 function ActivityButton(props){ 
@@ -86,6 +88,14 @@ return  ( <Box
                 activities={props.activities} 
                 setActivities={props.setActivities} 
                 id={props.id}/>
+            <IconButton onClick={(e) => 
+                {  
+                    e.stopPropagation();
+                    props.onClick();
+                    props.setActivities(props.activities.filter(a => a.id !== props.id))
+                }}>
+                <FaRegTrashCan />
+            </IconButton>
 
     </Box> )
     

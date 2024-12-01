@@ -76,22 +76,27 @@ function EnergyTracker() {
     }, []);
 
     useEffect(() =>{
-        console.log(activities)
+        console.log(activities, prevActivities)
         if(prevActivities.length > 0){
-            if(prevActivities.length < activities.length){
+            if(prevActivities.length < activities.length ){
                 setPrevActivities(activities);
                 console.log(prevActivities)
+            }else if(activities.length < prevActivities.length &&  prevActivities.at(-1).active){
+                setPrevActivities(activities);
+                setSpoons(prev => prev +  prevActivities.at(-1).spoons)
             }
         else{
         activities.map((activity, index) => {
             const prevAct = prevActivities[index];
+            
             if(activity.active === true 
                 && activity.active !== prevAct.active 
                 && activity.spoons === prevAct.spoons
                 && spoons - activity.spoons >= 0){
                     setSpoons(prev => prev - activity.spoons)
             } else if (!activity.active && activity.active !== prevAct.active ) {
-                if(activity.spoons !== prevAct.spoon){
+                if(activity.spoons !== prevAct.spoon && prevAct.id !== activity.id )
+                    {
                     setSpoons(prev => prev + prevAct.spoons)
                 } else {
                     setSpoons(prev => prev + activity.spoons)
@@ -148,7 +153,7 @@ function EnergyTracker() {
                                 value={a.spoons} 
                                 setActivities={setActivities} 
                                 activities={activities} 
-                                onClick={() => {console.log(a); setPrevActivities(activities)}} 
+                                onClick={() => {console.log(a, prevActivities); setPrevActivities(activities)}} 
                                 overallSpoons = {spoons} /> 
                             
                         })}
