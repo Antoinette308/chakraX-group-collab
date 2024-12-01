@@ -44,7 +44,7 @@ export const updateUserInformation = (email, updatedInfo, callback) => {
 
 
 // Delete / deactivate account
-export const deactiveUserAccount = (email, callback) => {
+export const deleteUserAccount = (email, callback) => {
     const query = 'DELETE FROM users WHERE email = ?';
     connection.query(query, [email], (error, results) => {
         if (error) return callback(error);

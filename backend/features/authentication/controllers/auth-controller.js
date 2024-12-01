@@ -9,7 +9,7 @@ import {
     createUser,
     findUserByEmail,
     updateUserInformation,
-    deactiveUserAccount
+    deleteUserAccount
 } from '../models/auth-model.js';
 
 // console.log('jsonwebtoken model:', jwt);
@@ -108,10 +108,10 @@ export const updateUserInformationController = (req, res) => {
 
 
 // delete/deactivate user account
-export const deactiveUserAccountController = (req, res) => {
+export const deleteUserAccountController = (req, res) => {
     const { email } = req.params;
     const { password } = req.body;
-    deactiveUserAccount(email, password, (error, results) => {
+    deleteUserAccount(email, password, (error, results) => {
         if (error) {
             console.error('Error deleting user account:', error);
             return res.status(500).json(results);

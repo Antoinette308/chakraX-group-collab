@@ -7,7 +7,9 @@ import { welcomeMessage } from '../controllers/auth-controller.js';
 import {
     createUserController,
     existingUserController,
-    getUserDetailsController
+    getUserDetailsController,
+    updateUserInformationController,
+    deleteUserAccountController
 } from '../controllers/auth-controller.js';
 import { authenticateToken } from '../middleware/auth-middleware.js';
 
@@ -24,6 +26,9 @@ router.post('/login', existingUserController);
 
 router.get('/user-details', authenticateToken, getUserDetailsController);
 
+router.put('/update-user-details', authenticateToken, updateUserInformationController),
+
+router.delete('/deactivate-account', authenticateToken, deleteUserAccountController);
 
 
 // just for testing the token authentication
