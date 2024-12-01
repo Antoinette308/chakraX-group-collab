@@ -15,6 +15,8 @@ import { FaUtensilSpoon } from "react-icons/fa";
 import { useState } from "react";
 import { Input } from "@chakra-ui/react"
 import { Field } from "../ui/field"
+import { FaRegEdit } from "react-icons/fa";
+
 
 
 function EditDialog(props) {
@@ -33,7 +35,7 @@ function handleClicks(e, openState){
     return (
         <DialogRoot motionPreset="slide-in-bottom" open={open}>
             <DialogTrigger asChild>
-                <Button width="50px" variant="outline" onClick={(e) => handleClicks(e, true)}>Edit</Button>
+                <Button width="25px" variant="outline" color="white" margin="5px" onClick={(e) => handleClicks(e, true)}>{<FaRegEdit/>}</Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

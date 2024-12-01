@@ -88,7 +88,7 @@ return  ( <Box
                 activities={props.activities} 
                 setActivities={props.setActivities} 
                 id={props.id}/>
-            <IconButton onClick={(e) => 
+            <IconButton aria="delete" margin="5px" variant="outline" color="white" onClick={(e) => 
                 {  
                     e.stopPropagation();
                     props.onClick();
