@@ -42,7 +42,7 @@ describe('Authentication/Accounts API', () => {
     describe('POST /accounts/new-user', () => {
         it('should register new user information', async () => {
             const newUser = {
-                email: "another@email.com", // alter this for EVERY test!
+                email: "protectedtest@email.com", // alter this for EVERY test!
                 password: "password"
             };
             const response = await request(app).post('/accounts/new-user').send(newUser);
@@ -54,12 +54,36 @@ describe('Authentication/Accounts API', () => {
     describe('POST /accounts/login', () => {
         it('should log in an existing user', async () => {
             const existingUser = {
-                email: "charlotte@email.com",
-                password: "weakpassword"
+                email: "protectedtest@email.com",
+                password: "password"
             };
             const response = await request(app).post('/accounts/login').send(existingUser);
             expect(response.status).toBe(200);
             expect(response.body).toHaveProperty('token');
+        });
+    });
+    describe('GET /accounts/protected', () => {
+        let token;
+
+        beforeAll(async () => {
+            const loginResponse = await request(app).post('/accounts/login').send({ 
+                email: "protectedtest@email.com",
+                password: "password"
+            });
+            token = loginResponse.body.token;
+        });
+
+        it('should return the protected message for authenticated user', async () => {
+            const response = await request(app)
+                .get('/accounts/protected')
+                .set('Authorization', `Bearer ${token}`);
+            expect(response.status).toBe(200);
+            expect(response.body.message).toBe('This is a protected route')
+        });
+
+        it('should return 401 for unauthenticated user', async () => {
+            const response = await request(app).get('/accounts/protected');
+            expect(response.status).toBe(401);
         });
     });
 });
