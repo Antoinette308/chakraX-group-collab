@@ -62,6 +62,9 @@ describe('Authentication/Accounts API', () => {
             expect(response.body).toHaveProperty('token');
         });
     });
+
+
+    // this can be copied and altered for all protected endpoints
     describe('GET /accounts/protected', () => {
         let token;
 

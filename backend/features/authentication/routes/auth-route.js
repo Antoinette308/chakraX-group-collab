@@ -6,7 +6,8 @@ import express from 'express';
 import { welcomeMessage } from '../controllers/auth-controller.js';
 import {
     createUserController,
-    existingUserController
+    existingUserController,
+    getUserDetailsController
 } from '../controllers/auth-controller.js';
 import { authenticateToken } from '../middleware/auth-middleware.js';
 
@@ -20,6 +21,10 @@ router.get('/', welcomeMessage);
 router.post('/new-user', createUserController);
 
 router.post('/login', existingUserController);
+
+router.get('/user-details', authenticateToken, getUserDetailsController);
+
+
 
 // just for testing the token authentication
 router.get('/protected', authenticateToken, (req, res) => {

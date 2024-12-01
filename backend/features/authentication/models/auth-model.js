@@ -4,6 +4,7 @@
 // import db connection
 import connection from "../../../config/database.js";
 
+// Create
 export const createUser = (user, callback) => {
     const query = 'INSERT INTO users (email, password) VALUES ( ?, ?)';
     connection.query(query, [user.email, user.password], (error, results) => {
@@ -20,6 +21,7 @@ export const createUser = (user, callback) => {
     });
 };
 
+// Create & Read
 export const findUserByEmail = (email, callback) => {
     const query = 'SELECT * FROM users WHERE email = ?';
     connection.query(query, [email], (error, results) => {
@@ -28,3 +30,11 @@ export const findUserByEmail = (email, callback) => {
         callback(null, user);
     });
 };
+
+// Update email
+
+
+// Update forgotten password
+
+
+// Delete / deactivate account

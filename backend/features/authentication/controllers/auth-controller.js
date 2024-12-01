@@ -73,6 +73,22 @@ export const existingUserController = (req, res) => {
     });
 };
 
+// Read user information - settings type scenario
+export const getUserDetailsController = (req, res) => {
+    const email = req.user.email;
+    findUserByEmail(email, (error, user) => {
+        if (error) {
+            console.error('Error finding user by email:', error);
+            return res.status(500).json({ error: error.message });
+        }
+        if (!user) {
+            return res.status(404).json({ message: `${email} not found` });
+        }
+        res.json({ email: user.email })
+    })
+}
+
+
 // Update user information?
 
 
