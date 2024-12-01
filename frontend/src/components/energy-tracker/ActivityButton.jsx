@@ -59,6 +59,28 @@ function ActivityButton(props){
     }
 
 
+    function handleDelete(e, a) {
+        {
+            setIsActive(false)
+            setEnergy(e);
+            setActivity(a);
+            props.setActivities([...props.activities].map(activity => {
+                if(activity.id === props.id) { 
+                    console.log(activity)
+                    return {
+                    ...activity,
+                    active: false, 
+                    spoons: e,
+                    activity: a
+                }
+            }else 
+                return activity; 
+            }))
+        props.onClick();
+        }
+    }
+
+
 return  ( <Box 
             width="125px" 
             height={'125px'} 
@@ -91,7 +113,7 @@ return  ( <Box
             <IconButton aria="delete" margin="5px" variant="outline" color="white" onClick={(e) => 
                 {  
                     e.stopPropagation();
-                    props.onClick();
+                    handleDelete(energy, activity)
                     props.setActivities(props.activities.filter(a => a.id !== props.id))
                 }}>
                 <FaRegTrashCan />

@@ -81,30 +81,40 @@ function EnergyTracker() {
             if(prevActivities.length < activities.length ){
                 setPrevActivities(activities);
                 console.log(prevActivities)
-            }else if(activities.length < prevActivities.length &&  prevActivities.at(-1).active){
-                setPrevActivities(activities);
-                setSpoons(prev => prev +  prevActivities.at(-1).spoons)
+            }else if(activities.length < prevActivities.length){
+                console.log(prevActivities, activities)
+                prevActivities.map((a) => {
+                    if(!activities.includes(a) && a.active){
+                        console.log(a)
+                        setSpoons(prev => prev + a.spoons)
+                    }
+                })
             }
+        
         else{
         activities.map((activity, index) => {
             const prevAct = prevActivities[index];
             
-            if(activity.active === true 
+            if(activity.active 
                 && activity.active !== prevAct.active 
                 && activity.spoons === prevAct.spoons
                 && spoons - activity.spoons >= 0){
                     setSpoons(prev => prev - activity.spoons)
             } else if (!activity.active && activity.active !== prevAct.active ) {
-                if(activity.spoons !== prevAct.spoon && prevAct.id !== activity.id )
+                console.log(prevAct, activity)
+                if(activity.spoons !== prevAct.spoons && prevAct.id !== activity.id && prevAct.active )
                     {
+                    console.log("adding old spoons")
                     setSpoons(prev => prev + prevAct.spoons)
                 } else {
+                    console.log("adding new spoons")
                     setSpoons(prev => prev + activity.spoons)
                 }
             } 
         })
-        }
     }
+    }
+    
     }
     , [activities])
 
