@@ -7,7 +7,9 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import {
     createUser,
-    findUserByEmail
+    findUserByEmail,
+    updateUserInformation,
+    deactiveUserAccount
 } from '../models/auth-model.js';
 
 // console.log('jsonwebtoken model:', jwt);
@@ -90,6 +92,30 @@ export const getUserDetailsController = (req, res) => {
 
 
 // Update user information?
-
+export const updateUserInformationController = (req, res) => {
+    const { email } = req.params;
+    const { password, ...updatedInformation } = req.body;
+    updateUserInformation(email, updatedInformation, (error, results) => {
+        if (error) {
+            console.error('Error updating user information:', error);
+            return res.status(500).json({ error: error.message });
+        }
+        res.status(200).json(results);
+    });
+};
 
 // Password reset?
+
+
+// delete/deactivate user account
+export const deactiveUserAccountController = (req, res) => {
+    const { email } = req.params;
+    const { password } = req.body;
+    deactiveUserAccount(email, password, (error, results) => {
+        if (error) {
+            console.error('Error deleting user account:', error);
+            return res.status(500).json(results);
+        }
+        res.status(200).json({ message: 'User account deleted successfully.'})
+    });
+};

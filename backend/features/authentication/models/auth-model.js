@@ -32,9 +32,22 @@ export const findUserByEmail = (email, callback) => {
 };
 
 // Update email
-
+export const updateUserInformation = (email, updatedInfo, callback) => {
+    const query = 'UPDATE users SET email = ? WHERE email = ?';
+    connection.query(query, [updatedInfo.email, email], (error, results) => {
+        if (error) return callback(error);
+        callback(null, results)
+    });
+};
 
 // Update forgotten password
 
 
 // Delete / deactivate account
+export const deactiveUserAccount = (email, callback) => {
+    const query = 'DELETE FROM users WHERE email = ?';
+    connection.query(query, [email], (error, results) => {
+        if (error) return callback(error);
+        callback(null, results);
+    });
+};
