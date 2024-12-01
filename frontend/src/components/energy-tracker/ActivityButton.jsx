@@ -84,10 +84,12 @@ function ActivityButton(props){
 return  ( <Box 
             width="125px" 
             height={'125px'} 
-            bg= { isActive ? {base:"teal.700",_hover:"teal.600"} : {base:"teal.500", _hover:"teal.600"}} 
+            bg= {props.id <= 4 ? 
+                ( isActive ? {base:"green.700",_hover:"green.600"} : {base:"green.500",_hover:"green.600"}) : 
+                (isActive ? {base:"teal.600", _hover:"teal.700"} : {base:"teal.500", _hover:"teal.600"}) } 
             borderRadius="20px" 
             textAlign="center" 
-            color={isActive ? {base: "gray", _hover: "white"} : {base: "white"}}
+            color={isActive ? {base: "gray.300", _hover: "white"} : {base: "white"}}
             alignContent={"center"} 
             onClick={() => {
                 handleActivate(); 
@@ -109,8 +111,16 @@ return  ( <Box
                 text={props.text} 
                 activities={props.activities} 
                 setActivities={props.setActivities} 
-                id={props.id}/>
-            <IconButton aria="delete" margin="5px" variant="outline" color="white" onClick={(e) => 
+                id={props.id}
+                />
+                
+            <IconButton 
+            aria="delete" 
+            margin="5px" 
+            variant="outline" 
+            color="white" 
+            display={props.id <= 4 ? "none" : "default" } 
+            onClick={(e) => 
                 {  
                     e.stopPropagation();
                     handleDelete(energy, activity)

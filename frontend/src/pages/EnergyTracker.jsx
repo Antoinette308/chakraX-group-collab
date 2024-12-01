@@ -52,10 +52,10 @@ function EnergyTracker() {
     useEffect(() => {
         // Simulated fetch (replace with actual API call)
         const mockActivities = [
-            { id: 1, activity: "Get Out Of Bed", spoons: 5, active: false},
-            { id: 2, activity: "brush teeth", spoons: 5, active: false},
-            { id: 3, activity: "Stuff", spoons: 1, active: false},
-            {id: 4, activity: "Sleep", spoons: 0, active: false},
+            { id: 1, activity: "Have a cold", spoons: 4, active: false},
+            { id: 2, activity: "Slept Badly", spoons: 1, active: false},
+            { id: 3, activity: "Missed Meds", spoons: 1, active: false},
+            {id: 4, activity: "Skipped A Meal", spoons: 1, active: false},
             {id: 5, activity: "Watch TV", spoons: 0, active: false},
             {id: 6, activity: "Exercise", spoons: 3, active: false},
             {id: 7, activity: "Make Dinner", spoons: 2, active: false},
@@ -102,11 +102,11 @@ function EnergyTracker() {
                     setSpoons(prev => prev - activity.spoons)
             } else if (!activity.active && activity.active !== prevAct.active ) {
                 console.log(prevAct, activity)
-                if(activity.spoons !== prevAct.spoons && prevAct.id !== activity.id && prevAct.active )
+                if(activity.spoons !== prevAct.spoons)
                     {
                     console.log("adding old spoons")
                     setSpoons(prev => prev + prevAct.spoons)
-                } else {
+                } else{
                     console.log("adding new spoons")
                     setSpoons(prev => prev + activity.spoons)
                 }
