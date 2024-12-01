@@ -5,6 +5,9 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import NavBarButton from "../components/NavBarButton";
 import { useState } from "react";
 import NavBar from "../components/Navbar";
+import themes from "../components/themes";
+import ThemeDropDown from "../components/ThemeDropDown";
+
 
 
 //Made by Sascha. This is the layout page. This is the parent of all other pages. The sidebar will show on every page. 
@@ -12,7 +15,13 @@ import NavBar from "../components/Navbar";
 
 function Layout(){
 const [active, setActive] = useState(false);
+const [theme, setTheme] = useState('blue');
 //This function changes the active state which is used as the controller for the sidebar button 
+
+function handleChange(e){
+    console.log(themes[e.value])
+    setTheme(e.value);
+}
 function handleClick() {
     setActive(prevActive => !prevActive);
     console.log('working')
@@ -21,24 +30,39 @@ function handleClick() {
 //While inactive, there will only be the button 
 if(active === false){
     return (
-        <Grid height="100vh" width="100vw" gridTemplateColumns="max-content 4fr" gridTemplateRows="1fr max-content" gap={2}>
-            <GridItem my={6} mx={3} colStart={1}><NavBarButton onClick={handleClick} isActive={active} colorPalette="cyan.500"/></GridItem> 
-            <GridItem className="page">
-                <Outlet /> 
+        <Grid height="100vh" 
+            width="100vw" 
+            gridTemplateColumns="max-content 4fr" 
+            gridTemplateRows="1fr max-content" 
+            gap={2} 
+            bg={themes[theme].pageBg}>
+            <GridItem 
+                my={6} 
+                mx={3} 
+                colStart={1}>
+                    <NavBarButton 
+                        onClick={handleClick} 
+                        isActive={active} 
+                        colorPalette={themes[theme].navIcon} />
             </GridItem>
-            <Footer /> 
+            <GridItem className="page">
+                <ThemeDropDown onChange={(e) => handleChange(e)} />
+                <Outlet context={themes[theme]}/> 
+            </GridItem>
+            <Footer theme={themes[theme]} /> 
         </Grid>
     )
     
 }
 //If active the button will be replaced with the navbar 
     else {
-    return ( <Grid height="100vh" width="100vw" gridTemplateColumns="1fr 4fr" gridTemplateRows="1fr max-content" gap={2}>
-                <GridItem rowEnd={2} display={'flex'} justifyContent={"center"} zIndex={1}> <NavBar isActive={active} onClick={handleClick}/></GridItem> 
+    return ( <Grid height="100vh" width="100vw" gridTemplateColumns="1fr 4fr" gridTemplateRows="1fr max-content" gap={2} bg={themes[theme].pageBg}>
+                <GridItem  rowEnd={2} display={'flex'} justifyContent={"center"} zIndex={1}> <NavBar isActive={active} onClick={handleClick} theme={themes[theme]}/></GridItem> 
                 <GridItem className="page">
-                <Outlet /> 
+                <ThemeDropDown onChange={(e) => handleChange(e)} />
+                <Outlet context={themes[theme]}/> 
                 </GridItem>
-                <Footer /> 
+                <Footer theme={themes[theme]} /> 
             </Grid>
     )
 }
