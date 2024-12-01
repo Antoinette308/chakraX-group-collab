@@ -35,12 +35,9 @@ function handleClicks(e, openState){
     return (
         <DialogRoot motionPreset="slide-in-bottom" open={open}>
             <DialogTrigger asChild>
-                <Button 
-                width="25px" 
-                variant="outline" 
+                <Button width="25px" margin="5px" 
+                variant="outline" color="white"
                 display={props.id <= 4 ? "none" : "default" } 
-                color="white" 
-                margin="5px" 
                 onClick={(e) => handleClicks(e, true)}>
                     {<FaRegEdit/>}
                 </Button>
@@ -50,30 +47,28 @@ function handleClicks(e, openState){
                     <DialogTitle>Edit Activity</DialogTitle>
                 </DialogHeader>
                 <DialogBody textAlign={"center"}>
-                <Field marginBottom="10px" label="New Activity">
-                        <Input placeholder="See Friends"
+                    <Field marginBottom="10px" label="New Activity">
+                        <Input placeholder="See Friends" value={activity} 
                         onClick={e => e.stopPropagation()} 
-                        value={activity} 
                         onChange={(e) => setActivity(e.target.value)} />
                     </Field>
                     <Rating icon={<FaUtensilSpoon />} 
-                        defaultValue="0" value={energy} 
-                        onClick={e => e.stopPropagation()} 
-                        onValueChange={(e) => setEnergy(e.value)} 
-                        count="5"/> 
+                    defaultValue="0" value={energy} 
+                    onClick={e => e.stopPropagation()} 
+                    onValueChange={(e) => setEnergy(e.value)} 
+                    count="5"/> 
                 </DialogBody>
                 <DialogFooter>
                     <DialogActionTrigger asChild>
                         <Button variant="outline" 
-                            onClick={(e) => handleClicks(e,false)}>
-                                Cancel
-                        </Button>
+                        onClick={(e) => handleClicks(e,false)}>
+                                {"Cancel"}
+                            </Button>
                     </DialogActionTrigger>
                     <Button onClick={(e) => 
                         {handleClicks(e, false);
-                        props.onValueChange(energy, activity);
-                        }}>
-                        Save
+                        props.onValueChange(energy, activity);}}>
+                        {"Save"}
                     </Button>
                 </DialogFooter>
                 <DialogCloseTrigger />

@@ -14,24 +14,21 @@ function ActivityButton(props){
     const [activity, setActivity] = useState(props.activity)
 
     function handleSpoonChange(e, a) {
-        {
-            setIsActive(false)
-            setEnergy(e);
-            setActivity(a);
-            props.setActivities([...props.activities].map(activity => {
-                if(activity.id === props.id) { 
-                    console.log(activity)
-                    return {
-                    ...activity,
-                    active: false, 
-                    spoons: e,
-                    activity: a
+        setIsActive(false)
+        setEnergy(e);
+        setActivity(a);
+        props.setActivities([...props.activities].map(activity => {
+            if(activity.id === props.id) { 
+                return {
+                ...activity,
+                active: false, 
+                spoons: e,
+                activity: a
                 }
             }else 
                 return activity; 
             }))
         props.onClick();
-        }
     }
 
 
@@ -44,7 +41,7 @@ function ActivityButton(props){
                     return {
                         ...activity, 
                         active: false
-                        }
+                    }
                 } else {
                     setIsActive(true);
                     return {
@@ -55,82 +52,77 @@ function ActivityButton(props){
             } else {
                 return activity; 
             }
-            }))
+        }))
     }
 
 
     function handleDelete(e, a) {
-        {
-            setIsActive(false)
-            setEnergy(e);
-            setActivity(a);
-            props.setActivities([...props.activities].map(activity => {
-                if(activity.id === props.id) { 
-                    console.log(activity)
-                    return {
-                    ...activity,
-                    active: false, 
-                    spoons: e,
-                    activity: a
-                }
-            }else 
+        setIsActive(false)
+        setEnergy(e);
+        setActivity(a);
+        props.setActivities([...props.activities].map(activity => {
+            if(activity.id === props.id) { 
+                console.log(activity)
+                return {
+                ...activity,
+                active: false, 
+                spoons: e,
+                activity: a
+            }
+            }else {
                 return activity; 
-            }))
+            }
+        }))
         props.onClick();
+    }
+
+    function checkId(){
+        if(props.id <= 4)
+            if(isActive){
+                return {base:"green.700",_hover:"green.600"}
+            } else {
+                return {base:"green.500",_hover:"green.600"}
+            }
+        else if(isActive){
+            return {base:"teal.600", _hover:"teal.700"}
+        } else {
+            return {base:"teal.500", _hover:"teal.600"}
         }
     }
 
 
-return  ( <Box 
-            width="125px" 
-            height={'125px'} 
-            bg= {props.id <= 4 ? 
-                ( isActive ? {base:"green.700",_hover:"green.600"} : {base:"green.500",_hover:"green.600"}) : 
-                (isActive ? {base:"teal.600", _hover:"teal.700"} : {base:"teal.500", _hover:"teal.600"}) } 
-            borderRadius="20px" 
-            textAlign="center" 
-            color={isActive ? {base: "gray.300", _hover: "white"} : {base: "white"}}
-            alignContent={"center"} 
-            onClick={() => {
-                handleActivate(); 
-                console.log(props.activities)
-                props.onClick()
+    return  ( 
+        <Box width="125px" height={'125px'} 
+        borderRadius="20px" bg={checkId()}
+        color={isActive ? {base: "gray.300", _hover: "white"} : {base: "white"}}
+        textAlign="center" alignContent={"center"} 
+        onClick={() => {
+            handleActivate(); 
+            props.onClick()
         }}>
-            <Text>
-                {props.text}
-            </Text>
-            <Rating
-                icon={<FaUtensilSpoon/>} 
-                defaultValue="0" 
-                value={props.value} 
-                readOnly
-                count="5"
-                /> 
-            <EditDialog onValueChange={handleSpoonChange} 
-                value={energy} 
-                text={props.text} 
-                activities={props.activities} 
-                setActivities={props.setActivities} 
-                id={props.id}
-                />
-                
-            <IconButton 
-            aria="delete" 
-            margin="5px" 
-            variant="outline" 
-            color="white" 
+            <Text>{props.text}</Text>
+            
+            <Rating icon={<FaUtensilSpoon/>} 
+            defaultValue="0" value={props.value} 
+            readOnly count="5"/> 
+
+            <EditDialog id={props.id}
+            onValueChange={handleSpoonChange} 
+            value={energy} text={props.text} 
+            activities={props.activities} 
+            setActivities={props.setActivities}/>
+
+            <IconButton aria="delete" margin="5px" 
+            variant="outline" color="white" 
             display={props.id <= 4 ? "none" : "default" } 
-            onClick={(e) => 
-                {  
-                    e.stopPropagation();
-                    handleDelete(energy, activity)
-                    props.setActivities(props.activities.filter(a => a.id !== props.id))
-                }}>
+            onClick={(e) => {  
+                e.stopPropagation();
+                handleDelete(energy, activity)
+                props.setActivities(props.activities.filter(a => a.id !== props.id))
+            }}>
                 <FaRegTrashCan />
             </IconButton>
-
     </Box> )
-    
-}
+    }
 
 export default ActivityButton;
