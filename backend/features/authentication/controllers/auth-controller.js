@@ -10,8 +10,8 @@ import {
     findUserByEmail
 } from '../models/auth-model.js';
 
-console.log('jsonwebtoken model:', jwt);
-console.log('SECRET_KEY:', process.env.SECRET_KEY);
+// console.log('jsonwebtoken model:', jwt);
+// console.log('SECRET_KEY:', process.env.SECRET_KEY);
 
 // welcome message
 export const welcomeMessage = (req, res) => {
@@ -21,7 +21,7 @@ export const welcomeMessage = (req, res) => {
 // Create new user
 export const createUserController = (req, res) => {
     const { email, password } = req.body;
-    console.log('Rester request body:', req.body);
+    console.log('Register request body:', req.body);
 
     bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) {
@@ -34,8 +34,9 @@ export const createUserController = (req, res) => {
                 console.error('Error creating user:', error);
                 return res.status(500).json({ error: error.message });
             }
-            console.log('User registered:', user);
-            res.status(201).json({ id: user.id });
+            // console.log('User registered:', user);
+            res.status(201).json({ id: user.user_id, email: user.email });
+            console.log('Response:', { id: user.user_id, email: user.email });
         });
     });
 };

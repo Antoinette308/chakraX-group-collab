@@ -15,7 +15,7 @@ const app = express();
 app.use(json());
 app.use(cors());
 // app.use('/feature', featureRoute)
-app.use('/habit-tracker', habitRoute);
+app.use('/accounts', authRoute);
 
 beforeAll((done) => {
     connection.connect(done);
@@ -39,5 +39,27 @@ describe('GET /accounts', () => {
 });
 
 describe('Authentication/Accounts API', () => {
-    describe()
-})
+    describe('POST /accounts/new-user', () => {
+        it('should register new user information', async () => {
+            const newUser = {
+                email: "another@email.com", // alter this for EVERY test!
+                password: "password"
+            };
+            const response = await request(app).post('/accounts/new-user').send(newUser);
+            console.log('Test response body:', response.body);
+            expect(response.status).toBe(201);
+            expect(response.body.email).toBe(newUser.email);
+        });
+    });
+    describe('POST /accounts/login', () => {
+        it('should log in an existing user', async () => {
+            const existingUser = {
+                email: "charlotte@email.com",
+                password: "weakpassword"
+            };
+            const response = await request(app).post('/accounts/login').send(existingUser);
+            expect(response.status).toBe(200);
+            expect(response.body).toHaveProperty('token');
+        });
+    });
+});

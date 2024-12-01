@@ -21,6 +21,6 @@ app.use(cors());
                         USE ROUTES
         app.use('/api/feature'. featureRoute);
 ===============================================================*/
-app.use('/', authRoutes);
+app.use('/accounts', authRoutes);
 
 export default app;
