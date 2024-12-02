@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 import Instructions from "../components/energy-tracker/Instructions";
 import DailyEnergyV2 from "../components/energy-tracker/DailyEnergyV2";
 import AddActivityDialog from "../components/energy-tracker/addActivityDialog";
-
+import { useOutletContext } from "react-router-dom";
 
 function EnergyTracker() {
+    const theme= useOutletContext()
     const [activities, setActivities] = useState([]);
     const [isMobile, setIsMobile] = useState(false);
     const [spoons, setSpoons] = useState("12")
@@ -108,9 +109,9 @@ function EnergyTracker() {
 
 
     return (
-        <Box>
+        <Box bg={theme.pageBg}>
             <Header size="6xl" 
-            bg="teal.500" color="gray.900" 
+            bg={theme.sideBarBg} color={theme.buttonColor} 
             text="Energy Tracker"/>
 
             <Flex justifyContent={"center"} 
@@ -120,19 +121,20 @@ function EnergyTracker() {
                 <Flex alignItems={"stretch"}
                 justifyContent={"space-evenly"} width="75%" 
                 marginTop="10px" gap={"10px"}>
-                    <DailyEnergyV2 value={spoons} />
-                    <Instructions isMobile={isMobile} />
+                    <DailyEnergyV2 value={spoons} theme={theme} />
+                    <Instructions isMobile={isMobile} theme={theme} />
                 </Flex>
 
                 <Flex width="75%" justifyContent={"flex-start"} 
                 marginTop="10px" flexWrap={"wrap"} 
-                gap="10px">
-                        <AddActivityDialog activities={activities} setActivities={setActivities} />
+                gap="10px" maxHeight={"100%"}>
+                        <AddActivityDialog theme={theme}
+                        activities={activities} setActivities={setActivities} />
                         {activities.map((a) => {
                             return <ActivityButton key={a.id} 
                                 id={a.id} text={a.activity} 
                                 value={a.spoons} setActivities={setActivities} 
-                                activities={activities} overallSpoons = {spoons}
+                                activities={activities} overallSpoons = {spoons} theme={theme}
                                 onClick={() => setPrevActivities(activities)} /> 
                         })}
                 </Flex>

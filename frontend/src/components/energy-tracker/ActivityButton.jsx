@@ -84,9 +84,9 @@ function ActivityButton(props){
                 return {base:"green.500",_hover:"green.600"}
             }
         else if(isActive){
-            return {base:"teal.600", _hover:"teal.700"}
+            return props.theme.pageButtonActive
         } else {
-            return {base:"teal.500", _hover:"teal.600"}
+            return props.theme.pageButtons
         }
     }
 
@@ -94,7 +94,7 @@ function ActivityButton(props){
     return  ( 
         <Box width="125px" height={'125px'} 
         borderRadius="20px" bg={checkId()}
-        color={isActive ? {base: "gray.300", _hover: "white"} : {base: "white"}}
+        color={isActive ? {base: "gray.300", _hover: "white"} : props.theme.pageButtonText}
         textAlign="center" alignContent={"center"} 
         onClick={() => {
             handleActivate(); 
@@ -103,17 +103,18 @@ function ActivityButton(props){
             <Text>{props.text}</Text>
             
             <Rating icon={<FaUtensilSpoon/>} 
-            defaultValue="0" value={props.value} 
+            defaultValue="0" value={props.value} color={props.theme.pageButtonText}
             readOnly count="5"/> 
 
             <EditDialog id={props.id}
             onValueChange={handleSpoonChange} 
             value={energy} text={props.text} 
             activities={props.activities} 
-            setActivities={props.setActivities}/>
+            setActivities={props.setActivities}
+            theme={props.theme}/>
 
             <IconButton aria="delete" margin="5px" 
-            variant="outline" color="white" 
+            variant="outline" color={props.theme.pageButtonText} 
             display={props.id <= 4 ? "none" : "default" } 
             onClick={(e) => {  
                 e.stopPropagation();

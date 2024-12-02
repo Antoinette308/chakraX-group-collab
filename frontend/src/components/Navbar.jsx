@@ -14,7 +14,9 @@ function NavBar(props){
 
 
 if(props.isActive){
-    return  ( <Flex direction="column" gap="4" bg={props.theme.sideBarBg} justifyContent="flex-start" alignItems='center' borderRadius="30px" marginTop={3}>
+    return  ( 
+    <Flex direction="column" gap="4" bg={props.theme.sideBarBg} 
+    justifyContent="flex-start" alignItems='center' borderRadius="30px" marginTop={3} overflowY={"scroll"}>
                 <Flex my="4" mx="2"  gap="1">
                     <NavBarButton colorPalette={props.theme.navButtonBg} color={props.theme.ButtonColor} 
                         isActive={props.isActive} 

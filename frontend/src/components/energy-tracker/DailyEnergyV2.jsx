@@ -7,10 +7,10 @@ function DailyEnergyV2(props){
 
     return ( 
         <Box width="150px" height="175px" 
-        bg="teal.500" borderRadius="25px" 
-        textAlign={"center"} color={"white"}>
+        bg={props.theme.pageButtons} borderRadius="25px" 
+        textAlign={"center"} color={props.theme.pageButtonText}>
             <StatRoot alignItems="center" padding="20px" size="lg">
-                <StatLabel color="white" textStyle="lg"> Your Daily Spoons </StatLabel>
+                <StatLabel color={props.theme.pageButtonText} textStyle="lg"> Your Daily Spoons </StatLabel>
                 <StatValueText textAlign="center">
                     {props.value} 
                 </StatValueText>

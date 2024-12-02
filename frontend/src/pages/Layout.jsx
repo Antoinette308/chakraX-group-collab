@@ -30,8 +30,7 @@ function handleClick() {
 //While inactive, there will only be the button 
 if(active === false){
     return (
-        <Grid height="100vh" 
-            width="100vw" 
+        <Grid  min-height="100vh" min-width="100vw" 
             gridTemplateColumns="max-content 4fr" 
             gridTemplateRows="1fr max-content" 
             gap={2} 
@@ -56,7 +55,7 @@ if(active === false){
 }
 //If active the button will be replaced with the navbar 
     else {
-    return ( <Grid height="100vh" width="100vw" gridTemplateColumns="1fr 4fr" gridTemplateRows="1fr max-content" gap={2} bg={themes[theme].pageBg}>
+    return ( <Grid min-height="100vh" min-width="100vw" gridTemplateColumns="1fr 4fr" gridTemplateRows="1fr max-content" gap={2} bg={themes[theme].pageBg}>
                 <GridItem  rowEnd={2} display={'flex'} justifyContent={"center"} zIndex={1}> <NavBar isActive={active} onClick={handleClick} theme={themes[theme]}/></GridItem> 
                 <GridItem className="page">
                 <ThemeDropDown onChange={(e) => handleChange(e)} />

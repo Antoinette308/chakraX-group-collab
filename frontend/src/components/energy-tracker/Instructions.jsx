@@ -3,7 +3,7 @@ import { Box, Collapsible, Text } from "@chakra-ui/react";
 
 function Instructions(props){
     return ( 
-    <Box bg={"teal.500"} borderRadius={"25px"}
+    <Box bg={props.theme.pageButtons} borderRadius={"25px"}
     flexBasis={"50%"} textAlign={"center"} 
     minWidth={"200px"} maxWidth={"450px"}>
     {props.isMobile ? 
@@ -19,10 +19,10 @@ function Instructions(props){
             </Collapsible.Content> 
         </Collapsible.Root>
     : <>
-        <Text textStyle="2xl" padding="20px">
+        <Text textStyle="2xl" padding="20px" color={props.theme.pageButtonText}>
             Start with 12 Spoons Each Day
         </Text>
-        <Text>
+        <Text color={props.theme.pageButtonText}>
             Take away 1 spoon if you didn&apos;t sleep well, forgot meds, or skipped a meal. Take 4 spoons away if you have a cold.
         </Text>
         </> }

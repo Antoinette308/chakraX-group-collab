@@ -18,7 +18,7 @@ function AddActivityDialog(props){
 
     const [open, setOpen] = useState(false)
     const [energy, setEnergy] = useState('');
-    const [activity, setActivity] =useState('');
+    const [activity, setActivity] = useState('');
 
     //Resets the add activity dialog for next use
     function handleDialog(openState){
@@ -47,7 +47,7 @@ function AddActivityDialog(props){
                 <Button width={"125px"} height={'125px'}
                 borderRadius={"20px"} color={"white"} 
                 textAlign={"center"} alignContent={"center"}
-                bg= {{base: "teal.500", _hover: "teal.600"}} 
+                bg= {props.theme.pageButtons} 
                 onClick={() => handleDialog(true)}>
                     <Icon size="lg">
                         <FaPlus/>
