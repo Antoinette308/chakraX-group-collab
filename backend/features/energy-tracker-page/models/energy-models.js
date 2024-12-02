@@ -1,0 +1,37 @@
+import connection from "../../../config/database.js"
+
+function getAllActivities(userId, response) {
+    const query = "SELECT * FROM energy_activity WHERE userId = ?"
+    connection.query(query, [userId], (err, results) => {
+        if (err) {
+            return response(err);
+        }
+        else {
+            return response(null, results)
+        }
+    })
+}
+
+function createNewActivity(activityInfo, response) {
+    const query = "INSERT INTO energy_activity (userId, name, spoons) VALUES (?, ?, ?)";
+    connection.query(query, [activityInfo.userId, activityInfo.name, activityInfo.spoons], (err, results) => {
+        return err ? response(err) : response(null, (results.insertId, activityInfo))
+    });
+}
+
+function updateActivity(spoons, response) {
+    const query = "UPDATE energy_activity SET spoons = ? WHERE entryId = ?"
+    connection.query(query, [spoons], (err, results) => {
+        return err ? response(err) : response(null, (results, entryInfo));
+    });
+}
+
+function deleteActivity(activtyId, response) {
+    const query = "DELETE FROM energy_activity WHERE activityId = ?"
+    connection.query(query, [activtyId], (err, results) => {
+        return err ? response(err) : response(null, (results, activityId));
+    });
+}
+
+
+export default { getAllActivities, createNewActivity, updateActivity, deleteActivity };
