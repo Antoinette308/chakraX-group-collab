@@ -42,8 +42,8 @@ describe('Authentication/Accounts API', () => {
     describe('POST /accounts/new-user', () => {
         it('should register new user information', async () => {
             const newUser = {
-                email: "protectedUser2@email.com", // alter this for EVERY test!
-                password: "password"
+                email: "newusermail@test.com", // alter this for EVERY test!
+                password: "password1"
             };
             const response = await request(app).post('/accounts/new-user').send(newUser);
             console.log('Test response body:', response.body);
@@ -54,8 +54,8 @@ describe('Authentication/Accounts API', () => {
     describe('POST /accounts/login', () => {
         it('should log in an existing user', async () => {
             const existingUser = {
-                email: "protectedUser2@email.com", // alter this for EVERY test!
-                password: "password"
+                email: "protectedUser1@email.com", // alter this for EVERY test!
+                password: "password1"
             };
             const response = await request(app).post('/accounts/login').send(existingUser);
             expect(response.status).toBe(200);
@@ -68,8 +68,8 @@ describe('Authentication/Accounts API', () => {
 
         beforeAll(async () => {
             const loginResponse = await request(app).post('/accounts/login').send({
-                email: "protectedUser2@email.com", // alter this for EVERY test!
-                password: "password"
+                email: "protectedUser1@email.com", // alter this for EVERY test!
+                password: "password1"
             });
             token = loginResponse.body.token;
         });
@@ -90,8 +90,8 @@ describe('Authentication/Accounts API', () => {
         let token;
         beforeAll(async () => {
             const loginResponse = await request(app).post('/accounts/login').send({
-                email: "protectedUser2@email.com", // alter this for EVERY test!
-                password: "password"
+                email: "protectedUser1@email.com", // alter this for EVERY test!
+                password: "password1"
             });
             token = loginResponse.body.token;
         });
@@ -99,14 +99,14 @@ describe('Authentication/Accounts API', () => {
             const response = await request(app)
                 .put('/accounts/update-user-details')
                 .set('Authorization', `Bearer ${token}`)
-                .send({ email: "newUser2@email.com", password: "newpassword" }); // alter this for EVERY test!
+                .send({ email: "protectedUser2@email.com", password: "password1" }); // alter this for EVERY test!
             expect(response.status).toBe(200);
             exppect(response.body).toHaveProperty('email', 'newUser1@email.com');
         });
         it('should return 401 for unauthenticated user', async () => {
             const response = await request(app)
                 .put('/accounts/update-user-details')
-                .send({ email: "newUser2@email.com", password: "newpassword" }); // alter email for EVERY test!
+                .send({ email: "protectedUser1@email.com", password: "password1" }); // alter email for EVERY test!
             expect(response.status).toBe(401);
         });
     });
@@ -116,8 +116,8 @@ describe('Authentication/Accounts API', () => {
 
         beforeAll(async () => {
             const loginResponse = await request(app).post('/accounts/login').send({ 
-                email: "newUser2@email.com", // alter this for EVERY test!
-                password: "newpassword"
+                email: "newusermail@test.com", // alter this for EVERY test!
+                password: "password1"
             });
             token = loginResponse.body.token;
         });
@@ -126,12 +126,12 @@ describe('Authentication/Accounts API', () => {
             const response = await request(app)
             .delete('/accounts/deactivate-account')
             .set('Authorization', `Bearer ${token}`)
-            .send({ password: "newpassword" });
+            .send({ password: "password1" });
         expect(response.status).toBe(200)
         });
 
         it('should return 401 for unauthenticated user', async () => {
-            const response = await request(app).delete('/accounts/deactivate-account').send({ password: "newpassword" });
+            const response = await request(app).delete('/accounts/deactivate-account').send({ password: "password" });
             expect(response.status).toBe(401);
         });
     });
