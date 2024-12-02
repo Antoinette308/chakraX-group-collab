@@ -68,8 +68,10 @@ function HabitTracker() {
                     />
                 ))}
             </div>
-            <ViewWeekly habits={habits} setHabits={setHabits} />
-            <WeeklyProgress habits={habits} />
+            <div className='weekly-progress-div'>
+                <ViewWeekly habits={habits} setHabits={setHabits} />
+                <WeeklyProgress habits={habits} />
+            </div>
         </div>
     );
 }

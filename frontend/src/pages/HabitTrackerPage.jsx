@@ -9,7 +9,7 @@ function HabitTrackerPage(){
     return (
     <>
         <Header size="6xl" bg="teal.500" color="gray.900" text="Habit Tracker"/>
-        <Text id="habit-text" textAlign={"center"} fontSize={20}>What habits would you like to track?</Text>
+        {/*<Text id="habit-text" textAlign={"center"} fontSize={20}>What habits would you like to track?</Text>*/}
         <HabitTracker />
     </>
     );
