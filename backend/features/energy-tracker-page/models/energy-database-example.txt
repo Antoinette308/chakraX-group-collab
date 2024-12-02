@@ -1,0 +1,6 @@
+CREATE TABLE energy_activity (
+    activityId INT NOT NULL AUTO_INCREMENT PRIMARY KEY 
+    userId FOREIGN KEY INT NOT NULL
+    name VARCHAR(100) NOT NULL UNIQUE
+    spoons INT NOT NULL CHECK (spoon >= 1 AND spoon <= 5)
+)
