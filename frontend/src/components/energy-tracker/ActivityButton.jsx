@@ -10,8 +10,9 @@ import { FaRegTrashCan } from "react-icons/fa6";
 
 function ActivityButton(props){ 
     const [energy, setEnergy] = useState(props.value);
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(props.active);
     const [activity, setActivity] = useState(props.activity)
+
 
     function handleSpoonChange(e, a) {
         setIsActive(false)
@@ -103,7 +104,7 @@ function ActivityButton(props){
             <Text>{props.text}</Text>
             
             <Rating icon={<FaUtensilSpoon/>} 
-            defaultValue="0" value={props.value} color={props.theme.pageButtonText}
+            defaultValue="0" value={props.value}
             readOnly count="5"/> 
 
             <EditDialog id={props.id}
