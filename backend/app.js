@@ -16,6 +16,9 @@ const { json } = pkg;
 app.use(json());
 app.use(cors());
 
+// Export the app instance
+export default app;
+
 /* ===============================================================
                         USE ROUTES
         app.use('/feature', featureRoute);
