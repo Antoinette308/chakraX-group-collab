@@ -11,6 +11,12 @@ import {
     updateUserInformation,
     deleteUserAccount
 } from '../models/auth-model.js';
+import crypto from 'crypto';
+import {
+    saveResetToken,
+    findUserByToken,
+    updateUserPassword
+} from '../models/auth-model.js';
 
 // console.log('jsonwebtoken model:', jwt);
 // console.log('SECRET_KEY:', process.env.SECRET_KEY);
@@ -104,8 +110,58 @@ export const updateUserInformationController = (req, res) => {
     });
 };
 
-// Password reset?
+// Password reset
+    // controller to handle token generatation
+export const passwordResetTokenController = (req, res) => {
+    const { email } = req.body;
+    findUserByEmail(email, (error, user) => {
+        if (error) {
+            console.error('Error finding user:', error);
+            return res.status(500).json({ error: error.message });
+        }
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const token = crypto.randomBytes(32).toString('hex');
+        const resetPasswordExpires = new Date(Date.now() + 1800000).toISOString().slice(0, 19).replace('T', ' '); 
 
+        saveResetToken(user.email, token, resetPasswordExpires, (err) => {
+            if (err) {
+                console.error('Error saving reset token:', err);
+                return res.status(500).json({ error: err.message });
+            }
+            console.log(`Generated token: ${token}`);
+            res.status(200).json({ message: 'Token saved', token });
+        });
+    });
+};
+
+    // controller to use the token and reset the password
+export const resetPasswordWithTokenController = (req, res) => {
+    const { token, newPassword } = req.body;
+    findUserByToken(token, (error, user) => {
+        if (error) {
+            console.error('Error finding user by token', error);
+            return res.status(500).json({ error: error.message });
+        }
+        if (!user || user.resetPasswordExpires < Date.now()) {
+            return res.status(400).json({ message: 'Password Reset Token is invalid or has expired' });
+        }
+        bcrypt.hash(newPassword, 10, (err, hashedPassword) => {
+            if (err) {
+                console.error('Error hashing password:', err);
+                return res.status(500).json({ error: err.message });
+            }
+            updateUserPassword(user.email, hashedPassword, (error, results) => {
+                if (error) {
+                    console.error('Error updating password:', error);
+                    return res.status(500).json({ error: error.message });
+                }
+                res.status(200).json({ message: 'Password successfully reset' });
+            });
+        });
+    });
+};
 
 // delete/deactivate user account
 export const deleteUserAccountController = (req, res) => {
