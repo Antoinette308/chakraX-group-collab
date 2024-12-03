@@ -10,21 +10,21 @@ import { FaRegTrashCan } from "react-icons/fa6";
 
 function ActivityButton(props){ 
     const [energy, setEnergy] = useState(props.value);
-    const [isActive, setIsActive] = useState(props.active);
+    const [isCurrentlyActive, setIsCurrentlyActive] = useState(props.active);
     const [activity, setActivity] = useState(props.activity)
 
 
     function handleSpoonChange(e, a) {
-        setIsActive(false)
+        setIsCurrentlyActive(0)
         setEnergy(e);
         setActivity(a);
         props.setActivities([...props.activities].map(activity => {
             if(activity.id === props.id) { 
                 return {
                 ...activity,
-                active: false, 
+                isActive: 0, 
                 spoons: e,
-                activity: a
+                name: a
                 }
             }else 
                 return activity; 
@@ -36,18 +36,19 @@ function ActivityButton(props){
 
     function handleActivate() {
         props.setActivities([...props.activities].map(activity => {
-            if(activity.id === props.id) { 
-                if(activity.active === true || activity.spoons > props.overallSpoons){
-                    setIsActive(false);
+            if(activity.activityId === props.id) { 
+                console.log(activity.activityId,props.id)
+                if(activity.isActive || activity.spoons > props.overallSpoons){
+                    setIsCurrentlyActive(0);
                     return {
                         ...activity, 
-                        active: false
+                        isActive: 0
                     }
                 } else {
-                    setIsActive(true);
+                    setIsCurrentlyActive(1);
                     return {
                         ...activity,
-                        active: true
+                        isActive: 1
                     }
                 }
             } else {
@@ -58,7 +59,7 @@ function ActivityButton(props){
 
 
     function handleDelete(e, a) {
-        setIsActive(false)
+        setIsCurrentlyActive(0)
         setEnergy(e);
         setActivity(a);
         props.setActivities([...props.activities].map(activity => {
@@ -66,7 +67,7 @@ function ActivityButton(props){
                 console.log(activity)
                 return {
                 ...activity,
-                active: false, 
+                isActive: 0, 
                 spoons: e,
                 activity: a
             }
@@ -79,12 +80,12 @@ function ActivityButton(props){
 
     function checkId(){
         if(props.index <= 3)
-            if(isActive){
+            if(isCurrentlyActive){
                 return {base:"green.700",_hover:"green.600"}
             } else {
                 return {base:"green.500",_hover:"green.600"}
             }
-        else if(isActive){
+        else if(isCurrentlyActive){
             return props.theme.pageButtonActive
         } else {
             return props.theme.pageButtons
@@ -95,7 +96,7 @@ function ActivityButton(props){
     return  ( 
         <Box width="125px" height={'125px'} 
         borderRadius="20px" bg={checkId()}
-        color={isActive ? {base: "gray.300", _hover: "white"} : props.theme.pageButtonText}
+        color={isCurrentlyActive ? {base: "gray.300", _hover: "white"} : props.theme.pageButtonText}
         textAlign="center" alignContent={"center"} 
         onClick={() => {
             handleActivate(); 

@@ -29,24 +29,24 @@ function EnergyTracker() {
 
 
     const initialActivities = [
-        { activity: "Have a cold", spoons: 4, active: false},
-        {  activity: "Slept Badly", spoons: 1, active: false},
-        { activity: "Missed Meds", spoons: 1, active: false},
-        { activity: "Skipped A Meal", spoons: 1, active: false},
-        { activity: "Get Out Of Bed", spoons: 1, active: false},
-        { activity: "Take Pills", spoons: 1, active: false},
-        { activity: "Watch TV", spoons: 1, active: false},
-        {activity: "Bathe", spoons: 2, active: false},
-        {activity: "Style Hair", spoons: 2, active: false},
-        {activity: "Use Internet", spoons: 2, active: false},
-        {activity: "Study", spoons: 2, active: false},
-        { activity: "Make Dinner", spoons: 3, active: false},
-        { activity: "Socialise", spoons: 3, active: false},
-        { activity: "Housework", spoons: 3, active: false},
-        { activity: "Go for a Drive", spoons: 3, active: false},
-        { activity: "Go to Work", spoons: 4, active: false},
-        { activity: "Go Shopping", spoons: 4, active: false},
-        { activity: "Exercise", spoons: 5, active: false}
+        { name: "Have a cold", spoons: 4, isActive: false},
+        {  name: "Slept Badly", spoons: 1, isActive: false},
+        { name: "Missed Meds", spoons: 1, isActive: false},
+        { name: "Skipped A Meal", spoons: 1, isactive: false},
+        { name: "Get Out Of Bed", spoons: 1, isactive: false},
+        { name: "Take Pills", spoons: 1, isActive: false},
+        { name: "Watch TV", spoons: 1, isActive: false},
+        {name: "Bathe", spoons: 2, isActive: false},
+        {name: "Style Hair", spoons: 2, isActive: false},
+        {name: "Use Internet", spoons: 2, isActive: false},
+        {name: "Study", spoons: 2, isActive: false},
+        { name: "Make Dinner", spoons: 3, isActive: false},
+        { name: "Socialise", spoons: 3, isActive: false},
+        { name: "Housework", spoons: 3, isActive: false},
+        { name: "Go for a Drive", spoons: 3, isActive: false},
+        { name: "Go to Work", spoons: 4, isActive: false},
+        { name: "Go Shopping", spoons: 4, isActive: false},
+        { name: "Exercise", spoons: 5, isActive: false}
     ];
 const [activities, setActivities] = useState([]);
 const [token, setToken] = useState(1);
@@ -84,9 +84,9 @@ const [token, setToken] = useState(1);
                 body: JSON.stringify({
                     userId: 1,
                     activityId: a.id,
-                    name: a.activity,
+                    name: a.name,
                     spoons: a.spoons,
-                    isActive: a.active
+                    isActive: a.isActive ? 1 : 0
                 }),
                 headers: {
                     "Content-Type": "application/json",
@@ -104,7 +104,6 @@ const [token, setToken] = useState(1);
             }
             
         })
-        
     }
 
 const [prevActivities, setPrevActivities] = useState(activities);
@@ -123,7 +122,7 @@ const [prevActivities, setPrevActivities] = useState(activities);
                 //This will only activate if an activity has been deleted.
             prevActivities.map((a) => {
                 //Map through the previous activities to see if they are in the new activities state
-                if(!activities.includes(a) && a.active){
+                if(!activities.includes(a) && a.isActive){
                     //If the new activities array does not include an object from the previous activities array, do the following
                     setSpoons(prev => prev + a.spoons)
                 } 
@@ -134,13 +133,13 @@ const [prevActivities, setPrevActivities] = useState(activities);
                 //This only activates if the previousActivities length is the same as the new activities length 
             activities.map((activity, index) => {
                 const prevAct = prevActivities[index];
-                if(activity.active && activity.active !== prevAct.active 
+                if(activity.isActive && activity.isActive !== prevAct.isActive 
                 && activity.spoons === prevAct.spoons && spoons - activity.spoons >= 0){
                     /*If the current object in the array is active, was not active before the state change, 
                     the spoon amount has not changed and the spoon amount will not take the  overall energy below 0, 
                     do the following:*/
                     setSpoons(prev => prev - activity.spoons)
-                } else if (!activity.active && activity.active !== prevAct.active ) {
+                } else if (!activity.isActive && activity.isActive !== prevAct.isActive ) {
                     /* If the current object in the array is not active, and it was active before the state change, 
                     do the following  */
                     if(activity.spoons !== prevAct.spoons) {
@@ -174,7 +173,7 @@ const [prevActivities, setPrevActivities] = useState(activities);
             }
         })
         prevActivities.map((a) => {
-        if(a.active){
+        if(a.isActive){
             setSpoons(prev => prev - a.spoons)
         }
     })
@@ -182,6 +181,7 @@ const [prevActivities, setPrevActivities] = useState(activities);
 
 useEffect(() => {
     if(activities.length > 0){
+        console.log(activities, prevActivities)
     localStorage.setItem('activities', JSON.stringify(activities));
     changeSpoons()
     }
@@ -212,10 +212,10 @@ useEffect(() => {
                         <AddActivityDialog theme={theme}
                         activities={activities} setActivities={setActivities} />
                         {activities.map((a, index) => {
-                            return <ActivityButton key={a.id} 
+                            return <ActivityButton key={a.activityId} 
                                 index={index}
-                                id={a.id} text={a.activity} 
-                                active={a.active}
+                                id={a.activityId} text={a.name} 
+                                active={a.isActive}
                                 value={a.spoons} setActivities={setActivities} 
                                 activities={activities} overallSpoons = {spoons} theme={theme}
                                 onClick={() => setPrevActivities(activities)} /> 

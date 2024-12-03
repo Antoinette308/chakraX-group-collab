@@ -2,12 +2,13 @@ import models from "../models/energy-models.js"
 
 function getAllActivities(req, res) {
     // Get all activities used in the energy tracker
-    const { userId } = req.params.id;
+    const userId  = req.params.id;
     models.getAllActivities(userId, (err, results) => {
         if (err) {
             console.log("Error getting all activities", err)
             res.status(500).json({ error: err.message })
         } else {
+            console.log(results)
             res.status(200).json(results);
         }
     })
