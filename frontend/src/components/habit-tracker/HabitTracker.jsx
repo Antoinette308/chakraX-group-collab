@@ -6,12 +6,20 @@ import './HabitTracker.css';
 import ViewWeekly from './ViewWeekly';
 import WeeklyProgress from './WeeklyProgress'
 
+//save habits to storage
+const saveHabitsToLocalStorage = (habits) => {
+    try {
+        localStorage.setItem('habits', JSON.stringify(habits));
+    } catch (error) {
+        console.error("Error saving habits to local storage:", error);
+    }
+};
+
 // fetch habits from API
 const fetchHabits = async () => {
     try {
         const response = await fetch('http://localhost:3000/habit');
-        const json = await response.json();
-        return json;
+        return await response.json();
     } catch (error) {
         console.error("Error fetching habits:", error);
         return [];
@@ -19,35 +27,46 @@ const fetchHabits = async () => {
 }
 
 // add habits via API
-const addHabits = async () => {
+const addHabitAPI = async (habitDetails) => {
+
     try {
         const response = await fetch('http://localhost:3000/new-habit', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(habitDetails),
         });
-        const newHabit = await response.json();
-        return newHabit;
+        return await response.json();
     } catch (error) {
-        console.log("Error adding a new habit", error);
+        console.log("Error adding a new habit via API", error);
         return null;
     }
 };
 
-//delete habits vua API
-const deleteHabits = async () => {
+//delete habits via API
+const deleteHabitAPI = async () => {
     try {
         const response = await fetch (`http://localhost:3000/delete-habit/${id}`, {
             method: 'DELETE',
         });
         return id;
     } catch (error) {
-        console.log("Error deleting habit:", error);
+        console.log("Error deleting habit via API", error);
         return null;
     }
 }
+
+// update habits via API
+const updateHabitAPI = async (habit) => {
+    try {
+        const response = await fetch(`http://localhost:3000/update-habit/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(habit),
+        });
+    } catch (error) {
+        console.log('Error updating habit via API', error);
+    }
+};
 
 function HabitTracker() {
 
@@ -61,39 +80,45 @@ function HabitTracker() {
         }
     });
 
-    //Save habits to local storage on state change
+    //fetch habits from API and sync w local storage
     useEffect(() => {
-        if (Array.isArray(habits)) {
-            localStorage.setItem('habits', JSON.stringify(habits)); // If habits is an array, not null or undefined, save to localStorage
-        } else {
-            console.error("Invalid habits state; not saving to localStorage:", habits);
-        }
+        const initialiseHabits = async () => {
+            const apiHabits = await fetchHabits();
+            setHabits(apiHabits);
+            saveHabitsToLocalStorage(apiHabits);
+        };
+        initialiseHabits();
+    }, []);
+
+    //sync local storage whenever habit state changes
+    useEffect(() => {
+        saveHabitsToLocalStorage(habits);
     }, [habits]);
     
-    //Function to add new habit, a unique id is created with uuid
-    function addHabit(habitDetails) {
-        const Monday = false;
-        const Tuesday = false;
-        const Wednesday = false;
-        const Thursday = false;
-        const Friday = false;
-        const Saturday = false;
-        const Sunday = false;
-        
-
+    //Add new habit (via API and local storage)
+    const addHabit = async (habitDetails) => {
         const newHabit = {
             id: uuidv4(),
             ...habitDetails,
-            Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday,
+            Monday: false,
+            Tuesday: false,
+            Wednesday: false,
+            Thursday: false,
+            Friday: false,
+            Saturday: false,
+            Sunday: false,
         };
 
-        setHabits((prevHabits) => [...prevHabits, newHabit]);   
+        const savedHabit = await addHabitAPI(newHabit);
+        if (savedHabit) {
+            setHabits((prevHabits) => [...prevHabits, newHabit]);  
+        }
     };
 
 
-    //Function to delete a habit by id (from databse and local storage)
+    //Delete a habit by id (via API and local storage)
     const deleteHabit = async (id) => {
-        const deletedId = await deleteHabits(id);
+        const deletedId = await deleteHabitAPI(id);
         if (deletedId) {
             setHabits((prevHabits) => prevHabits.filter((habit) => habit.id !== deletedId)); //remove habit from state
 
@@ -101,6 +126,17 @@ function HabitTracker() {
             localStorage.setItem('habits', JSON.stringify(updatedHabits)); //update local storage to new array, deleting old habit
         }
     };
+
+    //Toggle habit status (update API and local storage)
+    const toggleStatus = async (habitIndex, day) => {
+        const updatedHabits = [...habits];
+        updatedHabits[habitIndex][day] = !updatedHabits[habitIndex][day];
+
+        const habitToUpdate = updatedHabits[habitIndex];
+        await updateHabitAPI(habitToUpdate);
+
+        setHabits(updatedHabits);
+    }
 
     return (
         <div className='habit-tracker'>
