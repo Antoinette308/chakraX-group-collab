@@ -6,6 +6,49 @@ import './HabitTracker.css';
 import ViewWeekly from './ViewWeekly';
 import WeeklyProgress from './WeeklyProgress'
 
+// fetch habits from API
+const fetchHabits = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/habit-tracker');
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.error("Error fetching habits:", error);
+        return [];
+    }
+}
+
+// add habits via API
+const addHabits = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/habit-tracker', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(habitDetails),
+        });
+        const newHabit = await response.json();
+        return newHabit;
+    } catch (error) {
+        console.log("Error adding a new habit", error);
+        return null;
+    }
+};
+
+//delete habits vua API
+const deleteHabits = async () => {
+    try {
+        const response = await fetch (`http://localhost:3000/habit-tracker/${id}`, {
+            method: 'DELETE',
+        });
+        return id;
+    } catch (error) {
+        console.log("Error deleting habit:", error);
+        return null;
+    }
+}
+
 function HabitTracker() {
 
     const [habits, setHabits] = useState(() => {
@@ -29,29 +72,34 @@ function HabitTracker() {
     
     //Function to add new habit, a unique id is created with uuid
     function addHabit(habitDetails) {
-        const status = {
-            Monday: false,
-            Tuesday: false,
-            Wednesday: false,
-            Thursday: false,
-            Friday: false,
-            Saturday: false,
-            Sunday: false,
-        };
+        const Monday = false;
+        const Tuesday = false;
+        const Wednesday = false;
+        const Thursday = false;
+        const Friday = false;
+        const Saturday = false;
+        const Sunday = false;
+        
 
         const newHabit = {
             id: uuidv4(),
             ...habitDetails,
-            status,
+            Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday,
         };
 
         setHabits((prevHabits) => [...prevHabits, newHabit]);   
     };
 
 
-    //Function to delete a habit by id
-    function deleteHabit(id) {
-        setHabits(habits.filter((habit) => habit.id !== id));
+    //Function to delete a habit by id (from databse and local storage)
+    const deleteHabit = async (id) => {
+        const deletedId = await deleteHabits(id);
+        if (deletedId) {
+            setHabits((prevHabits) => prevHabits.filter((habit) => habit.id !== deletedId)); //remove habit from state
+
+            const updatedHabits = habits.filer((habit) => habit.id !== deletedId) // create new array without deleted habit
+            localStorage.setItem('habits', JSON.stringify(updatedHabits)); //update local storage to new array, deleting old habit
+        }
     };
 
     return (

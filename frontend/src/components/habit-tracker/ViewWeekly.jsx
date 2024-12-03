@@ -4,9 +4,9 @@ import './HabitTracker.css'
 
 function ViewWeekly({ habits, setHabits }) {
 
-    const toggleStatus = (habitIndex,day) => {
+    const toggleStatus = (habitIndex, day) => {
         const updatedHabits = [...habits];
-        updatedHabits[habitIndex].status[day] = !updatedHabits[habitIndex].status[day];
+        updatedHabits[habitIndex][day] = !updatedHabits[habitIndex][day];
         setHabits(updatedHabits);
         localStorage.setItem('habits', JSON.stringify(updatedHabits));
     };
@@ -22,13 +22,13 @@ function ViewWeekly({ habits, setHabits }) {
         let storedHabits = JSON.parse(localStorage.getItem("habits"));
 
         if (storedHabits && monday !== latestMonday) {
-            // Reset all habit statuses to false
+            // Reset all completed habit days to false
             const updatedHabits = storedHabits.map(habit => {
-                const updatedStatus = Object.keys(habit.status).reduce((acc, day) => {
-                    acc[day] = false;
-                    return acc;
-                }, {});
-                return { ...habit, status: updatedStatus };
+                const resetHabit = { ...habit };
+                ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].forEach(day => {
+                    resetHabit[day] = false;
+                });
+                return resetHabit;
             });
             localStorage.setItem("habits", JSON.stringify(updatedHabits));
             localStorage.setItem("latestMonday", monday);
@@ -88,18 +88,20 @@ return (
                         <td>
                             <h4 style={{ color: habit.colour}}>{habit.text}</h4>
                         </td>
-                        {Object.keys(habit.status).map((day) => (
+                        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
                             <td
                                 key={day}
                                 className='text-center'
                                 style={{ cursor: 'pointer' }}
                                 onClick={() => toggleStatus(habitIndex, day)}
-                            ><div className='icons-div'>
-                                {habit.status[day] ? (
+                            >
+                                <div className='icons-div'>
+                                {habit[day] ? (
                                     <FaCircle className='text-sucess' title='Mark undone' size={30} style={{color: habit.colour}}/>
                                 ) : (
                                     <FaTimes className='text-danger' title="Mark done" size={40} style={{ opacity: 0 }}/>
-                                )}</div>
+                                )}
+                                </div>
                             </td>
                         ))}
                     </tr>
