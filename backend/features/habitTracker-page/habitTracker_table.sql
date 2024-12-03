@@ -4,10 +4,14 @@ USE exec_function_db;
 
 CREATE TABLE habits ( 
     id INT PRIMARY KEY AUTO_INCREMENT, 
-    habit_name VARCHAR(255) NOT NULL, 
-    description TEXT, 
+    habit VARCHAR(255) NOT NULL,
     frequency INT, -- Number of times the habit should be done 
     recurrence ENUM('daily', 'weekly', 'monthly', 'yearly'), -- Time period in which the frequency applies 
-    start_date DATE, 
-    last_completed DATE 
+    monday BOOLEAN,
+    tuesday BOOLEAN,
+    wednesday BOOLEAN,
+    thursday BOOLEAN,
+    friday BOOLEAN,
+    saturday BOOLEAN,
+    sunday BOOLEAN 
 );
