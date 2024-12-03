@@ -2,7 +2,6 @@
                     ES6 SYNTAX IMPORTS
 ================================================================== */
 // import db connection
-import { errorMonitor } from "supertest/lib/test.js";
 import connection from "../../../config/database.js";
 
 // Create

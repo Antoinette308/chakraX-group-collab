@@ -17,8 +17,11 @@ import {
     findUserByToken,
     updateUserPassword
 } from '../models/auth-model.js';
+import dotenv from "dotenv";
 
-// console.log('jsonwebtoken model:', jwt);
+dotenv.config();
+
+console.log('jsonwebtoken model:', jwt);
 // console.log('SECRET_KEY:', process.env.SECRET_KEY);
 
 // welcome message
@@ -64,13 +67,21 @@ export const existingUserController = (req, res) => {
             return res.status(404).json({ message: 'User not found'});
         }
 
-        bcrypt.compare(password, user.password, (err, isValid) => {
+        // bcrypt.hash(password, 10, (err, hashedPassword) => {
+        //     if (err) {
+        //         console.error('Error hashing password:', err);
+        //         return res.status(500).json({ error: err.message });
+        //     }
+
+        bcrypt.compareSync(password, user.password, (err, isValid) => {
             if (err) {
                 console.error('Error comparing password:', err);
                 return res.status(500).json({ error: err.message });
             }
+            console.log(isValid);
             if (!isValid) {
-                console.log('Invalid credentials for user:', email);
+                
+                console.log('Invalid credentials for user:', email, password, hashedPassword, user.password);
                 return res.status(401).json({ error: 'Invalid credentials' });
             }
 
@@ -78,12 +89,13 @@ export const existingUserController = (req, res) => {
             console.log('Generated token:', token);
             res.json({ token });
         });
+        // });
     });
 };
 
 // Read user information - settings type scenario
 export const getUserDetailsController = (req, res) => {
-    const email = req.user.email;
+    const { email } = req.body;
     findUserByEmail(email, (error, user) => {
         if (error) {
             console.error('Error finding user by email:', error);
