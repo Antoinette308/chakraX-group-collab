@@ -1,15 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCircle, FaTimes } from 'react-icons/fa';
 import './HabitTracker.css'
 
 function ViewWeekly({ habits, setHabits }) {
 
-const toggleStatus = (habitIndex,day) => {
-    const updatedHabits = [...habits];
-    updatedHabits[habitIndex].status[day] = !updatedHabits[habitIndex].status[day];
-    setHabits(updatedHabits);
-    localStorage.setItem('habits', JSON.stringify(updatedHabits));
-};
+    const toggleStatus = (habitIndex,day) => {
+        const updatedHabits = [...habits];
+        updatedHabits[habitIndex].status[day] = !updatedHabits[habitIndex].status[day];
+        setHabits(updatedHabits);
+        localStorage.setItem('habits', JSON.stringify(updatedHabits));
+    };
+
+    // Set all completed days to false when logging on for the first time in a new week
+    function NewWeekReset() {
+        const currentDate = new Date();
+        const dayOfWeek = currentDate.getDay();
+        const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+        const monday = (new Date(currentDate.setDate(currentDate.getDate() + diff))).toISOString().slice(0, 10);
+
+        let latestMonday = localStorage.getItem("latestMonday");
+        let storedHabits = JSON.parse(localStorage.getItem("habits"));
+
+        if (storedHabits && monday !== latestMonday) {
+            // Reset all habit statuses to false
+            const updatedHabits = storedHabits.map(habit => {
+                const updatedStatus = Object.keys(habit.status).reduce((acc, day) => {
+                    acc[day] = false;
+                    return acc;
+                }, {});
+                return { ...habit, status: updatedStatus };
+            });
+            localStorage.setItem("habits", JSON.stringify(updatedHabits));
+            localStorage.setItem("latestMonday", monday);
+            setHabits(updatedHabits); // Update React state
+            console.log("Weekly habit tracker reset for a new week.");
+        } else {
+            console.log("No habit tracker reset needed.")
+        }
+    }
 
     // Get week dates starting from Monday
     function getWeekDates() {
@@ -34,6 +62,11 @@ const toggleStatus = (habitIndex,day) => {
         });
         return weekDates;
     }
+
+    //call NewWeekReset on mount
+    useEffect(() => {
+        NewWeekReset();
+    }, []);
 
     const weekDates = getWeekDates();
 
