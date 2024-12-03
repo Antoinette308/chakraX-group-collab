@@ -3,8 +3,8 @@
 ================================================================== */
 // imports
 import express from 'express';
-import { welcomeMessage } from '../controllers/auth-controller.js';
-import {
+import { 
+    welcomeMessage, 
     createUserController,
     existingUserController,
     getUserDetailsController,

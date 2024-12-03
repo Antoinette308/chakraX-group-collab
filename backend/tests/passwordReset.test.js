@@ -17,6 +17,15 @@ app.use(cors());
 // app.use('/feature', featureRoute)
 app.use('/forgotten-password', authRoute);
 
+let server;
+beforeEach((done) => {
+    server = app.listen(done);
+});
+afterEach((done) => {
+    server.close(done);
+});
+
+
 beforeAll((done) => {
     connection.connect(done);
 });

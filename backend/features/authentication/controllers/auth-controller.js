@@ -21,7 +21,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log('jsonwebtoken model:', jwt);
+// console.log('jsonwebtoken model:', jwt);
 // console.log('SECRET_KEY:', process.env.SECRET_KEY);
 
 // welcome message
@@ -67,21 +67,14 @@ export const existingUserController = (req, res) => {
             return res.status(404).json({ message: 'User not found'});
         }
 
-        // bcrypt.hash(password, 10, (err, hashedPassword) => {
-        //     if (err) {
-        //         console.error('Error hashing password:', err);
-        //         return res.status(500).json({ error: err.message });
-        //     }
-
-        bcrypt.compareSync(password, user.password, (err, isValid) => {
+        bcrypt.compare(password, user.password, (err, isValid) => {
             if (err) {
                 console.error('Error comparing password:', err);
                 return res.status(500).json({ error: err.message });
             }
             console.log(isValid);
-            if (!isValid) {
-                
-                console.log('Invalid credentials for user:', email, password, hashedPassword, user.password);
+            if (!isValid) {  
+                console.log('Invalid credentials for user:', email);
                 return res.status(401).json({ error: 'Invalid credentials' });
             }
 
