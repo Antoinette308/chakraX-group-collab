@@ -63,42 +63,65 @@ import { useState, useEffect } from 'react';
 
 
 function ToDoListItems() {
-    console.log('ToDoListItems component rendered');
+    console.log('ToDoListItems component rendered'); 
 
 
+        // My code
+
+                // readAllTodos(); // Call the function to test if it works
+
+        const [todos, setTodos] = useState([]);
+        const [isLoading, setIsLoading] = useState(true); // Add loading state // from google
         
         // async/await to attempt fetching all todos.    
         async function readAllTodos() {
             console.log('Calling API to read all todos');
-            const url = 'http://localhost:3000/todo-list'
+            const url = 'http://localhost:3000/todo/all-tasks'; // Initially, I was calling the wrong local host and the wrong endpoint. The correct endpoints are in todo.routes.js
             try {   // Wrap code in a try block to catch any errors
                 const response = await fetch(url);
                 const data = await response.json();
                 console.log(data);
+                return data; // Initially I wasn't returning the data, but I've now added a return statement to return the data
             } catch (error) {
-                console.error('Error fetching tasks:', error);
+                console.error('Error fetching tasks:', error.message);
+                return []; // Initially I wasn't returning an empty array, but I've now added a return statement to return an empty array
             }
         }
 
-        readAllTodos(); // Call the function to test if it works
+
+
 
         // Create a useEffect function here to call readAllTodos() when the component mounts.
         useEffect(() => {
-            readAllTodos();
-        }, []);
+            readAllTodos()
+            .then((data) => {
+                setTodos(data); // Initially I was setting the todos to an empty array, but I've now set the todos to the data
+                setIsLoading(false); 
+            });
+        }, []); 
+
+        // If the data is still loading, display a loading message.
+        if (isLoading) {
+            return <p>Loading...</p>;
+        }
+
+
         
 
         return (
             <VStack width='100%' alignItems='stretch'>
-                <HStack p={2} borderWidth={1} borderRadius="30px">
+                {todos.map((todo, index) => (    // Initially I was mapping over the todos array, but I've now added an index to the map function. This also a key for the HStack
+                    <HStack key={index} p={2} borderWidth={1} borderRadius="30px">  {/* Initially I was using the todo.id as the key, but I've now used the index as the key */}
                     <input type="checkbox" />
-                    <p>task</p>
+                    <text>{todo.tasks}</text>   {/* Initially I was using todo.body, but I've now used todo.tasks */}
                     <Spacer />
                     <HiOutlinePencilSquare />
                     <FaRegTrashCan />
                 </HStack>
+            ))}
             </VStack>
         );
     }
     
     export default ToDoListItems;
+    
