@@ -9,7 +9,7 @@ import WeeklyProgress from './WeeklyProgress'
 // fetch habits from API
 const fetchHabits = async () => {
     try {
-        const response = await fetch('http://localhost:3000/habit-tracker');
+        const response = await fetch('http://localhost:3000/habit');
         const json = await response.json();
         return json;
     } catch (error) {
@@ -21,7 +21,7 @@ const fetchHabits = async () => {
 // add habits via API
 const addHabits = async () => {
     try {
-        const response = await fetch('http://localhost:3000/habit-tracker', {
+        const response = await fetch('http://localhost:3000/new-habit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const addHabits = async () => {
 //delete habits vua API
 const deleteHabits = async () => {
     try {
-        const response = await fetch (`http://localhost:3000/habit-tracker/${id}`, {
+        const response = await fetch (`http://localhost:3000/delete-habit/${id}`, {
             method: 'DELETE',
         });
         return id;
