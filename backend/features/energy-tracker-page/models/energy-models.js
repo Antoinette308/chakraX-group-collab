@@ -13,9 +13,9 @@ function getAllActivities(userId, response) {
 }
 
 function createNewActivity(activityInfo, response) {
-    const query = "INSERT INTO energy_activity (userId, name, spoons) VALUES (?, ?, ?)";
-    connection.query(query, [activityInfo.userId, activityInfo.name, activityInfo.spoons], (err, results) => {
-        return err ? response(err) : response(null, (results.insertId, activityInfo))
+    const query = "INSERT INTO energy_activity (userId, name, spoons, isActive, activityId) VALUES (?, ?, ?, ?, ?)";
+    connection.query(query, [activityInfo.userId, activityInfo.name, activityInfo.spoons, activityInfo.isActive, activityInfo.activityId], (err, results) => {
+        return err ? response(err) : response(null, (results, activityInfo))
     });
 }
 

@@ -78,7 +78,7 @@ function ActivityButton(props){
     }
 
     function checkId(){
-        if(props.id <= 4)
+        if(props.index <= 3)
             if(isActive){
                 return {base:"green.700",_hover:"green.600"}
             } else {
@@ -107,7 +107,7 @@ function ActivityButton(props){
             defaultValue="0" value={props.value}
             readOnly count="5"/> 
 
-            <EditDialog id={props.id}
+            <EditDialog id={props.index}
             onValueChange={handleSpoonChange} 
             value={energy} text={props.text} 
             activities={props.activities} 
@@ -116,7 +116,7 @@ function ActivityButton(props){
 
             <IconButton aria="delete" margin="5px" 
             variant="outline" color={props.theme.pageButtonText} 
-            display={props.id <= 4 ? "none" : "default" } 
+            display={props.index <= 3 ? "none" : "default" } 
             onClick={(e) => {  
                 e.stopPropagation();
                 handleDelete(energy, activity)

@@ -2,7 +2,7 @@ import models from "../models/energy-models.js"
 
 function getAllActivities(req, res) {
     // Get all activities used in the energy tracker
-    const { userId } = req.body;
+    const { userId } = req.params.id;
     models.getAllActivities(userId, (err, results) => {
         if (err) {
             console.log("Error getting all activities", err)
@@ -13,10 +13,10 @@ function getAllActivities(req, res) {
     })
 }
 
-function createNewActivity(req, red) {
+function createNewActivity(req, res) {
     //Create a new activity using information inputted in the back-end
     const activityInfo = req.body;
-    models.createNewEntry(activityInfo, (err, results) => {
+    models.createNewActivity(activityInfo, (err, results) => {
         if (err) {
             console.log("Error adding new activity", err);
             res.status(500).json({ error: err.message });

@@ -4,7 +4,7 @@ import controller from "../controllers/energy-controllers.js"
 const router = express.Router();
 
 //get all the activities for the user, displayed on the main page
-router.get("/", controller.getAllActivities)
+router.get("/:id", controller.getAllActivities)
 
 //create a new activity using activity info, ie name and spoons
 router.post("/", controller.createNewActivity)
