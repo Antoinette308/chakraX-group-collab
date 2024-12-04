@@ -3,125 +3,100 @@
 import { Box, Button, IconButton, Text } from "@chakra-ui/react";
 import { Rating } from "../ui/rating";
 import { FaUtensilSpoon } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EditDialog from "./EditDialog";
 import { FaRegTrashCan } from "react-icons/fa6";
 
 
 function ActivityButton(props){ 
-    const [energy, setEnergy] = useState(props.value);
-    const [isCurrentlyActive, setIsCurrentlyActive] = useState(props.active);
-    const [activity, setActivity] = useState(props.activity)
+    const [activityInfo, setActivityInfo] = useState(props.activity)
 
 
-    function handleSpoonChange(e, a) {
-        setIsCurrentlyActive(0)
-        setEnergy(e);
-        setActivity(a);
-        props.setActivities([...props.activities].map(activity => {
-            if(activity.id === props.id) { 
-                return {
-                ...activity,
-                isActive: 0, 
-                spoons: e,
-                name: a
-                }
-            }else 
-                return activity; 
-            }))
-        props.onClick();
+    function handleEdit(energy, activity) {
+        if(activityInfo.isActive){
+            props.addSpoons(activityInfo)
+        }
+        if(energy !== activityInfo.spoons && activity === activityInfo.name){
+            setActivityInfo(
+                {...activityInfo,
+                    spoons: energy,
+                    isActive: 0
+            })
+        } else if(activity !== activityInfo.name && energy === activityInfo.spoons) {
+            setActivityInfo(
+                {...activityInfo,
+                    name: activity,
+                    isActive: 0
+            })
+        } else { 
+            setActivityInfo(
+                {...activityInfo,
+                    spoons: energy,
+                    name: activity,
+                    isActive: 0
+            })
+
+        }
+    
     }
 
 
 
-    function handleActivate() {
-        props.setActivities([...props.activities].map(activity => {
-            if(activity.activityId === props.id) { 
-                console.log(activity.activityId,props.id)
-                if(activity.isActive || activity.spoons > props.overallSpoons){
-                    setIsCurrentlyActive(0);
-                    return {
-                        ...activity, 
+    function handleActiveChange() {
+            if(activityInfo.isActive){
+                props.addSpoons(activityInfo)
+                setActivityInfo(
+                    {...activityInfo,
                         isActive: 0
-                    }
-                } else {
-                    setIsCurrentlyActive(1);
-                    return {
-                        ...activity,
-                        isActive: 1
-                    }
-                }
+                    })
             } else {
-                return activity; 
+                props.subtractSpoons(activityInfo)
+                setActivityInfo(
+                    {...activityInfo,
+                        isActive: 1
+                    })
             }
-        }))
-    }
+        };
+    
 
 
     function handleDelete(e, a) {
-        setIsCurrentlyActive(0)
-        setEnergy(e);
-        setActivity(a);
-        props.setActivities([...props.activities].map(activity => {
-            if(activity.id === props.id) { 
-                console.log(activity)
-                return {
-                ...activity,
-                isActive: 0, 
-                spoons: e,
-                activity: a
-            }
-            }else {
-                return activity; 
-            }
-        }))
-        props.onClick();
-    }
-
-    function checkId(){
-        if(props.index <= 3)
-            if(isCurrentlyActive){
-                return {base:"green.700",_hover:"green.600"}
-            } else {
-                return {base:"green.500",_hover:"green.600"}
-            }
-        else if(isCurrentlyActive){
-            return props.theme.pageButtonActive
-        } else {
-            return props.theme.pageButtons
+        if(activityInfo.isActive){
+            props.addSpoons(activityInfo)
+            console.log(activityInfo)
         }
     }
 
+    useEffect(()=> {
+        {console.log(activityInfo)
+        props.editActivities(activityInfo)}
+    },[activityInfo])
 
     return  ( 
         <Box width="125px" height={'125px'} 
-        borderRadius="20px" bg={checkId()}
-        color={isCurrentlyActive ? {base: "gray.300", _hover: "white"} : props.theme.pageButtonText}
+        borderRadius="20px" bg={activityInfo.isActive ? props.theme.pageButtonActive : props.theme.pageButtons}
+        color={activityInfo.isActive ? {base: "gray.300", _hover: "white"} : props.theme.pageButtonText}
         textAlign="center" alignContent={"center"} 
-        onClick={() => {
-            handleActivate(); 
-            props.onClick()
-        }}>
-            <Text>{props.text}</Text>
+        onClick={ handleActiveChange}>
+            <Text>{activityInfo.name}</Text>
             
             <Rating icon={<FaUtensilSpoon/>} 
-            defaultValue="0" value={props.value}
+            defaultValue="1" value={activityInfo.spoons}
             readOnly count="5"/> 
 
-            <EditDialog id={props.index}
-            onValueChange={handleSpoonChange} 
-            value={energy} text={props.text} 
+            <EditDialog
+            onValueChange={handleEdit} 
+            value={activityInfo.spoons} text={activityInfo.name} 
             activities={props.activities} 
             setActivities={props.setActivities}
             theme={props.theme}/>
 
             <IconButton aria="delete" margin="5px" 
             variant="outline" color={props.theme.pageButtonText} 
-            display={props.index <= 3 ? "none" : "default" } 
             onClick={(e) => {  
                 e.stopPropagation();
-                handleDelete(energy, activity)
-                props.setActivities(props.activities.filter(a => a.id !== props.id))
+                handleDelete(activityInfo.spoons, activityInfo.name)
+                props.deleteActivity(activityInfo);
             }}>
                 <FaRegTrashCan />
             </IconButton>

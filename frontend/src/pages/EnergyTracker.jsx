@@ -73,16 +73,14 @@ const [token, setToken] = useState(1);
         }
     }
 
-    async function postActivities() {
+    async function postActivity(a) {
         const url = "http://localhost:3000/energy-tracker/";
-        activities.map(async (a) => {
-            console.log(a)
             try{
                 const response = await fetch(url, 
                 {
                     method: "POST",
                 body: JSON.stringify({
-                    userId: 1,
+                    userId: 2,
                     activityId: a.id,
                     name: a.name,
                     spoons: a.spoons,
@@ -91,7 +89,8 @@ const [token, setToken] = useState(1);
                 headers: {
                     "Content-Type": "application/json",
                 },
-            })
+                })
+
             if(!response.ok){
                 throw new Error(`Response Status: ${response.status}`)
             }
@@ -103,56 +102,58 @@ const [token, setToken] = useState(1);
                 console.error(err.message);
             }
             
-        })
+        
     }
 
-const [prevActivities, setPrevActivities] = useState(activities);
 
 
 
     ///This sets the activities for the page, can be replaced with an API call that gets all of the activity info for a single person 
 
+    //function to act as lodash isEqual method
+    function isEqual(x, y) {
+        const objectKeys = Object.keys; 
+        const typeX = typeof x;
+        const  typeY = typeof y;
+        return x && y && typeX === 'object' && typeX === typeY ? (
+            objectKeys(x).length === objectKeys(y).length &&
+            objectKeys(x).every(key => isEqual(x[key], y[key]))
+        ) : (x === y);
+    };
 
-    function changeSpoons(){
-            //This will only acitvate once the first activity array has been set. 
-        if(prevActivities.length < activities.length ){
-                    //This will only activate if a new activity has been added to the array. 
-                setPrevActivities(activities);
-        } else if(activities.length < prevActivities.length){
-                //This will only activate if an activity has been deleted.
-            prevActivities.map((a) => {
-                //Map through the previous activities to see if they are in the new activities state
-                if(!activities.includes(a) && a.isActive){
-                    //If the new activities array does not include an object from the previous activities array, do the following
-                    setSpoons(prev => prev + a.spoons)
-                } 
-            }) //end of prevActivities map
-        } // end of else if statement 
-    
-        else {
-                //This only activates if the previousActivities length is the same as the new activities length 
-            activities.map((activity, index) => {
-                const prevAct = prevActivities[index];
-                if(activity.isActive && activity.isActive !== prevAct.isActive 
-                && activity.spoons === prevAct.spoons && spoons - activity.spoons >= 0){
-                    /*If the current object in the array is active, was not active before the state change, 
-                    the spoon amount has not changed and the spoon amount will not take the  overall energy below 0, 
-                    do the following:*/
-                    setSpoons(prev => prev - activity.spoons)
-                } else if (!activity.isActive && activity.isActive !== prevAct.isActive ) {
-                    /* If the current object in the array is not active, and it was active before the state change, 
-                    do the following  */
-                    if(activity.spoons !== prevAct.spoons) {
-                            //if the spoon amount has changed on the current object, do the following
-                        setSpoons(prev => prev + prevAct.spoons)
-                    } else {
-                        setSpoons(prev => prev + activity.spoons)
-                    } //end of if else statement
-                } //end of else if statement 
-            }) //end of array mapping
-        } //end of else statement
+
+    function subtractSpoons(a){
+        setSpoons(prev => prev - a.spoons)
     }
 
+    function addSpoons(a){
+        setSpoons(prev => prev + a.spoons)
+    }
+
+    function addActivity(a){
+        setActivities(...activities, a)
+    }
+
+    function deleteActivity(a){
+        setActivities(activities.filter((activity) => activity.activityId !== a.activityId))
+    }
+
+    function editActivities(a){
+        console.log("Making changes", a)
+        setActivities(activities.map((activity) => {
+            if(a.activityId === activity.activityId){
+                return {...activity,
+                spoons: a.spoons,
+                isActive: a.isActive,
+                name: a.name
+                }
+            } else {
+                return {
+                    ...activity,
+                }
+            }
+        }))
+    }
     /*This will activate twice but it's an issue with strict mode. 
     In production(without strict mode) it works. */
     useEffect(() =>{
@@ -166,24 +167,28 @@ const [prevActivities, setPrevActivities] = useState(activities);
                         return {...a, 
                         id: nanoid()}
                     }));
-                postActivities();
-                    
+                    console.log(activities)
             } else {
                 setActivities(res);
+                console.log(activities)
             }
         })
-        prevActivities.map((a) => {
-        if(a.isActive){
-            setSpoons(prev => prev - a.spoons)
-        }
-    })
+    //     prevActivities.map((a) => {
+    //     if(a.isActive){
+    //         setSpoons(prev => prev - a.spoons)
+    //     }
+    // })
 } , [])
 
 useEffect(() => {
-    if(activities.length > 0){
-        console.log(activities, prevActivities)
+    
+        // activities.map(a => postActivity(a))
+        console.log(activities) 
+    {
+        // activities.map(a => postActivity(a))
     localStorage.setItem('activities', JSON.stringify(activities));
-    changeSpoons()
+
+    console.log(activities)
     }
 },[activities])
 
@@ -216,9 +221,17 @@ useEffect(() => {
                                 index={index}
                                 id={a.activityId} text={a.name} 
                                 active={a.isActive}
-                                value={a.spoons} setActivities={setActivities} 
+                                value={a.spoons}
+                                activity={a} 
+                                setActivities={setActivities} 
+                                addActivity ={addActivity}
+                                deleteActivity={deleteActivity}
+                                addSpoons={addSpoons}
+                                subtractSpoons={subtractSpoons}
+                                editActivities={editActivities}
+                                
                                 activities={activities} overallSpoons = {spoons} theme={theme}
-                                onClick={() => setPrevActivities(activities)} /> 
+                                /> 
                         })}
                 </Flex>
             </Flex>

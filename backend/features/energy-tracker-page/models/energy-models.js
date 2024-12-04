@@ -26,9 +26,9 @@ function updateActivity(spoons, response) {
     });
 }
 
-function deleteActivity(activtyId, response) {
+function deleteActivity(activityId, response) {
     const query = "DELETE FROM energy_activity WHERE activityId = ?"
-    connection.query(query, [activtyId], (err, results) => {
+    connection.query(query, [activityId], (err, results) => {
         return err ? response(err) : response(null, (results, activityId));
     });
 }

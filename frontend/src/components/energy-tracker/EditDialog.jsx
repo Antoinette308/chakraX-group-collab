@@ -37,7 +37,6 @@ function handleClicks(e, openState){
             <DialogTrigger asChild>
                 <Button width="25px" margin="5px" 
                 variant="outline" color={props.theme.pageButtonText}
-                display={props.id <= 3 ? "none" : "default" } 
                 onClick={(e) => handleClicks(e, true)}>
                     {<FaRegEdit/>}
                 </Button>

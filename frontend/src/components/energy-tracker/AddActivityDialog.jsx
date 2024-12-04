@@ -33,10 +33,10 @@ function AddActivityDialog(props){
         props.setActivities(
             [
             ...props.activities,
-            {id: nanoid(), 
-            activity: activity, 
+            {activityId: nanoid(), 
+            name: activity, 
             spoons: energy, 
-            active:false}
+            isActive:0}
         ])
     }
 
