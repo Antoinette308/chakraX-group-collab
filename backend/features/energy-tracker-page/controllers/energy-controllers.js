@@ -29,8 +29,9 @@ function createNewActivity(req, res) {
 
 function updateActivity(req, res) {
     // Update the energy for an activity based on it's spoon count
-    const spoons = req.body;
-    models.updateActivity(spoons, (err, results) => {
+    const userId = req.params.id;
+    const {spoons, name, isActive} = req.body;
+    models.updateActivity(spoons, name, isActive, userId, (err, results) => {
         if (err) {
             console.log("Error update the spoon count", err);
             res.status(500).json({ error: err.message });
@@ -42,7 +43,7 @@ function updateActivity(req, res) {
 
 function deleteActivity(req, res) {
     // Delete an activity using the activity's id
-    const activityId = req.body;
+    const activityId = req.params.id;
     models.deleteActivity(activityId, (err, results) => {
         if (err) {
             console.log("Error deleting this activity", err);

@@ -19,10 +19,10 @@ function createNewActivity(activityInfo, response) {
     });
 }
 
-function updateActivity(spoons, response) {
-    const query = "UPDATE energy_activity SET spoons = ? WHERE entryId = ?"
-    connection.query(query, [spoons], (err, results) => {
-        return err ? response(err) : response(null, (results, entryInfo));
+function updateActivity(spoons, name, isActive, activityId, response) {
+    const query = "UPDATE energy_activity SET spoons = ?, name = ?,  isActive = ? WHERE activityId = ?"
+    connection.query(query, [spoons, name, isActive, activityId], (err, results) => {
+        return err ? response(err) : response(null, (results, activityId));
     });
 }
 

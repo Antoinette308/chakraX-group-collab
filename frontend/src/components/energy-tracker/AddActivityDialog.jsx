@@ -28,18 +28,6 @@ function AddActivityDialog(props){
     };
 
 
-    function handleAdd(){
-        //Sets state with new activity appended
-        props.setActivities(
-            [
-            ...props.activities,
-            {activityId: nanoid(), 
-            name: activity, 
-            spoons: energy, 
-            isActive:0}
-        ])
-    }
-
     return (
         <DialogRoot motionPreset="slide-in-bottom" open={open}>
             {/* start of dialog trigger*/}
@@ -82,7 +70,11 @@ function AddActivityDialog(props){
                     </DialogActionTrigger>
                     <Button onClick={() => 
                         {handleDialog(false);
-                        handleAdd();
+                            const newActivity = {activityId: nanoid(), 
+                                name: activity, 
+                                spoons: energy, 
+                                isActive:0}
+                        props.addActivity(newActivity)
                     }}>
                         {"Add Activity"}
                     </Button>

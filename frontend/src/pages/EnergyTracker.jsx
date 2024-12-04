@@ -49,7 +49,7 @@ function EnergyTracker() {
         { name: "Exercise", spoons: 5, isActive: false}
     ];
 const [activities, setActivities] = useState([]);
-const [token, setToken] = useState(1);
+const [token, setToken] = useState(2);
 
     async function getUserData(){
         if(token){
@@ -73,7 +73,7 @@ const [token, setToken] = useState(1);
         }
     }
 
-    async function postActivity(a) {
+    async function postActivityData(a) {
         const url = "http://localhost:3000/energy-tracker/";
             try{
                 const response = await fetch(url, 
@@ -81,7 +81,38 @@ const [token, setToken] = useState(1);
                     method: "POST",
                 body: JSON.stringify({
                     userId: 2,
-                    activityId: a.id,
+                    activityId: a.activityId,
+                    name: a.name,
+                    spoons: a.spoons,
+                    isActive: a.isActive ? 1 : 0
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                });
+
+            if(!response.ok){
+                throw new Error(`Response Status: ${response.status}`)
+            }
+            const json = await response.json()
+                console.log(json)
+                return json;
+            }
+            catch(err){
+                console.error(err.message);
+            }
+            
+        
+    }
+
+    async function updateActivityData(a){
+        const url = `http://localhost:3000/energy-tracker/${a.activityId}`;
+            try{
+                const response = await fetch(url, 
+                {
+                    method: "PUT",
+                body: JSON.stringify({
+                    activityId: a.activityId,
                     name: a.name,
                     spoons: a.spoons,
                     isActive: a.isActive ? 1 : 0
@@ -105,21 +136,31 @@ const [token, setToken] = useState(1);
         
     }
 
+    async function deleteActivityData(a){
+        const url = `http://localhost:3000/energy-tracker/${a.activityId}`;
+            try{
+                const response = await fetch(url, 
+                {
+                    method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                })
 
+            if(!response.ok){
+                throw new Error(`Response Status: ${response.status}`)
+            }
+            const json = await response.json()
+                console.log(json)
+                return json;
+            }
+            catch(err){
+                console.error(err.message);
+            }
+    }
 
 
     ///This sets the activities for the page, can be replaced with an API call that gets all of the activity info for a single person 
-
-    //function to act as lodash isEqual method
-    function isEqual(x, y) {
-        const objectKeys = Object.keys; 
-        const typeX = typeof x;
-        const  typeY = typeof y;
-        return x && y && typeX === 'object' && typeX === typeY ? (
-            objectKeys(x).length === objectKeys(y).length &&
-            objectKeys(x).every(key => isEqual(x[key], y[key]))
-        ) : (x === y);
-    };
 
 
     function subtractSpoons(a){
@@ -131,15 +172,21 @@ const [token, setToken] = useState(1);
     }
 
     function addActivity(a){
-        setActivities(...activities, a)
+        postActivityData(a);
+        setActivities([...activities, a]);
     }
 
     function deleteActivity(a){
+        if(token){
+            deleteActivityData(a);
+        }
         setActivities(activities.filter((activity) => activity.activityId !== a.activityId))
     }
 
     function editActivities(a){
-        console.log("Making changes", a)
+        if(token){
+        updateActivityData(a);
+        }
         setActivities(activities.map((activity) => {
             if(a.activityId === activity.activityId){
                 return {...activity,
@@ -154,42 +201,43 @@ const [token, setToken] = useState(1);
             }
         }))
     }
-    /*This will activate twice but it's an issue with strict mode. 
-    In production(without strict mode) it works. */
+
     useEffect(() =>{
         getUserData().then((res) => {
             console.log(res)
             if(!res.length){
                 console.log("no response")
-                setActivities(() => 
-                    JSON.parse(localStorage.getItem('activities')) || 
-                    initialActivities.map((a) => {
+                const activitiesWithId = initialActivities.map((a) => {
                         return {...a, 
-                        id: nanoid()}
-                    }));
-                    console.log(activities)
-            } else {
-                setActivities(res);
-                console.log(activities)
+                        activityId: nanoid()}
+                    }) 
+                console.log(activitiesWithId)
+                setActivities(() => [
+                    JSON.parse(localStorage.getItem('activities')) || 
+                    activitiesWithId])
+                activitiesWithId.forEach((a) => {
+                    postActivityData(a);
+                })
+                res.map((a) => {
+                    if(a.isActive){
+                        /*This will activate twice but it's an issue with strict mode. 
+                        In production(without strict mode) it works. */
+                        console.log("subtracting spoons", a.spoons)
+                        subtractSpoons(a);
+                    }
+                })
             }
+            else {
+                setActivities(res);
+            }
+                
+            
         })
-    //     prevActivities.map((a) => {
-    //     if(a.isActive){
-    //         setSpoons(prev => prev - a.spoons)
-    //     }
-    // })
 } , [])
 
 useEffect(() => {
-    
-        // activities.map(a => postActivity(a))
-        console.log(activities) 
-    {
-        // activities.map(a => postActivity(a))
-    localStorage.setItem('activities', JSON.stringify(activities));
-
     console.log(activities)
-    }
+        localStorage.setItem('activities', JSON.stringify(activities));
 },[activities])
 
 
@@ -214,7 +262,7 @@ useEffect(() => {
                 <Flex width="75%" justifyContent={"flex-start"} 
                 marginTop="10px" flexWrap={"wrap"} 
                 gap="10px" maxHeight={"100%"}>
-                        <AddActivityDialog theme={theme}
+                        <AddActivityDialog theme={theme} addActivity={addActivity}
                         activities={activities} setActivities={setActivities} />
                         {activities.map((a, index) => {
                             return <ActivityButton key={a.activityId} 

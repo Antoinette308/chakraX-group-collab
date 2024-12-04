@@ -11,7 +11,6 @@ import { FaRegTrashCan } from "react-icons/fa6";
 function ActivityButton(props){ 
     const [activityInfo, setActivityInfo] = useState(props.activity)
 
-
     function handleEdit(energy, activity) {
         if(activityInfo.isActive){
             props.addSpoons(activityInfo)
@@ -35,9 +34,7 @@ function ActivityButton(props){
                     name: activity,
                     isActive: 0
             })
-
         }
-    
     }
 
 
@@ -57,8 +54,6 @@ function ActivityButton(props){
                     })
             }
         };
-    
-
 
     function handleDelete(e, a) {
         if(activityInfo.isActive){
