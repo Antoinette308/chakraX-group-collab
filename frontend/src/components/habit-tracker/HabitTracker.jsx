@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 import HabitItem from './HabitItem';
 import AddHabitButton from './AddHabitButton';
 import './HabitTracker.css';
@@ -18,19 +18,29 @@ const saveHabitsToLocalStorage = (habits) => {
 // fetch habits from API
 const fetchHabits = async () => {
     try {
-        const response = await fetch('http://localhost:3000/habit');
-        return await response.json();
+        const response = await fetch('http://localhost:3000/habit-tracker/habit');
+        const data = await response.json();
+        return data.map(habit => ({
+            ...habit,
+            monday: habit.monday ?? false,
+            tuesday: habit.tuesday ?? false,
+            wednesday: habit.wednesday ?? false,
+            thursday: habit.thursday ?? false,
+            friday: habit.friday ?? false,
+            saturday: habit.saturday ?? false,
+            sunday: habit.sunday ?? false,
+        }));
     } catch (error) {
         console.error("Error fetching habits:", error);
         return [];
     }
-}
+};
 
 // add habits via API
 const addHabitAPI = async (habitDetails) => {
 
     try {
-        const response = await fetch('http://localhost:3000/new-habit', {
+        const response = await fetch('http://localhost:3000/habit-tracker/new-habit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(habitDetails),
@@ -38,14 +48,15 @@ const addHabitAPI = async (habitDetails) => {
         return await response.json();
     } catch (error) {
         console.log("Error adding a new habit via API", error);
+        throw error;
         return null;
     }
 };
 
 //delete habits via API
-const deleteHabitAPI = async () => {
+const deleteHabitAPI = async (id) => {
     try {
-        const response = await fetch (`http://localhost:3000/delete-habit/${id}`, {
+        const response = await fetch (`http://localhost:3000/habit-tracker/delete-habit/${id}`, {
             method: 'DELETE',
         });
         return id;
@@ -58,7 +69,7 @@ const deleteHabitAPI = async () => {
 // update habits via API
 const updateHabitAPI = async (habit) => {
     try {
-        const response = await fetch(`http://localhost:3000/update-habit/${id}`, {
+        const response = await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(habit),
@@ -98,15 +109,15 @@ function HabitTracker() {
     //Add new habit (via API and local storage)
     const addHabit = async (habitDetails) => {
         const newHabit = {
-            id: uuidv4(),
+            /*id: uuidv4(),*/
             ...habitDetails,
-            Monday: false,
-            Tuesday: false,
-            Wednesday: false,
-            Thursday: false,
-            Friday: false,
-            Saturday: false,
-            Sunday: false,
+            monday: false,
+            tuesday: false,
+            wednesday: false,
+            thursday: false,
+            friday: false,
+            saturday: false,
+            sunday: false,
         };
 
         const savedHabit = await addHabitAPI(newHabit);
@@ -122,7 +133,7 @@ function HabitTracker() {
         if (deletedId) {
             setHabits((prevHabits) => prevHabits.filter((habit) => habit.id !== deletedId)); //remove habit from state
 
-            const updatedHabits = habits.filer((habit) => habit.id !== deletedId) // create new array without deleted habit
+            const updatedHabits = habits.filter((habit) => habit.id !== deletedId) // create new array without deleted habit
             localStorage.setItem('habits', JSON.stringify(updatedHabits)); //update local storage to new array, deleting old habit
         }
     };

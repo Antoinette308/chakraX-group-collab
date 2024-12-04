@@ -15,16 +15,11 @@ function WeeklyProgress({ habits }) {
     // target = 
 
     function calculateProgress(habit) {
-        const { status, frequency, unit } = habit;
+        const { monday, tuesday, wednesday, thursday, friday, saturday, sunday, frequency, unit } = habit;
+        const weekDays = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+        const completed = weekDays.filter(day => day === true).length;
 
-        let completed = 0;
-        for (const [day, value] of Object.entries(status)) {
-            if (value === true) {
-                completed++
-            }
-        }
-        
-        let percentageCompleted;
+        let percentageCompleted = 0;
         if (habit.unit === "day") {
             percentageCompleted = (completed / 7) * 100;
         } else {

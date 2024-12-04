@@ -7,11 +7,27 @@ import { format  } from "date-fns";
 
 // create new habit
 export const createHabit = (habit, callback) => {
-    const query = 'INSERT INTO habits (habit, frequency, recurrence, monday, tuesday, wednesday, thursday, friday, saturday, sunday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    connection.query(query, [habit.habit, habit.description, habit.frequency, habit.recurrence, habit.monday, habit.tuesday, habit.wednesday, habit.thursday, habit.friday, habit.saturday, habit.sunday], (error, results) => {
+    const query = 'INSERT INTO habits (text, colour, frequency, unit, monday, tuesday, wednesday, thursday, friday, saturday, sunday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+    const values = [
+        habit.text,
+        habit.colour,
+        habit.frequency,
+        habit.unit,
+        habit.monday || false,
+        habit.tuesday || false,
+        habit.wednesday || false,
+        habit.thursday || false,
+        habit.friday || false,
+        habit.saturday || false,
+        habit.sunday || false
+    ];
+
+    connection.query(query, values, (error, results) => {
         if (error) return callback(error);
         const formattedHabit = {
             id: results.insertId,
+
             ...habit
             // start_date: format(new Date(habit.start_date), 'yyyy-MM-dd')
         };
@@ -28,10 +44,30 @@ export const getHabitById = (id, callback) => {
     });
 };
 
+// get all habits
+export const getAllHabits = (callback) => {
+    const query = 'SELECT * FROM habits';
+    connection.query(query, (error, results) => {
+        if (error) return callback (error);
+        callback(null, results);
+    });
+};
+
 // update habit by ID
 export const updateHabitById = (id, updatedHabit, callback) => {
-    const query = 'UPDATE habits SET habit = ?, frequency = ?, recurrence = ?, monday = ?, tuesday = ?, wednesday = ?, thursday = ?, friday = ?, saturday = ?, sunday = ?, WHERE id = ?';
-    connection.query(query, [updatedHabit.habit_name, updatedHabit.description, updatedHabit.frequency, updatedHabit.recurrence, updatedHabit.monday, updatedHabit.tuesday, updatedHabit.wednesday, updatedHabit.thursday, updatedHabit.friday, updatedHabit.saturday, updatedHabit.sunday, id], (error, results) => {
+    const query = 'UPDATE habits SET monday = ?, tuesday = ?, wednesday = ?, thursday = ?, friday = ?, saturday = ?, sunday = ? WHERE id = ?';
+    const values = [
+        updatedHabit.monday ? 1 : 0,
+        updatedHabit.tuesday ? 1 : 0,
+        updatedHabit.wednesday ? 1 : 0,
+        updatedHabit.thursday ? 1 : 0,
+        updatedHabit.friday ? 1 : 0,
+        updatedHabit.saturday ? 1 : 0,
+        updatedHabit.sunday ? 1 : 0,
+        id,
+    ];
+
+    connection.query(query, values, (error, results) => {
         if (error) return callback(error);
         callback(null, results)
     });

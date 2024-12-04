@@ -2,15 +2,11 @@
 import { check, validationResult } from 'express-validator';
 
 export const validateHabit = [
-    check('habit_name')
+    /* check('habit')
         .notEmpty()
         .withMessage('A title is required for your new habit')
         .isString()
         .withMessage('The habit title must be a string'),
-    check('description')
-        .optional()
-        .isString()
-        .withMessage('The description must be a string'),
     check('frequency')
         .notEmpty()
         .withMessage('Frequency is required')
@@ -21,7 +17,7 @@ export const validateHabit = [
         .withMessage('Recurrence is required')
         .isIn(['daily', 'weekly', 'monthly', 'yearly'])
         .withMessage('Recurrence must be: daily, weekly, monthly or yearly'),
-    check('start_date')
+    /*check('start_date')
         .notEmpty()
         .withMessage('Start date is required')
         .isISO8601()
@@ -31,14 +27,14 @@ export const validateHabit = [
         .optional()
         .isISO8601()
         .toDate()
-        .withMessage('Last completed date must be YYYY-MM-DD')
+        .withMessage('Last completed date must be YYYY-MM-DD')*/
 ];
 
-export const checkValidationResult = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        console.log('Validation Errors:', errors.array());
-        return res.status(400).json({ errors: errors.array() });
-    }
-    next(); 
-};
+//export const checkValidationResult = (req, res, next) => {
+  //  const errors = validationResult(req);
+    //if (!errors.isEmpty()) {
+      //  console.log('Validation Errors:', errors.array());
+        //return res.status(400).json({ errors: errors.array() });
+    //}
+    //next(); 
+//};

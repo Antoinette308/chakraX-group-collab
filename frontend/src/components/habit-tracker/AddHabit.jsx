@@ -43,7 +43,7 @@ function AddHabit({ addHabit }) {
                     placeholder='1'
                     min="1"
                 />
-                 <label htmlFor="number">{frequency === 1 ? " time" : " times"}</label>
+                <label htmlFor="number">{frequency === 1 ? " time" : " times"}</label>
                 <label htmlFor="select">per</label>
                 <select
                     id="unit"

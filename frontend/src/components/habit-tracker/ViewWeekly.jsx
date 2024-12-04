@@ -2,42 +2,68 @@ import React, { useState, useEffect } from 'react';
 import { FaCircle, FaTimes } from 'react-icons/fa';
 import './HabitTracker.css'
 
+async function updateHabitAPI(habit) {
+    try {
+        await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(habit),
+        });
+    } catch (error) {
+        console.error('Error updating habit via API:', error)
+    }
+};
+
 function ViewWeekly({ habits, setHabits }) {
 
-    const toggleStatus = (habitIndex, day) => {
+    const toggleStatus = async (habitIndex, day) => {
         const updatedHabits = [...habits];
-        updatedHabits[habitIndex][day] = !updatedHabits[habitIndex][day];
-        setHabits(updatedHabits);
-        localStorage.setItem('habits', JSON.stringify(updatedHabits));
+        const habitToUpdate = updatedHabits[habitIndex];
+        const dayKey = day.toLowerCase();
+        habitToUpdate[dayKey] = !habitToUpdate[dayKey];
+        
+        const updatedHabitFromAPI = await updateHabitAPI(habitToUpdate);
+        try {
+            await updateHabitAPI(habitToUpdate);
+            setHabits(updatedHabits);
+            localStorage.setItem('habits', JSON.stringify(updatedHabits))
+        } catch (error) {
+            console.error("Error toggling habit status:", error);
+        }
     };
 
     // Set all completed days to false when logging on for the first time in a new week
-    function NewWeekReset() {
+    async function NewWeekReset() {
         const currentDate = new Date();
         const dayOfWeek = currentDate.getDay();
         const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
         const monday = (new Date(currentDate.setDate(currentDate.getDate() + diff))).toISOString().slice(0, 10);
 
         let latestMonday = localStorage.getItem("latestMonday");
-        let storedHabits = JSON.parse(localStorage.getItem("habits"));
-
-        if (storedHabits && monday !== latestMonday) {
+        if (monday !== latestMonday) {
             // Reset all completed habit days to false
-            const updatedHabits = storedHabits.map(habit => {
+            const updatedHabits = habits.map(habit => {
                 const resetHabit = { ...habit };
                 ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].forEach(day => {
                     resetHabit[day] = false;
                 });
                 return resetHabit;
             });
-            localStorage.setItem("habits", JSON.stringify(updatedHabits));
-            localStorage.setItem("latestMonday", monday);
-            setHabits(updatedHabits); // Update React state
-            console.log("Weekly habit tracker reset for a new week.");
-        } else {
-            console.log("No habit tracker reset needed.")
+            //update habits in database
+            try {
+                await Promise.all(updatedHabits.map((habit) => updateHabitAPI(habit)));
+                setHabits(updatedHabits);
+                localStorage.setItem('habits', JSON.stringify(updatedHabits));
+                localStorage.setItem('latestMonday', monday);
+            } catch (error) {
+                console.error("Error resetting habits for the new week:", error)
+            }
         }
-    }
+    };
+
+    useEffect(() => {
+        NewWeekReset();
+    }, [])
 
     // Get week dates starting from Monday
     function getWeekDates() {
@@ -63,11 +89,6 @@ function ViewWeekly({ habits, setHabits }) {
         return weekDates;
     }
 
-    //call NewWeekReset on mount
-    useEffect(() => {
-        NewWeekReset();
-    }, []);
-
     const weekDates = getWeekDates();
 
 return (
@@ -88,7 +109,7 @@ return (
                         <td>
                             <h4 style={{ color: habit.colour}}>{habit.text}</h4>
                         </td>
-                        {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
+                        {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => (
                             <td
                                 key={day}
                                 className='text-center'
