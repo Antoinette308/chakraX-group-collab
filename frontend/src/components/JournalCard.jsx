@@ -1,9 +1,12 @@
 import { Card } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom"
 
 // Keely-Ann notes: Journal card created to preview journal entries on the main page.
 
-function JournalCard({ entry }) {
+function JournalCard({ entry, onEdit, onDelete }) {
+    const navigate = useNavigate();
+
     // Only get a snippet of the entry not the whole journal entry.
     const getSnippet = (text, maxLength = 150) => {
         if (text.length <= maxLength) return text;
@@ -20,7 +23,9 @@ function JournalCard({ entry }) {
                 </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">
-                <Button variant="outline">View</Button>
+                <Button variant="outline" onClick={() => navigate(`journal/${entry.id}`)}>View</Button>
+                <Button variant="outline" onClick={() => onEdit(entry)}>Edit</Button>
+                <Button onClick={() => onDelete(entry.id)}>Delete</Button>
             </Card.Footer>
         </Card.Root>
     )
