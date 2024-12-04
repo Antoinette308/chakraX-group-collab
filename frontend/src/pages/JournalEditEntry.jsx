@@ -1,8 +1,9 @@
 import Header from "../components/Header";
+import JournalForm from "../components/journal/JournalForm";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-function EditEntry(entries, handleUpdate) {
+function EditEntry({ entries, handleUpdate }) {
     const { id } = useParams();
     const [entry, setEntry] = useState(null);
 
@@ -14,8 +15,8 @@ function EditEntry(entries, handleUpdate) {
 
     return (
         <>
-            <Header size="6xl" bg="teal.500" color="gray.900" text="What's on your  mind?" />
-            {entry}
+            <Header size="6xl" bg="teal.500" color="gray.900" text="What was on your mind?" />
+            <JournalForm entry={entries} onUpdate={handleUpdate} />
         </>
     )
 };

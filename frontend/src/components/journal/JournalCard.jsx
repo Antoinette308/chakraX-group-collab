@@ -1,16 +1,23 @@
+/* eslint-disable react/prop-types */
 import { Card } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom"
 
 // Keely-Ann notes: Journal card created to preview journal entries on the main page.
 
-function JournalCard({ entry, onEdit, onDelete }) {
+function JournalCard({ entry, onDelete }) {
     const navigate = useNavigate();
+    const handleClick = () => {
+        console.log("Button clicked");
+    }
 
     // Only get a snippet of the entry not the whole journal entry.
+
     const getSnippet = (text, maxLength = 150) => {
-        if (text.length <= maxLength) return text;
-        return text.substring(0, maxLength) + '...';
+        if (!text){
+            return "No content available";
+        } else {
+            return text.length <= maxLength ? text : `${text.substring(0, maxLength)}...`;}
     };
 
     return (
@@ -23,8 +30,8 @@ function JournalCard({ entry, onEdit, onDelete }) {
                 </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">
-                <Button variant="outline" onClick={() => navigate(`journal/${entry.id}`)}>View</Button>
-                <Button variant="outline" onClick={() => onEdit(entry)}>Edit</Button>
+                <Button variant="outline" onClick={() => {handleClick(); navigate(`/journal/${entry.id}`); }}>View</Button>
+                <Button variant="outline" onClick={() => {handleClick(); navigate(`/journal/edit/${entry.id}`); }}>Edit</Button>
                 <Button onClick={() => onDelete(entry.id)}>Delete</Button>
             </Card.Footer>
         </Card.Root>

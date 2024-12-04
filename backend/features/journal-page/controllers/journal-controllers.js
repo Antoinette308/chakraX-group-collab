@@ -2,7 +2,7 @@ import models from "../models/journal-models.js"
 
 function getJournalEntries(req, res){
     //Get the journal entries from the backend to be used in the rendering
-    const {userId} = req.body;
+    const userId = req.params.id;
     models.getAllEntries(userId, (err, results) => {
         if(err) { 
             console.log("Error getting journal entries", err)
@@ -34,14 +34,22 @@ function updateJournalEntry(req, res){
             console.log("Error updating journal entry", err);
             res.status(500).json({error: err.message});
         } else {
-            res.status(201).json(results);
+            res.status(200).json(results);
         }
     })
 }
 
-function deleteJournalEntry(id){
+function deleteJournalEntry(req, res){
     //Delete the journal entry from the database using the id of the entry
-    
+    const {entryId} = req.body;
+    models.deleteJournalEntry(entryId, (err, results) => {
+        if(err){
+            console.log("Error deleting journal entry", err);
+            res.status(500).json({error: err.message});
+        } else {
+            res.status(200).json({deleted: results});
+        }
+    })
 }
 
 

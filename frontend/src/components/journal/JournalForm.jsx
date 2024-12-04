@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button, Input, Stack, Textarea } from "@chakra-ui/react"
-import { Field } from "../components/ui/field"
+import { Field } from "../ui/field"
 
 // Keely-Ann notes: Journal 'form' created to submit journal entries.
 
-function JournalEntry({ entry, onSave, onUpdate }) {
+function JournalForm({ entry = null, onSave, onUpdate }) {
 
     // Store the title and body of the journal entry
     const [title, setTitle] = useState("");
@@ -20,19 +20,17 @@ function JournalEntry({ entry, onSave, onUpdate }) {
         }
     }, [entry]);
 
-    // Handling the journal submission
+    // Handle the journal submissions either updating or uploading new entry)
     const handleSubmit = (e) => {
-        e.preventDefault(); // Prevents a default form submission
-        console.log({ title, text });
-        // if statement depending on if it's an edit or a entry
-        if (entry) {
-            onUpdate({ ...entry, title, text });
+        e.preventDefault();
+        if(entry){
+            onUpdate({...entry, title, text})
+            console.log("Journal updated");
         } else {
-            // Generate a new entry with a unique ID and pass the entry to the journal page
-            const newEntry = { id: Date.now(), title, text };
-            onSave(newEntry);
+            const newEntry = {title, text};
+            onSave(newEntry)
+            console.log("New entry saved");
         }
-        // Clear the form after submitting
         setTitle("");
         setText("");
     };
@@ -45,7 +43,7 @@ function JournalEntry({ entry, onSave, onUpdate }) {
                     {/* Title Input */}
                     <Input placeholder="Enter title"
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)} // Update state on change
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                 </Field>
                 <Field>
@@ -66,4 +64,4 @@ function JournalEntry({ entry, onSave, onUpdate }) {
 };
 
 
-export default JournalEntry;
+export default JournalForm;

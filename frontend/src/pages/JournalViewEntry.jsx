@@ -19,9 +19,10 @@ function ViewEntry({ entries }) {
 
     return (
         <>
-            <Header size="6xl" bg="teal.500" color="gray.900" text={entry.title} />
+            <Header size="6xl" bg="teal.500" color="gray.900" text="What was on your mind?" />
             <Box>
-                <Text>{entry.text}</Text>
+                <h1> {entry.title} </h1>
+                <Text> {entry.text} </Text>
             </Box>
         </>
     );

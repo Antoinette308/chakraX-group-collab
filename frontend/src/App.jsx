@@ -2,7 +2,6 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
-import Test from './pages/testPage.jsx';
 import Journal from "./pages/Journal.jsx";
 import NewEntry from "./pages/JournalNewEntry.jsx";
 import ViewEntry from "./pages/JournalViewEntry.jsx";
@@ -22,13 +21,12 @@ function App() {
         entry.id === updatedEntry.id ? updatedEntry : entry))
     );
   };
-
+   
   return (
 
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />} >
-          <Route path="test" element={<Test />} />
           <Route path="journal" element={<Journal entries={entries} handleSave={handleSave} handleUpdate={handleUpdate} />} />
           <Route path="journal/new-entry" element={<NewEntry handleSave={handleSave} />} />
           <Route path="journal/:id" element={<ViewEntry entries={entries} />} />

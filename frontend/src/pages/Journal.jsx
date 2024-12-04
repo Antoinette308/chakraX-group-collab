@@ -1,18 +1,12 @@
 import { SimpleGrid } from "@chakra-ui/react";
-import Header from "../components/Header";
-import JournalCard from "../components/JournalCard";
 import { useEffect, useState } from "react";
-import AddNewEntry from "../components/AddNewEntry";
-import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
+import JournalCard from "../components/journal/JournalCard";
+import AddNewEntry from "../components/journal/AddNewEntry";
 
 // Keely-Ann notes: gathering the AddNewEntry component and the JournalCard component together.
 function Journal() {
     const [entries, setEntries] = useState([]);
-    // editing and updating entries
-
-    const handleEdit = (entry) => {
-        navigate(`/journal/edit/${entry.id}`);
-    };
 
     // Deleting an entry 
     const handleDelete = (id) => {
@@ -33,14 +27,16 @@ function Journal() {
         <>
             <Header size="6xl" bg="teal.500" color="gray.900" text="My Entries" />
             <SimpleGrid columns={[1, 2, 3]} spacing="10px" p="4">
-                {entries.map((entry) => (
-                    <JournalCard
-                        key={entry.id}
-                        entry={entry}
-                        onDelete={handleDelete}
-                        onEdit={handleEdit}
-                    />
-                ))}
+                {entries.length > 0 ? ( entries.map((entry) => (
+                <JournalCard
+                    key={entry.id}
+                    entry={entry}
+                    onDelete={handleDelete}
+                />
+            ))
+        ) : (
+            <p>No entries available.</p>
+        )}
             </SimpleGrid>
             <AddNewEntry />
         </>
