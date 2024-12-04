@@ -1,3 +1,6 @@
+// My original code:
+
+/* 
 import React, { useState } from 'react';
 import { HStack, Input } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
@@ -45,3 +48,30 @@ function AddToDo({ addTodo }) { // A. Extract addTodo function as a prop
 }
 
 export default AddToDo;
+*/
+
+
+
+
+// New code 01/12/24
+
+
+import React from 'react';
+import styles from '../styles/AddToDoForm.module.css';
+
+
+function AddToDoForm() {
+    console.log('AddToDoForm and Add Task button component rendered');
+
+    return (
+        <form classname={styles.form}>
+            <input 
+            type="text"
+            placeholder="Write a new task"
+            className={styles.input} />
+            <button type='submit' className={styles.button}>Add Task</button>
+        </form>
+    );
+}
+
+export default AddToDoForm;

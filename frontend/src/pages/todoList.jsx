@@ -1,3 +1,5 @@
+// My original code:
+/*
 import Header from "../components/Header"
 import { Text } from "@chakra-ui/react";
 import ToDoList from "../components/ToDoList";
@@ -50,6 +52,7 @@ function TodoList(){
      // A. Passing addTodo function as a prop to <AddToDo>   
      // A. Passing todos as a prop to <ToDoList>   
      // A. Passing the deleteTodo function as a prop to <ToDoList>
+     
     return (
         <>
         <Header size="6xl" bg="teal.500" color="gray.900" text="Your ToDo List"/>
@@ -63,4 +66,59 @@ function TodoList(){
 }
 
 export default TodoList;  
+*/
 
+
+// New code:
+
+
+/*
+import React, { useState, useEffect } from 'react';
+import { VStack } from '@chakra-ui/react';
+import AddToDo from '../components/AddToDo';
+import ToDoList from '../components/ToDoList';
+
+function TodoList() {
+    const [todos, setTodos] = useState([]);
+
+    useEffect(() => {
+        fetch('/todo/all-tasks')
+            .then(response => response.json())
+            .then(data => setTodos(data))
+            .catch(error => console.error('Error fetching tasks:', error));
+    }, []);
+
+    return (
+        <VStack>
+            <AddToDo setTodos={setTodos} todos={todos} />
+            <ToDoList todos={todos} setTodos={setTodos} />
+        </VStack>
+    );
+}
+
+export default TodoList;
+*/
+
+
+
+
+// New code 01/12/24
+
+
+import Header from "../components/Header"
+import AddToDoForm from '../components/AddToDoForm';
+import ToDoListItems from '../components/ToDoListItems';
+
+function TodoListPage() {
+    return (
+        <>
+            <Header size="6xl" bg="teal.500" color="gray.900" text="Your ToDo List"/>
+            <h1>This is your Todo List! 📝</h1>
+            <AddToDoForm />
+            <ToDoListItems />
+        </>
+
+    );
+}
+
+export default TodoListPage;
