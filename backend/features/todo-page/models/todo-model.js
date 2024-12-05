@@ -26,7 +26,7 @@ export const getTodos = (callback) => {
 
 // Read todo by ID
 export const getTodoById = (id, callback) => {
-    const query = 'SELECT * FROM todos WHERE id = ?';
+    const query = 'SELECT * FROM todos WHERE todo_id = ?';
     connection.query(query, [id], (error, results) => {
         if (error) return callback(error);
         callback(null, results[0]);
@@ -35,7 +35,7 @@ export const getTodoById = (id, callback) => {
 
 // Update a todo by ID
 export const updateTodoById = (id, updatedTodo, callback) => {
-    const query = 'UPDATE todos SET tasks = ?, completed = ? WHERE id = ?';
+    const query = 'UPDATE todos SET tasks = ?, completed = ? WHERE todo_id = ?';
     connection.query(query, [updatedTodo.tasks, updatedTodo.completed, id], (error, results) => {
         if (error) return callback(error);
         callback(null, results)
@@ -44,7 +44,7 @@ export const updateTodoById = (id, updatedTodo, callback) => {
 
 // Delete a todo by ID
 export const deleteTodoById = (id, callback) => {
-    const query = 'DELETE FROM todos WHERE id = ?';
+    const query = 'DELETE FROM todos WHERE todo_id = ?';
     connection.query(query, [id], (error, results) => {
         if (error) return callback(error);
         callback(null, results);

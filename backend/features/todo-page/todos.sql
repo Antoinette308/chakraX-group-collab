@@ -1,13 +1,18 @@
 -- ==================================
         -- ORIGINAL DO NOT USE
 -- ==================================
-CREATE TABLE todos (
-ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-tasks text NOT NULL,
-completed BOOLEAN NOT NULL DEFAULT FALSE
-);
+-- CREATE TABLE todos (
+-- ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+-- tasks text NOT NULL,
+-- completed BOOLEAN NOT NULL DEFAULT FALSE
+-- );
 
--- CAN BE USED
+CREATE TABLE todos (
+    todo_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id FOREIGN KEY INT NOT NULL,
+    tasks text NOT NULL,
+    completed BOOLEAN NOT NULL DEFAULT FALSE
+);
 
 INSERT INTO todos 
     (tasks) 

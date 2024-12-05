@@ -1,7 +1,7 @@
 import connection from "../../../config/database.js"
 
 function getAllActivities(userId, response) {
-    const query = "SELECT * FROM energy_activity WHERE userId = ?"
+    const query = "SELECT * FROM energy_activity WHERE user_id = ?"
     connection.query(query, [userId], (err, results) => {
         if (err) {
             return response(err);
@@ -13,21 +13,21 @@ function getAllActivities(userId, response) {
 }
 
 function createNewActivity(activityInfo, response) {
-    const query = "INSERT INTO energy_activity (userId, name, spoons, isActive, activityId) VALUES (?, ?, ?, ?, ?)";
-    connection.query(query, [activityInfo.userId, activityInfo.name, activityInfo.spoons, activityInfo.isActive, activityInfo.activityId], (err, results) => {
+    const query = "INSERT INTO energy_activity (user_id, name, spoons, is_active, activity_id) VALUES (?, ?, ?, ?, ?)";
+    connection.query(query, [activityInfo.user_id, activityInfo.name, activityInfo.spoons, activityInfo.is_active, activityInfo.activity_id], (err, results) => {
         return err ? response(err) : response(null, (results, activityInfo))
     });
 }
 
 function updateActivity(spoons, name, isActive, activityId, response) {
-    const query = "UPDATE energy_activity SET spoons = ?, name = ?,  isActive = ? WHERE activityId = ?"
+    const query = "UPDATE energy_activity SET spoons = ?, name = ?,  is_active = ? WHERE activity_id = ?"
     connection.query(query, [spoons, name, isActive, activityId], (err, results) => {
         return err ? response(err) : response(null, (results, activityId));
     });
 }
 
 function deleteActivity(activityId, response) {
-    const query = "DELETE FROM energy_activity WHERE activityId = ?"
+    const query = "DELETE FROM energy_activity WHERE activity_id = ?"
     connection.query(query, [activityId], (err, results) => {
         return err ? response(err) : response(null, (results, activityId));
     });

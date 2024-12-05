@@ -2,12 +2,26 @@
 
 USE exec_function_db;
 
+-- ==================================
+        -- ORIGINAL DO NOT USE
+-- ==================================
+-- CREATE TABLE habits ( 
+--     id INT PRIMARY KEY AUTO_INCREMENT, 
+--     habit_name VARCHAR(255) NOT NULL, 
+--     description TEXT, 
+--     frequency INT, -- Number of times the habit should be done 
+--     recurrence ENUM('daily', 'weekly', 'monthly', 'yearly'), -- Time period in which the frequency applies 
+--     start_date DATE, 
+--     last_completed DATE 
+-- );
+
 CREATE TABLE habits ( 
-    id INT PRIMARY KEY AUTO_INCREMENT, 
+    habits_id INT PRIMARY KEY AUTO_INCREMENT, 
+    user_id FOREIGN KEY INT NOT NULL,
     habit_name VARCHAR(255) NOT NULL, 
     description TEXT, 
-    frequency INT, -- Number of times the habit should be done 
-    recurrence ENUM('daily', 'weekly', 'monthly', 'yearly'), -- Time period in which the frequency applies 
+    frequency INT, 
+    recurrence ENUM('daily', 'weekly', 'monthly', 'yearly'), 
     start_date DATE, 
     last_completed DATE 
 );

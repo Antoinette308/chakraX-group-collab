@@ -21,7 +21,7 @@ export const createHabit = (habit, callback) => {
 
 // read habit by ID
 export const getHabitById = (id, callback) => {
-    const query = 'SELECT * FROM habits WHERE id = ?';
+    const query = 'SELECT * FROM habits WHERE habit_id = ?';
     connection.query(query, [id], (error, results) => {
         if (error) return callback(error);
         callback(null, results[0]);
@@ -30,7 +30,7 @@ export const getHabitById = (id, callback) => {
 
 // update habit by ID
 export const updateHabitById = (id, updatedHabit, callback) => {
-    const query = 'UPDATE habits SET habit_name = ?, description = ?, frequency = ?, recurrence = ?, start_date = ?, last_completed = ? WHERE id = ?';
+    const query = 'UPDATE habits SET habit_name = ?, description = ?, frequency = ?, recurrence = ?, start_date = ?, last_completed = ? WHERE habit_id = ?';
     connection.query(query, [updatedHabit.habit_name, updatedHabit.description, updatedHabit.frequency, updatedHabit.recurrence, updatedHabit.start_date, updatedHabit.last_completed, id], (error, results) => {
         if (error) return callback(error);
         callback(null, results)
@@ -39,7 +39,7 @@ export const updateHabitById = (id, updatedHabit, callback) => {
 
 // delete habit by ID
 export const deleteHabitById = (id, callback) => {
-    const query = 'DELETE FROM habits WHERE id = ?';
+    const query = 'DELETE FROM habits WHERE habit_id = ?';
     connection.query(query, [id], (error, results) => {
         if (error) return callback(error);
         callback(null, results);

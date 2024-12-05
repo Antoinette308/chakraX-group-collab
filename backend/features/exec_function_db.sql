@@ -16,7 +16,7 @@ CREATE TABLE energy_activity (
     user_id FOREIGN KEY INT NOT NULL,
     name VARCHAR(100) NOT NULL UNIQUE,
     spoons INT NOT NULL CHECK (spoon >= 1 AND spoon <= 5),
-    isActive BOOLEAN NOT NULL DEFAULT 0
+    is_active BOOLEAN NOT NULL DEFAULT 0
 );
 
 CREATE TABLE habits ( 
@@ -35,8 +35,7 @@ CREATE TABLE journal (
     user_id FOREIGN KEY INT NOT NULL,
     title VARCHAR(100) NOT NULL UNIQUE,
     entry TEXT NOT NULL,
-    date DATE DEFAULT (CURDATE()),
-    userId INT NOT NULL 
+    date DATE DEFAULT (CURDATE())
 );
 
 CREATE TABLE todos (
