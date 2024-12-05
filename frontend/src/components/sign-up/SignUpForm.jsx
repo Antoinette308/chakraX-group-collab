@@ -116,7 +116,6 @@ function SignUpForm() {
     // The form
     return (
         <div className='sign-up-div'>
-            <div className='messages'>{errorMessage()}{emailErrorMessage()}{passwordErrorMessage()}{successMessage()}</div>
             { !submitted && (
                 <form>
                     <label>First name:</label>
@@ -150,6 +149,7 @@ function SignUpForm() {
                     </Button>
                 </form>
             )}
+            <div className='messages'>{errorMessage()}{emailErrorMessage()}{passwordErrorMessage()}{successMessage()}</div>
         </div>
     );
 }
