@@ -12,7 +12,7 @@ import cors from 'cors';
 import authRoutes from './features/authentication/routes/auth-route.js';
 import energyRoutes from "./features/energy-tracker-page/routes/energy-route.js"
 import habitRoute from './features/habitTracker-page/routes/habitTracker-route.js';
-
+import journalRoutes from './features/journal-page/routes/journal-route.js';
 
 const app = express();
 const { json } = pkg;
@@ -27,5 +27,6 @@ app.use(cors());
 app.use('/accounts', authRoutes);
 app.use('/energy-tracker', energyRoutes);
 app.use('/habit-tracker', habitRoute);
+app.use('/journal', journalRoutes);
 
 export default app;

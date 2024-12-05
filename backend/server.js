@@ -1,4 +1,4 @@
-//This is the entry point for the server
+// //This is the entry point for the server
 
 import app  from "./app.js";
 

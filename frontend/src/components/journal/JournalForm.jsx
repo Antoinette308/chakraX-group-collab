@@ -1,0 +1,67 @@
+import { useState, useEffect } from "react";
+import { Button, Input, Stack, Textarea } from "@chakra-ui/react"
+import { Field } from "../ui/field"
+
+// Keely-Ann notes: Journal 'form' created to submit journal entries.
+
+function JournalForm({ entry = null, onSave, onUpdate }) {
+
+    // Store the title and body of the journal entry
+    const [title, setTitle] = useState("");
+    const [text, setText] = useState("");
+
+    useEffect(() => {
+        if (entry) {
+            setTitle(entry.title);
+            setText(entry.text);
+        } else {
+            setTitle("");
+            setText("");
+        }
+    }, [entry]);
+
+    // Handle the journal submissions either updating or uploading new entry)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(entry){
+            onUpdate({...entry, title, text})
+            console.log("Journal updated");
+        } else {
+            const newEntry = {title, text};
+            onSave(newEntry)
+            console.log("New entry saved");
+        }
+        setTitle("");
+        setText("");
+    };
+
+    // Setting up the journal form
+    return (
+        <form onSubmit={handleSubmit}>
+            <Stack gap="4" align="center" width="1800px">
+                <Field>
+                    {/* Title Input */}
+                    <Input placeholder="Enter title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </Field>
+                <Field>
+                    {/* Text Input */}
+                    <Textarea
+                        placeholder="Write your thoughts"
+                        value={text}
+                        onChange={(e) => setText(e.target.value)} />
+                </Field>
+                <Button type="submit"
+                    borderRadius="30px"
+                    colorPalette="teal.500"
+                    width="250px">Submit</Button>
+            </Stack>
+        </form>
+    )
+
+};
+
+
+export default JournalForm;
