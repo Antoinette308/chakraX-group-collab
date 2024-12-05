@@ -14,8 +14,8 @@ CREATE TABLE users (
 CREATE TABLE energy_activity (
     activity_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id FOREIGN KEY INT NOT NULL,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    spoons INT NOT NULL CHECK (spoon >= 1 AND spoon <= 5),
+    name VARCHAR(100) NOT NULL,
+    spoons INT NOT NULL CHECK (spoons >= 1 AND spoons <= 5),
     is_active BOOLEAN NOT NULL DEFAULT 0
 );
 
