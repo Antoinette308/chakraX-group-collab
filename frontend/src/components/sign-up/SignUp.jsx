@@ -1,5 +1,13 @@
 import React from 'react';
 import SignUpForm from './SignUpForm';
-import { Button } from '../ui/button';
 
 
+function SignUp() {
+    return (
+        <>
+            <SignUpForm />
+        </>
+    );
+}
+
+export default SignUp;

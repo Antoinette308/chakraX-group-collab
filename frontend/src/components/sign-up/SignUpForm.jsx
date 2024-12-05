@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { Button } from '../ui/button';
 
 function SignUpForm() {
     // States for registration
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName]  = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     // States for checking errors
     const [submitted, setSubmitted] = useState(false);
@@ -35,7 +37,7 @@ function SignUpForm() {
     };
 
     // Handle form submission
-    const HandleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (firstName === '' || lastName === '' || email === '' || password === '') {
             setError(true);
@@ -45,7 +47,67 @@ function SignUpForm() {
         }
     };
 
-    
+    // Successfully signed-up message
+    function successMessage() {
+        return (
+            <div 
+                className="success"
+                style={{ display: submitted ? "" : "none" }}
+            >
+                <h1>Thank you {firstName}, your account has been created</h1>
+            </div>
+        );
+    };
+
+    // Error message if error is true
+    function errorMessage() {
+        return (
+            <div 
+                className='error'
+                style={{ display: error ? '' : "none" }}
+                >
+                    <h1>Please enter all the fields</h1>
+            </div>
+        );
+    };
+
+    // The form
+    return (
+        <div className='form'>
+            <div className='messages'>{errorMessage()}{successMessage()}</div>
+            <form>
+                <label>First name:</label>
+                <input
+                    onChange={handleFirstName}
+                    value={firstName}
+                    type='text'
+                />
+                <label>Last name:</label>
+                <input
+                    onChange={handleLastName}
+                    value={lastName}
+                    type='text'
+                />
+                <label>Email:</label>
+                <input
+                    onChange={handleEmail}
+                    value={email}
+                    type='email'
+                />
+                <label>Password:</label>
+                <input
+                    onChange={handlePassword}
+                    value={password}
+                    type='password'
+                />
+                <Button 
+                    onClick={handleSubmit}
+                    type='submit'>
+                    Submit
+                </Button>
+            </form>
+        </div>
+    );
 }
 
 export default SignUpForm;
