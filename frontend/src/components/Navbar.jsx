@@ -29,7 +29,7 @@ if(props.isActive){
                     <ButtonLink 
                         className='topButtons' 
                         text="Sign Up" 
-                        route="test" 
+                        route="sign-up" 
                         bg={props.theme.navButtonBg} 
                         color={props.theme.ButtonColor}/>
                 </Flex> 
