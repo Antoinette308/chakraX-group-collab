@@ -2,6 +2,21 @@ import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import './SignUp.css'
 
+// Create a new user via API
+const createUser = async (userDetails) => {
+    try {
+        const response  = await fetch('http://localhost:3000/accounts/new-user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userDetails),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error adding new user to database:", error);
+        return null;
+    }
+};
+
 function SignUpForm() {
     // States for registration
     const [firstName, setFirstName] = useState('');
@@ -42,7 +57,7 @@ function SignUpForm() {
     };
 
     // Handle form submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         
@@ -59,10 +74,16 @@ function SignUpForm() {
             setEmailError(false);
             setPasswordError(true)
         } else {
-            setSubmitted(true);
-            setError(false);
-            setEmailError(false);
-            setPasswordError(false);
+            const userDetails = { firstName, lastName, email, password };
+            const result = await createUser(userDetails);
+            if (result) {
+                setSubmitted(true);
+                setError(false);
+                setEmailError(false);
+                setPasswordError(false);
+            } else {
+                console.error('Failed to create user:', error);
+            }
         }
     };
 
@@ -142,7 +163,7 @@ function SignUpForm() {
                         value={password}
                         type='password'
                     />
-                    <Button 
+                    <Button
                         onClick={handleSubmit}
                         type='submit'>
                         Submit
