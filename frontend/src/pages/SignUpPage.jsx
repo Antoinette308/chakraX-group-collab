@@ -2,6 +2,7 @@ import Header from "../components/Header"
 import { Box, Text } from "@chakra-ui/react";
 import { useOutletContext } from "react-router-dom";
 import SignUp from "../components/sign-up/SignUp";
+import '../components/sign-up/SignUp.css'
 
 function SignUpPage(){
 

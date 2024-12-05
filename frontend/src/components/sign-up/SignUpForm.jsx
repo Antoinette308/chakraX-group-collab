@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../ui/button';
+import './SignUp.css'
 
 function SignUpForm() {
     // States for registration
@@ -73,7 +74,7 @@ function SignUpForm() {
 
     // The form
     return (
-        <div className='form'>
+        <div className='sign-up-div'>
             <div className='messages'>{errorMessage()}{successMessage()}</div>
             <form>
                 <label>First name:</label>
