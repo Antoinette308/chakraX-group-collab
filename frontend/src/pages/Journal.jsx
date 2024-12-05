@@ -30,6 +30,7 @@ function Journal() {
                 {entries.length > 0 ? ( entries.map((entry) => (
                 <JournalCard
                     key={entry.id}
+                    entries={entries}
                     entry={entry}
                     onDelete={handleDelete}
                 />
