@@ -13,6 +13,7 @@ function SignUpForm() {
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(false);
     const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     // Handle first name change
     const handleFirstName = (e) => {
@@ -37,6 +38,7 @@ function SignUpForm() {
     const handlePassword = (e) => {
         setPassword(e.target.value);
         setSubmitted(false);
+        setPasswordError(false);
     };
 
     // Handle form submission
@@ -47,13 +49,20 @@ function SignUpForm() {
         if (firstName === '' || lastName === '' || email === '' || password === '') {
             setError(true);
             setEmailError(false);
+            setPasswordError(false);
         } else if (!emailPattern.test(email)) {
             setError(false);
             setEmailError(true);
+            setPasswordError(false);
+        } else if (password.length < 8) {
+            setError(false);
+            setEmailError(false);
+            setPasswordError(true)
         } else {
             setSubmitted(true);
             setError(false);
             setEmailError(false);
+            setPasswordError(false);
         }
     };
 
@@ -93,10 +102,21 @@ function SignUpForm() {
         );
     };
 
+    function passwordErrorMessage() {
+        return (
+            <div
+            className='error'
+            style={{ display: passwordError ? '' : "none" }}
+            >
+                <h1>Password must be 8 or more characters</h1>
+            </div>
+        )
+    }
+
     // The form
     return (
         <div className='sign-up-div'>
-            <div className='messages'>{errorMessage()}{emailErrorMessage()}{successMessage()}</div>
+            <div className='messages'>{errorMessage()}{emailErrorMessage()}{passwordErrorMessage()}{successMessage()}</div>
             { !submitted && (
                 <form>
                     <label>First name:</label>
