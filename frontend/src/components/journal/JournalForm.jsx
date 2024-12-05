@@ -12,11 +12,8 @@ function JournalForm({ entry = null, onSave, onUpdate }) {
 
     useEffect(() => {
         if (entry) {
-            setTitle(entry.title);
-            setText(entry.text);
-        } else {
-            setTitle("");
-            setText("");
+            setTitle(entry.title || "");
+            setText(entry.text || "");
         }
     }, [entry]);
 
@@ -39,9 +36,10 @@ function JournalForm({ entry = null, onSave, onUpdate }) {
     return (
         <form onSubmit={handleSubmit}>
             <Stack gap="4" align="center" width="1800px">
-                <Field>
+                <Field >
                     {/* Title Input */}
-                    <Input placeholder="Enter title"
+                    <Input 
+                        placeholder="Enter title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
@@ -55,7 +53,7 @@ function JournalForm({ entry = null, onSave, onUpdate }) {
                 </Field>
                 <Button type="submit"
                     borderRadius="30px"
-                    colorPalette="teal.500"
+                    colorPalette="teal"
                     width="250px">Submit</Button>
             </Stack>
         </form>

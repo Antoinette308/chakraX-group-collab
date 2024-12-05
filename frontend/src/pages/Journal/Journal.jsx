@@ -1,8 +1,8 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
-import JournalCard from "../components/journal/JournalCard";
-import AddNewEntry from "../components/journal/AddNewEntry";
+import Header from "../../components/Header";
+import JournalCard from "../../components/journal/JournalCard";
+import AddNewEntry from "../../components/journal/AddNewEntry";
 
 // Keely-Ann notes: gathering the AddNewEntry component and the JournalCard component together.
 function Journal() {
@@ -13,7 +13,7 @@ function Journal() {
         setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
     };
 
-    // Simulated fetch (replace with actual API call)
+    /* Simulated fetch (replace with actual API call)
     useEffect(() => {
         const mockEntries = [
             { id: 1, title: "First Entry", text: "This is the first journal entry." },
@@ -21,8 +21,8 @@ function Journal() {
             { id: 3, title: "Third Entry", text: "This is the third journal entry." },
         ];
         setEntries(mockEntries);
-    }, []);
-
+    }, []); */
+    
     return (
         <>
             <Header size="6xl" bg="teal.500" color="gray.900" text="My Entries" />

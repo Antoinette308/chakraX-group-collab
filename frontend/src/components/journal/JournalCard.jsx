@@ -23,7 +23,7 @@ function JournalCard({ entries, entry, onDelete }) {
 
     return (
         // Use Chakra's card feature to hold the journal entry information such as title and journal body.
-        <Card.Root width="320px">
+        <Card.Root variant={"elevated"} width="320px">
             <Card.Body gap="2">
                 <Card.Title mt="2">{entry.title}</Card.Title>
                 <Card.Description>
@@ -31,9 +31,9 @@ function JournalCard({ entries, entry, onDelete }) {
                 </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">
-                <Button variant="outline" onClick={() => {handleClick(); navigate(`/journal/${entry.id}`, {state:{entry: entry}}); }}>View</Button>
-                <Button variant="outline" onClick={() => {handleClick(); navigate(`/journal/edit/${entry.id}`) }}>Edit</Button>
-                <Button onClick={() => onDelete(entry.id)}>Delete</Button>
+                <Button variant="outline" colorPalette={"teal"} onClick={() => {handleClick(); navigate(`/journal/${entry.id}`, {state:{entry: entry}}, {state: {entry: entry}}) }}>View</Button>
+                <Button variant="outline" colorPalette={"teal"} onClick={() => {handleClick(); navigate(`/journal/edit/${entry.id}`, {state: {entry: entry}}) }}>Edit</Button>
+                <Button colorPalette={"teal"} onClick={() => onDelete(entry.id)}>Delete</Button>
             </Card.Footer>
         </Card.Root>
     )
