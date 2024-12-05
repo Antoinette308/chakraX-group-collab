@@ -56,8 +56,10 @@ export const updateTodoController = (req, res) => {
 export const deleteTodoByIdController = (req, res) => {
     const { id } = req.params;
     // const deleteData = req.body;
+    console.log('Deleting todo with ID:', id); // Log the ID
     deleteTodoById(id, (error, results) => {
         if (error) return res.status(500).json({ error: error.message });
         res.status(200).json(results);
     })
 };
+// Having errors using this route 
