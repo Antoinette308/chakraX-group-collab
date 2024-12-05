@@ -39,7 +39,7 @@ if(props.isActive){
             <ButtonLink  text="To Dos" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
             <ButtonLink  text="Journal" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
             <ButtonLink  text="Energy Tracker" route="energy-tracker" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
-            <ButtonLink  text="Habit Tracker" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
+            <ButtonLink  text="Habit Tracker" route="habit-tracker" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
             <ButtonLink  text="test" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
         </Flex> 
         
