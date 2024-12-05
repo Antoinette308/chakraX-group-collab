@@ -12,6 +12,7 @@ function SignUpForm() {
     // States for checking errors
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
 
     // Handle first name change
     const handleFirstName = (e) => {
@@ -29,6 +30,7 @@ function SignUpForm() {
     const handleEmail = (e) => {
         setEmail(e.target.value);
         setSubmitted(false);
+        setEmailError(false);
     };
 
     // Handle password change
@@ -40,11 +42,18 @@ function SignUpForm() {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        
         if (firstName === '' || lastName === '' || email === '' || password === '') {
             setError(true);
+            setEmailError(false);
+        } else if (!emailPattern.test(email)) {
+            setError(false);
+            setEmailError(true);
         } else {
             setSubmitted(true);
             setError(false);
+            setEmailError(false);
         }
     };
 
@@ -72,10 +81,22 @@ function SignUpForm() {
         );
     };
 
+    // Email error message if email not valid
+    function emailErrorMessage() {
+        return (
+            <div 
+                className='error'
+                style={{ display: emailError ? '' : "none" }}
+                >
+                    <h1>Please enter a valid email</h1>
+            </div>
+        );
+    };
+
     // The form
     return (
         <div className='sign-up-div'>
-            <div className='messages'>{errorMessage()}{successMessage()}</div>
+            <div className='messages'>{errorMessage()}{emailErrorMessage()}{successMessage()}</div>
             <form>
                 <label>First name:</label>
                 <input
