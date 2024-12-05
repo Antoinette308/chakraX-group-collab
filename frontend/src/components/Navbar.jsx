@@ -13,7 +13,7 @@ function NavBar(props) {
 //     const buttonColor = "cyan";
 
 
-<<<<<<< HEAD
+
     if (props.isActive) {
         return (
     <Flex direction="column" gap="4" bg={props.theme.sideBarBg} 
@@ -28,7 +28,7 @@ function NavBar(props) {
                         route="test" 
                         bg={props.theme.navButtonBg}
                         color={props.theme.ButtonColor}
-                         />
+                        />
                 <ButtonLink 
                         className='topButtons' 
                         text="Sign Up" 
@@ -37,42 +37,15 @@ function NavBar(props) {
                         color={props.theme.ButtonColor} />
             </Flex>
 
-            <ButtonLink text="To Dos" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
+            <ButtonLink text="To Dos" route="todo-list" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
             <ButtonLink text="Journal" route="journal" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
             <ButtonLink text="Energy Tracker" route="energy-tracker" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
             <ButtonLink text="Habit Tracker" route="habit-tracker" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
-            <ButtonLink text="test" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
+            <ButtonLink text="Rewards" route="rewards" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
         </Flex>
 
         )
     }
-=======
-if(props.isActive){
-    return  ( <Flex direction="column" gap="4" bg="cyan.700" justifyContent="flex-start" alignItems='center' borderRadius="30px" marginTop={3}>
-                <Flex my="4" mx="2"  gap="1">
-                    <NavBarButton colorPalette="cyan.500" isActive={props.isActive} onClick={props.onClick}/>
-                    <ButtonLink className='topButtons' text="Sign In" route="test" colorPalette={buttonColor}/>
-                    <ButtonLink className='topButtons' text="Sign Up" route="test" colorPalette={buttonColor}/>
-                </Flex> 
-    
-<<<<<<< HEAD
-            <ButtonLink  text="To Dos" route="todo-list" width="250px" colorPalette={buttonColor}/>
-            <ButtonLink  text="Journal" route="test" width="250px" colorPalette={buttonColor}/>
-            <ButtonLink  text="Energy Tracker" route="test" width="250px" colorPalette={buttonColor}/>
-            <ButtonLink  text="Habit Tracker" route="test" width="250px" colorPalette={buttonColor}/>
-            <ButtonLink  text="test" route="test" width="250px" colorPalette={buttonColor}/>
-=======
-            <ButtonLink  text="To Dos" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
-            <ButtonLink  text="Journal" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
-            <ButtonLink  text="Energy Tracker" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
-            <ButtonLink  text="Habit Tracker" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
-            <ButtonLink  text="Rewards" route="rewards" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
->>>>>>> origin/rewards-system
-        </Flex> 
-        
-    )
-}
->>>>>>> origin/todo-page
 }
 
 export default NavBar;
