@@ -14,7 +14,9 @@ function NavBar(props){
 
 
 if(props.isActive){
-    return  ( <Flex direction="column" gap="4" bg={props.theme.sideBarBg} justifyContent="flex-start" alignItems='center' borderRadius="30px" marginTop={3}>
+    return  ( 
+    <Flex direction="column" gap="4" bg={props.theme.sideBarBg} 
+    justifyContent="flex-start" alignItems='center' borderRadius="30px" marginTop={3} overflowY={"scroll"}>
                 <Flex my="4" mx="2"  gap="1">
                     <NavBarButton colorPalette={props.theme.navButtonBg} color={props.theme.ButtonColor} 
                         isActive={props.isActive} 
@@ -36,7 +38,7 @@ if(props.isActive){
     
             <ButtonLink  text="To Dos" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
             <ButtonLink  text="Journal" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
-            <ButtonLink  text="Energy Tracker" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
+            <ButtonLink  text="Energy Tracker" route="energy-tracker" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
             <ButtonLink  text="Habit Tracker" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
             <ButtonLink  text="test" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
         </Flex> 
