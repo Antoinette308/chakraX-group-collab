@@ -7,7 +7,7 @@ import { IoMdAdd } from "react-icons/io";
 function AddHabit({ addHabit }) {
     const [colour, setColour] = useState(parseColor('#14B8A6'));
     const [text, setText] = useState('');
-    const [frequency, setFrequency] = useState('');
+    const [frequency, setFrequency] = useState(1);
     const [unit, setUnit] = useState('day');
 
     function handleAddHabit() {
@@ -43,7 +43,7 @@ function AddHabit({ addHabit }) {
                     placeholder='1'
                     min="1"
                 />
-                <label htmlFor="number">{frequency == 1 ? " time" : " times"}</label>
+                <label htmlFor="number">{(frequency == 1) ? " time" : " times"}</label>
                 <label htmlFor="select">per</label>
                 <select
                     id="unit"

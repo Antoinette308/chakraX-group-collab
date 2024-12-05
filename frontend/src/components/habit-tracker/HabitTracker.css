@@ -35,7 +35,7 @@
     }
 }
 
-.add-habit-div input, label, select, button {
+.add-habit-div > * {
     margin: 10px;
 }
 
