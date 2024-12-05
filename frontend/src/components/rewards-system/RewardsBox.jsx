@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Text, Center, Flex, Icon } from "@chakra-ui/react";
+import { Text, Center, Flex, Icon } from "@chakra-ui/react";
 import { TbGrillFork } from "react-icons/tb";
 
 function RewardsBox(props){
