@@ -11,7 +11,9 @@ const themes = {
     pageButtonText: {base: "#05182A", _dark: "#05182A" },
     textColor: {base: "#05182A", _dark: "#E7EBF4"},
     footerBg: "#8BABF1",
-    footerColor: "#05182A"
+    footerColor: "#05182A",
+    accentColor: "#6888c9",
+    disabled: "#6d7fa3"
   },
   green: {
     navIcon: {base: "#79BC55", _hover: "#669c49"},
@@ -21,9 +23,12 @@ const themes = {
     pageBg: {base: "#E6F4F1", _dark: "#2d564c"}, 
     pageButtons: {base: "#79BC55", _dark:"#79BC55", _hover: "#68a348"},
     pageButtonText: {base: "#05182A", _dark: "#05182A" },
+    pageButtons: {base: "#79BC55", _dark:"#79BC55", _hover:"#669c49"},
     textColor: {base: "#05182A", _dark: "#E7EBF4"},
     footerBg: "#79BC55",
-    footerColor: "#05182A"
+    footerColor: "#05182A",
+    accentColor: "#669c49",
+    disabled: "#5a7c47"
   }
 }
 

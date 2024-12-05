@@ -8,6 +8,8 @@ import EditEntry from "./pages/JournalEditEntry.jsx";
 import { useState } from "react";
 import EnergyTracker from './pages/EnergyTracker.jsx'
 import HabitTrackerPage from "./pages/HabitTrackerPage.jsx";
+import Test from './pages/testPage.jsx';
+import Rewards from "./pages/Rewards.jsx";
 
 function App() {
   const [entries, setEntries] = useState([]);
@@ -35,6 +37,8 @@ function App() {
           <Route path="journal/edit/:id" element={<EditEntry entries={entries} handleUpdate={handleUpdate} />} />
           <Route path="energy-tracker" element={<EnergyTracker />}/>
           <Route path="habit-tracker" element={<HabitTrackerPage />} />
+          <Route path="test" element={<Test />} />
+          <Route path="rewards" element={<Rewards />} />
           {/* <Route path="to-do" element={<ToDo />} />
           <Route path="home" element={<Home />} />
           <Route path="" element={<NoPage />} /> */}

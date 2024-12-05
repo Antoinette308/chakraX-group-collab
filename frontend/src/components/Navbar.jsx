@@ -55,11 +55,19 @@ if(props.isActive){
                     <ButtonLink className='topButtons' text="Sign Up" route="test" colorPalette={buttonColor}/>
                 </Flex> 
     
+<<<<<<< HEAD
             <ButtonLink  text="To Dos" route="todo-list" width="250px" colorPalette={buttonColor}/>
             <ButtonLink  text="Journal" route="test" width="250px" colorPalette={buttonColor}/>
             <ButtonLink  text="Energy Tracker" route="test" width="250px" colorPalette={buttonColor}/>
             <ButtonLink  text="Habit Tracker" route="test" width="250px" colorPalette={buttonColor}/>
             <ButtonLink  text="test" route="test" width="250px" colorPalette={buttonColor}/>
+=======
+            <ButtonLink  text="To Dos" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
+            <ButtonLink  text="Journal" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
+            <ButtonLink  text="Energy Tracker" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
+            <ButtonLink  text="Habit Tracker" route="test" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
+            <ButtonLink  text="Rewards" route="rewards" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor}/>
+>>>>>>> origin/rewards-system
         </Flex> 
         
     )

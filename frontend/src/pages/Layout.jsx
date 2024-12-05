@@ -30,7 +30,8 @@ function handleClick() {
 //While inactive, there will only be the button 
 if(active === false){
     return (
-        <Grid  minHeight="100vh" minWidth="100vw" 
+        <Grid minHeight="100vh" 
+            minWidth="100vw" 
             gridTemplateColumns="max-content 4fr" 
             gridTemplateRows="1fr max-content" 
             gap={2} 
