@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
+import ToDoListPage from "./pages/todoList.jsx"
 import Journal from "./pages/Journal.jsx";
 import NewEntry from "./pages/JournalNewEntry.jsx";
 import ViewEntry from "./pages/JournalViewEntry.jsx";
@@ -29,6 +30,7 @@ function App() {
         <Route path="/" element={<Layout />} >
           <Route path="journal" element={<Journal entries={entries} handleSave={handleSave} handleUpdate={handleUpdate} />} />
           <Route path="journal/new-entry" element={<NewEntry handleSave={handleSave} />} />
+          <Route path="todo-list" element={<ToDoListPage />} />
           <Route path="journal/:id" element={<ViewEntry entries={entries} />} />
           <Route path="journal/edit/:id" element={<EditEntry entries={entries} handleUpdate={handleUpdate} />} />
           <Route path="energy-tracker" element={<EnergyTracker />}/>
