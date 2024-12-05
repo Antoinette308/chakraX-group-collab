@@ -16,12 +16,13 @@ USE exec_function_db;
 -- );
 
 CREATE TABLE habits ( 
-    habits_id INT PRIMARY KEY AUTO_INCREMENT, 
-    user_id FOREIGN KEY INT NOT NULL,
+    habits_id INT AUTO_INCREMENT PRIMARY KEY, 
+    user_id INT NOT NULL,
     habit_name VARCHAR(255) NOT NULL, 
     description TEXT, 
     frequency INT, 
     recurrence ENUM('daily', 'weekly', 'monthly', 'yearly'), 
     start_date DATE, 
-    last_completed DATE 
+    last_completed DATE,
+	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

@@ -7,9 +7,10 @@
 -- )
 
 CREATE TABLE journal ( 
-    entry_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id FOREIGN KEY INT NOT NULL,
+    entry_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
     title VARCHAR(100) NOT NULL UNIQUE,
     entry TEXT NOT NULL,
-    date DATE DEFAULT (CURDATE())
+    date DATE DEFAULT (CURDATE()),
+	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

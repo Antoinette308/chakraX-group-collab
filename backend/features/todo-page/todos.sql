@@ -8,10 +8,11 @@
 -- );
 
 CREATE TABLE todos (
-    todo_id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_id FOREIGN KEY INT NOT NULL,
+    todo_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
     tasks text NOT NULL,
-    completed BOOLEAN NOT NULL DEFAULT FALSE
+    completed BOOLEAN NOT NULL DEFAULT FALSE,
+	FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 INSERT INTO todos 
