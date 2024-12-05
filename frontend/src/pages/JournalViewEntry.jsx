@@ -1,29 +1,20 @@
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Box, Text } from "@chakra-ui/react";
 import Header from "../components/Header";
 
-function ViewEntry({ entries }) {
+function ViewEntry() {
     const { id } = useParams();
-    const navigate = useNavigate();
-    const entry = entries.find((e) => e.id === parseInt(id, 10));
+    console.log("Currently viewing entry: ", id)
+    const location = useLocation();
 
-    if (!entry) {
-        setTimeout(() => navigate("/journal"), 3000);
-        return (
-            <Box>
-                <Text>Entry not found.</Text>
-            </Box>
-        );
-    }
 
     return (
         <>
-            <Header size="6xl" bg="teal.500" color="gray.900" text="What was on your mind?" />
-            <Box>
-                <h1> {entry.title} </h1>
-                <Text> {entry.text} </Text>
-            </Box>
+            <Header size="6xl" bg="teal.500" color="gray.900" text={location.state.entry.title} />
+                <Box margin={10}>
+                    <Text>{location.state.entry.text}</Text>
+                </Box> 
         </>
     );
 

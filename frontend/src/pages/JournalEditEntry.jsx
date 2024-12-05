@@ -1,22 +1,22 @@
 import Header from "../components/Header";
 import JournalForm from "../components/journal/JournalForm";
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useParams, useLocation} from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 
-function EditEntry({ entries, handleUpdate }) {
+function EditEntry({handleUpdate }) {
     const { id } = useParams();
-    const [entry, setEntry] = useState(null);
-
-    // update new entry 
-    useEffect(() => {
-        const foundEntry = entries.find((e) => e.id === parseInt(id, 10));
-        setEntry(foundEntry);
-    }, [id, entries]);
+    console.log("Currently editing entry: ", id)
+    const location = useLocation();
+    const entry = location.state?.entry || null; 
+    console.log("Current entry details: ", entry)
 
     return (
         <>
             <Header size="6xl" bg="teal.500" color="gray.900" text="What was on your mind?" />
-            <JournalForm entry={entries} onUpdate={handleUpdate} />
+            <Box margin={10}>
+            <JournalForm entry={entry} onUpdate={handleUpdate} />
+            </Box>
+           
         </>
     )
 };
