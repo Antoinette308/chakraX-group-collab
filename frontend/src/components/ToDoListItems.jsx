@@ -111,7 +111,7 @@ function ToDoListItems() {
         
         // Function to delete a todo by ID
         const deleteTodoById = async (id) => {
-            console.log('Deleting todo:', id);
+            console.log('Deleting todo:', id); // Log the ID
             const url = `http://localhost:3000/todo/delete-task/${id}`; // Declare the URL to delete a todo by ID
             try {   // Wrap code in a try block to catch any errors
                 const response = await fetch(url, {
@@ -138,9 +138,6 @@ function ToDoListItems() {
         }
             
 
-    
-
-
         
 
     return (
@@ -162,7 +159,7 @@ function ToDoListItems() {
             </VStack>
         </>
     );
-};
+}
     
-    export default ToDoListItems;
+export default ToDoListItems;
     
