@@ -33,5 +33,26 @@ router.put('/update-task/:id', /*validateTodo, checkValidationResult,*/ updateTo
 
 router.delete('/delete-task/:id', deleteTodoByIdController);
 
-// export router
+// My new code by Antoinette in this code block. I've added a new route with the endpoint to create a new task that works for the frontend, because I kept recieving errors before.
+router.post('/new-task', (req, res) => { 
+    const todo = req.body;
+    createTodo(todo, (error, result) => {
+        if (error) {
+            return res.status(500).json({ error: error.message });
+        }
+        res.status(201).json(result);
+    });
+});
+
+// // My new code by Antoinette in this code block. I've added a new route with the endpoint to delete a todo by ID, because I keep recieving network errors.
+// router.delete('/delete-task/:id', (req, res) => {
+//     const { id } = req.params;
+//     deleteTodoById(id, (error, result) => {
+//         if (error) {
+//             return res.status(500).json({ error: error.message });
+//         }
+//         res.status(200).json(result);
+//     });
+// });
+
 export default router;

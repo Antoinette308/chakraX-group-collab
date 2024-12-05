@@ -110,11 +110,11 @@ import AddToDoForm from '../components/AddToDoForm';
 import ToDoListItems from '../components/ToDoListItems';
 
 function TodoListPage() {
+    
     return (
         <>
             <Header size="6xl" bg="teal.500" color="gray.900" text="Your ToDo List"/>
             <h1>This is your Todo List! 📝</h1>
-            <AddToDoForm />
             <ToDoListItems />
         </>
 
