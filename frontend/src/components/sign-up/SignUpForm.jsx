@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import './SignUp.css'
 
@@ -29,6 +30,17 @@ function SignUpForm() {
     const [error, setError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+
+    // States for successful sign up
+    const [signUpSuccessful, setSignUpSuccessful] = useState(false);
+    const navigate = useNavigate();
+
+    // Handle sign up
+    useEffect(() => {
+        if (signUpSuccessful) {
+            setTimeout(() => navigate('/sign-in'), 3000);
+        }
+    }, [signUpSuccessful]);
 
     // Handle first name change
     const handleFirstName = (e) => {
@@ -94,7 +106,8 @@ function SignUpForm() {
                 className="success"
                 style={{ display: submitted ? "" : "none" }}
             >
-                <h1>Thank you {firstName}, your account has been created</h1>
+                <h1>Thank you {firstName}, your account has been created!</h1>
+                <h1>Redirecting to sign-in page...</h1>
             </div>
         );
     };
