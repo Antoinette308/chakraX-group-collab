@@ -97,37 +97,39 @@ function SignUpForm() {
     return (
         <div className='sign-up-div'>
             <div className='messages'>{errorMessage()}{emailErrorMessage()}{successMessage()}</div>
-            <form>
-                <label>First name:</label>
-                <input
-                    onChange={handleFirstName}
-                    value={firstName}
-                    type='text'
-                />
-                <label>Last name:</label>
-                <input
-                    onChange={handleLastName}
-                    value={lastName}
-                    type='text'
-                />
-                <label>Email:</label>
-                <input
-                    onChange={handleEmail}
-                    value={email}
-                    type='email'
-                />
-                <label>Password:</label>
-                <input
-                    onChange={handlePassword}
-                    value={password}
-                    type='password'
-                />
-                <Button 
-                    onClick={handleSubmit}
-                    type='submit'>
-                    Submit
-                </Button>
-            </form>
+            { !submitted && (
+                <form>
+                    <label>First name:</label>
+                    <input
+                        onChange={handleFirstName}
+                        value={firstName}
+                        type='text'
+                    />
+                    <label>Last name:</label>
+                    <input
+                        onChange={handleLastName}
+                        value={lastName}
+                        type='text'
+                    />
+                    <label>Email:</label>
+                    <input
+                        onChange={handleEmail}
+                        value={email}
+                        type='email'
+                    />
+                    <label>Password:</label>
+                    <input
+                        onChange={handlePassword}
+                        value={password}
+                        type='password'
+                    />
+                    <Button 
+                        onClick={handleSubmit}
+                        type='submit'>
+                        Submit
+                    </Button>
+                </form>
+            )}
         </div>
     );
 }
