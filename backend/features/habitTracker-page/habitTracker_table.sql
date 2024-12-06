@@ -32,7 +32,7 @@ CREATE TABLE habits (
    CREATE TABLE habits (  
     habits_id INT PRIMARY KEY AUTO_INCREMENT, 
     user_id INT NOT NULL,
-    text VARCHAR(255) NOT NULL,
+    habit_name VARCHAR(255) NOT NULL,
     colour VARCHAR(255) NOT NULL,
     frequency INT, -- Number of times the habit should be done 
     unit ENUM('day', 'week'), -- Time period in which the frequency applies 

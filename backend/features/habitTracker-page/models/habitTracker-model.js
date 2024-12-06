@@ -22,10 +22,11 @@ export const createHabit = (habit, callback) => {
 */
 
 export const createHabit = (habit, callback) => {
-    const query = 'INSERT INTO habits (text, colour, frequency, unit, monday, tuesday, wednesday, thursday, friday, saturday, sunday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const query = 'INSERT INTO habits (user_id, habit_name, colour, frequency, unit, monday, tuesday, wednesday, thursday, friday, saturday, sunday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
     const values = [
-        habit.text,
+        habit.user_id,
+        habit.habit_name,
         habit.colour,
         habit.frequency,
         habit.unit,
