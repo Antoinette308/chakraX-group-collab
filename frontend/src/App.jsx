@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
 import ToDoListPage from "./pages/todoList.jsx"
-import Journal from "./pages/Journal.jsx";
-import NewEntry from "./pages/JournalNewEntry.jsx";
-import ViewEntry from "./pages/JournalViewEntry.jsx";
-import EditEntry from "./pages/JournalEditEntry.jsx";
+import Journal from "./pages/Journal/Journal.jsx";
+import NewEntry from "./pages/Journal/JournalNewEntry.jsx";
+import ViewEntry from "./pages/Journal/JournalViewEntry.jsx";
+import EditEntry from "./pages/Journal/JournalEditEntry.jsx";
 import { useState } from "react";
 import EnergyTracker from './pages/EnergyTracker.jsx'
 import HabitTrackerPage from "./pages/HabitTrackerPage.jsx";

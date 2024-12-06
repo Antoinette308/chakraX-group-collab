@@ -57,13 +57,14 @@ export default AddToDo;
 
 
 import React from 'react';
-import styles from '../styles/AddToDoForm.module.css';
+import styles from '../../styles/AddToDoForm.module.css';
+import { Button } from '@chakra-ui/react';
 // Trying to add functionality
 import { useState } from 'react';
 import ToDoListItems from './ToDoListItems';
 
 
-function AddToDoForm({ onTaskAdded }) {   // Extract onTaskAdded as a prop for fetching the new tasks. This calls the handleNewTaskCreatedByUser function in ToDoListItems.jsx
+function AddToDoForm({ onTaskAdded, theme }) {   // Extract onTaskAdded as a prop for fetching the new tasks. This calls the handleNewTaskCreatedByUser function in ToDoListItems.jsx
     console.log('AddToDoForm and Add Task button component rendered');
 
 
@@ -113,7 +114,7 @@ function AddToDoForm({ onTaskAdded }) {   // Extract onTaskAdded as a prop for f
                 placeholder="Write a new task"
                 className={styles.form}
             />
-            <button type='submit' className={styles.button}>Add Task</button>
+            <Button type='submit' className={styles.button} bg={theme.pageButtons} color={theme.ButtonColor}>Add Task</Button>
         </form>
     );
 };

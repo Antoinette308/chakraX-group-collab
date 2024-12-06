@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // My original code:
 
 /*
@@ -64,7 +65,7 @@ import AddToDoForm from './AddToDoForm';
 
 
 
-function ToDoListItems() {
+function ToDoListItems({theme}) {
     console.log('ToDoListItems component rendered'); 
 
         // readAllTodos(); // Call the function to test if it works
@@ -129,7 +130,6 @@ function ToDoListItems() {
                 console.error('Error deleting todo:', error.message);
             }
         };
-         
         
 
         // If the data is still loading, display a loading message.
@@ -142,7 +142,7 @@ function ToDoListItems() {
 
     return (
         <>
-            <AddToDoForm onTaskAdded={handleNewTaskCreatedByUser} /> {/* Returning the AddToDoForm component here, and not in the todopage retrurn statement. This is to avoid the form & button rendering duplicates*/}
+            <AddToDoForm onTaskAdded={handleNewTaskCreatedByUser} theme={theme} /> {/* Returning the AddToDoForm component here, and not in the todopage retrurn statement. This is to avoid the form & button rendering duplicates*/}
             <VStack width='100%' alignItems='stretch'>
                 {todos.map((todo) => (    // Initially I was mapping over the todos array, but I've now added an index to the map function. This also a key for the HStack
                     <HStack key={todo.id} p={2} borderWidth={1} borderRadius="30px">  {/* Initially I was using the todo.id as the key, but I've now used the index as the key */}

@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { Button, Input, Stack, Textarea } from "@chakra-ui/react"
 import { Field } from "../ui/field"
 
 // Keely-Ann notes: Journal 'form' created to submit journal entries.
 
-function JournalForm({ entry = null, onSave, onUpdate }) {
+function JournalForm({ entry = null, onSave, onUpdate, theme }) {
 
     // Store the title and body of the journal entry
     const [title, setTitle] = useState("");
@@ -35,7 +36,7 @@ function JournalForm({ entry = null, onSave, onUpdate }) {
     // Setting up the journal form
     return (
         <form onSubmit={handleSubmit}>
-            <Stack gap="4" align="center" width="1800px">
+            <Stack gap="4" align="center">
                 <Field >
                     {/* Title Input */}
                     <Input 
@@ -53,7 +54,8 @@ function JournalForm({ entry = null, onSave, onUpdate }) {
                 </Field>
                 <Button type="submit"
                     borderRadius="30px"
-                    colorPalette="teal"
+                    color={theme.ButtonColor}
+                    bg={theme.pageButtons}
                     width="250px">Submit</Button>
             </Stack>
         </form>

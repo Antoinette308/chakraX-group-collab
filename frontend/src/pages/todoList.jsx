@@ -105,17 +105,18 @@ export default TodoList;
 // New code 01/12/24
 
 
+import { useOutletContext } from "react-router-dom";
 import Header from "../components/Header"
-import AddToDoForm from '../components/AddToDoForm';
-import ToDoListItems from '../components/ToDoListItems';
+import AddToDoForm from '../components/todo-list/AddToDoForm';
+import ToDoListItems from '../components/todo-list/ToDoListItems';
 
 function TodoListPage() {
-    
+    const theme = useOutletContext();
     return (
         <>
-            <Header size="6xl" bg="teal.500" color="gray.900" text="Your ToDo List"/>
+            <Header size="6xl" bg={theme.sideBarBg} color={theme.ButtonColor} text="Your ToDo List"/>
             <h1>This is your Todo List! 📝</h1>
-            <ToDoListItems />
+            <ToDoListItems theme={theme} />
         </>
 
     );

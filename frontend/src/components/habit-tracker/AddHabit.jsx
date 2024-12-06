@@ -4,7 +4,7 @@ import {  parseColor } from "@chakra-ui/react"
 import ColourPicker from './ColourPicker'
 import { IoMdAdd } from "react-icons/io";
 
-function AddHabit({ addHabit }) {
+function AddHabit({ addHabit, bg }) {
     const [colour, setColour] = useState(parseColor('#14B8A6'));
     const [text, setText] = useState('');
     const [frequency, setFrequency] = useState(1);
@@ -24,7 +24,7 @@ function AddHabit({ addHabit }) {
     // Render the form to add a habit
     return (
         <div className='add-habit-div-div'>
-            <div className='add-habit-div'>
+            <div className='add-habit-div' style={{backgroundColor: bg}}>
                 <ColourPicker
                     colour={colour}
                     setColour={setColour}

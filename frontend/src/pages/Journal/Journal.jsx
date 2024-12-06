@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import JournalCard from "../../components/journal/JournalCard";
 import AddNewEntry from "../../components/journal/AddNewEntry";
+import { useOutletContext } from "react-router-dom";
 
 // Keely-Ann notes: gathering the AddNewEntry component and the JournalCard component together.
 function Journal() {
     const [entries, setEntries] = useState([]);
-
+    const theme= useOutletContext()
     // Deleting an entry 
     const handleDelete = (id) => {
         setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
@@ -25,7 +26,7 @@ function Journal() {
     
     return (
         <>
-            <Header size="6xl" bg="teal.500" color="gray.900" text="My Entries" />
+            <Header size="6xl" bg={theme.sideBarBg} color={theme.ButtonColor} text="My Entries" />
             <SimpleGrid columns={[1, 2, 3]} spacing="10px" p="4">
                 {entries.length > 0 ? ( entries.map((entry) => (
                 <JournalCard
@@ -39,7 +40,7 @@ function Journal() {
             <p>No entries available.</p>
         )}
             </SimpleGrid>
-            <AddNewEntry />
+            <AddNewEntry colorPalette={theme.pageButtons}/>
         </>
     );
 };

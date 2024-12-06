@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import HabitItem from './HabitItem';
@@ -6,7 +7,7 @@ import './HabitTracker.css';
 import ViewWeekly from './ViewWeekly';
 import WeeklyProgress from './WeeklyProgress'
 
-function HabitTracker() {
+function HabitTracker({theme}) {
 
     const [habits, setHabits] = useState(() => {
         try {
@@ -57,7 +58,7 @@ function HabitTracker() {
     return (
         <div className='habit-tracker'>
             <header>
-                <AddHabitButton addHabit={addHabit}/>
+                <AddHabitButton theme={theme}addHabit={addHabit}/>
             </header>
             <div className='habit-items'>
                 {habits.map(habit => (
