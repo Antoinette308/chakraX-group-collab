@@ -13,6 +13,7 @@ import {
     deleteTodoByIdController 
 } from '../controllers/todo-controller.js';
 //import { validateTodo, checkValidationResult } from '../validators/todo-validator.js';
+import { authenticateToken } from '../../authentication/middleware/auth-middleware.js';
 
 
 // declare router
@@ -23,15 +24,15 @@ router.get('/', welcomeMessage);
 console.log(welcomeMessage);
 
 // CRUD routes
-router.post('/new-task', /*validateTodo, checkValidationResult,*/ createTodoController);
+router.post('/new-task', /*validateTodo, checkValidationResult,*/ authenticateToken, createTodoController);
 
-router.get('/all-tasks', getTodosController);
+router.get('/all-tasks/:id', /*authenticateToken,*/  getTodosController);
 
-router.get('/task/:id', getTodoByIdController);
+router.get('/task/:id', authenticateToken,  getTodoByIdController);
 
-router.put('/update-task/:id', /*validateTodo, checkValidationResult,*/ updateTodoController);
+router.put('/update-task/:id',  /*validateTodo, checkValidationResult,*/ authenticateToken, updateTodoController);
 
-router.delete('/delete-task/:id', deleteTodoByIdController);
+router.delete('/delete-task/:id', authenticateToken, deleteTodoByIdController);
 
 // export router
 export default router;
