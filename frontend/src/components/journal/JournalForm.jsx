@@ -5,11 +5,41 @@ import { Field } from "../ui/field"
 
 // Keely-Ann notes: Journal 'form' created to submit journal entries.
 
-function JournalForm({ entry = null, onSave, onUpdate, theme }) {
+function JournalForm({ entry = null, onUpdate, theme }) {
 
     // Store the title and body of the journal entry
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
+    const user = 1;
+    async function handleSave() {
+        const url = "http://localhost:3000/journal/new-entry";
+
+        try{
+            const response = await fetch(url, {
+                method: "POST",
+            body: JSON.stringify({
+                user_id: user,
+                title: title,
+                entry: text,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if(!response.ok){
+            throw new Error(`Response Status: ${response.status}`)
+        }
+        const json = await response.json()
+            console.log(json)
+            return json;
+        }
+        catch(err){
+            console.error(err.message);
+        }
+        
+        
+
+    }
 
     useEffect(() => {
         if (entry) {
@@ -26,7 +56,7 @@ function JournalForm({ entry = null, onSave, onUpdate, theme }) {
             console.log("Journal updated");
         } else {
             const newEntry = {title, text};
-            onSave(newEntry)
+            handleSave(newEntry)
             console.log("New entry saved", newEntry);
         }
         setTitle("");

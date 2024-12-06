@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 
 // Keely-Ann notes: Journal card created to preview journal entries on the main page.
 
-function JournalCard({ entries, entry, onDelete }) {
+function JournalCard({ entries, entry, onDelete, onUpdate }) {
     const navigate = useNavigate();
     const handleClick = () => {
         console.log("Button clicked");
@@ -27,12 +27,12 @@ function JournalCard({ entries, entry, onDelete }) {
             <Card.Body gap="2">
                 <Card.Title mt="2">{entry.title}</Card.Title>
                 <Card.Description>
-                    {getSnippet(entry.text)}
+                    {getSnippet(entry.entry)}
                 </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">
                 <Button variant="outline" colorPalette={"teal"} onClick={() => {handleClick(); navigate(`/journal/${entry.id}`, {state:{entry: entry}}, {state: {entry: entry}}) }}>View</Button>
-                <Button variant="outline" colorPalette={"teal"} onClick={() => {handleClick(); navigate(`/journal/edit/${entry.id}`, {state: {entry: entry}}) }}>Edit</Button>
+                <Button variant="outline" colorPalette={"teal"} onClick={() => {handleClick(); navigate(`/journal/edit/${entry.id}`, {state: {entry: entry}, onUpdate: onUpdate}) }}>Edit</Button>
                 <Button colorPalette={"teal"} onClick={() => onDelete(entry.id)}>Delete</Button>
             </Card.Footer>
         </Card.Root>

@@ -9,9 +9,35 @@ import { useOutletContext } from "react-router-dom";
 function Journal() {
     const [entries, setEntries] = useState([]);
     const theme= useOutletContext()
+    const user= 1;
     // Deleting an entry 
     const handleDelete = (id) => {
         setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+    };
+
+    async function getEntries(){
+        const url = `http://localhost:3000/journal/${user}`;
+        try {
+            const response = await fetch(url);
+            if(!response.ok){
+                throw new Error(`Response Status: ${response.status}`)
+            }
+            const json = await response.json()
+                console.log(json)
+                return json
+            }
+            catch(err){
+                console.error(err.message);
+            }
+        }
+
+
+
+    const handleUpdate = (updatedEntry) => {
+        setEntries((prevEntries) =>
+        prevEntries.map((entry) => (
+        entry.id === updatedEntry.id ? updatedEntry : entry))
+        );
     };
 
     /* Simulated fetch (replace with actual API call)
@@ -24,16 +50,23 @@ function Journal() {
         setEntries(mockEntries);
     }, []); */
     
+    useEffect(() => {
+        getEntries().then((res) => {
+            setEntries(res)
+        })
+    },[])
+
     return (
         <>
             <Header size="6xl" bg={theme.sideBarBg} color={theme.ButtonColor} text="My Entries" />
             <SimpleGrid columns={[1, 2, 3]} spacing="10px" p="4">
                 {entries.length > 0 ? ( entries.map((entry) => (
                 <JournalCard
-                    key={entry.id}
+                    key={entry.entry_id}
                     entries={entries}
                     entry={entry}
                     onDelete={handleDelete}
+                    onUpdate={handleUpdate}
                 />
             ))
         ) : (
