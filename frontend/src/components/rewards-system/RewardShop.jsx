@@ -3,6 +3,7 @@ import { Box, Button, Flex, Heading, Icon, Text } from "@chakra-ui/react";
 // import { useState } from "react";
 import RewardsBox from "./RewardsBox";
 import { TbGrillFork } from "react-icons/tb";
+import AddRewardDialog from "./AddRewardDialog";
 
 
 function RewardShop(props){
@@ -23,7 +24,8 @@ function RewardShop(props){
             bg={props.theme.sideBarBg} color={props.theme.ButtonColor}
             height="3rem" borderRadius={"25px"} width="20em"> Rewards</Heading>
                 <Flex gap="10px" alignItems={"center"}>
-                    <Button bg={props.theme.pageButtons} color={props.theme.ButtonColor} size="xl">Add Reward</Button>
+                    <AddRewardDialog theme={props.theme}></AddRewardDialog>
+                    
                     <Text textStyle={"lg"} padding="5px">
                         {`Your Forks: ${props.forks}`}
                         <Icon display={"inline"} size="md">{<TbGrillFork/>}</Icon>

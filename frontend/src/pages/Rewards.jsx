@@ -10,7 +10,7 @@ function Rewards(){
 
     const theme= useOutletContext()
     const days = [1,2,3,4,5,6,7]
-    const [forks, setForks] = useState(0)
+    const [forks, setForks] = useState(6)
     const mockUserData = {userId: 1, forks: 6, lastVisit: "2024-12-04", streak: 1}
     const [weeks, setWeeks] = useState(1);
     const [streak, setStreak] = useState(mockUserData.streak)
