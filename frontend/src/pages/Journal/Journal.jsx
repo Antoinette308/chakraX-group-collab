@@ -11,8 +11,29 @@ function Journal() {
     const theme= useOutletContext()
     const user= 1;
     // Deleting an entry 
+    async function deleteEntry(id){
+        const url = `http://localhost:3000/journal/${id}`
+        try{
+            const response = await fetch(url, {
+                method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if(!response.ok){
+            throw new Error(`Response Status: ${response.status}`)
+        }
+        const json = await response.json()
+            console.log(json)
+            return json;
+        }
+        catch(err){
+            console.error(err.message);
+        }
+    }
     const handleDelete = (id) => {
-        setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+        deleteEntry(id);
+        setEntries((prevEntries) => prevEntries.filter((entry) => entry.entry_id !== id));
     };
 
     async function getEntries(){
@@ -30,15 +51,6 @@ function Journal() {
                 console.error(err.message);
             }
         }
-
-
-
-    const handleUpdate = (updatedEntry) => {
-        setEntries((prevEntries) =>
-        prevEntries.map((entry) => (
-        entry.id === updatedEntry.id ? updatedEntry : entry))
-        );
-    };
 
     /* Simulated fetch (replace with actual API call)
     useEffect(() => {
@@ -66,7 +78,7 @@ function Journal() {
                     entries={entries}
                     entry={entry}
                     onDelete={handleDelete}
-                    onUpdate={handleUpdate}
+                    theme={theme}
                 />
             ))
         ) : (

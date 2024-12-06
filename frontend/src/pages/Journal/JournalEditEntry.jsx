@@ -3,7 +3,7 @@ import JournalForm from "../../components/journal/JournalForm";
 import { useParams, useLocation, useOutletContext} from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
-function EditEntry({handleUpdate }) {
+function EditEntry() {
     const { id } = useParams();
     console.log("Currently editing entry: ", id)
     const location = useLocation();
@@ -11,13 +11,40 @@ function EditEntry({handleUpdate }) {
     const entry = location.state?.entry || null; 
     console.log("Current entry details: ", entry)
 
+
+    async function handleUpdate (updatedEntry){
+        const url = `http://localhost:3000/journal/`
+        try{
+            const response = await fetch(url, {
+                method: "PUT",
+            body: JSON.stringify({
+                user_id: updatedEntry.user,
+                title: updatedEntry.title,
+                entry: updatedEntry.text,
+                entry_id: id
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if(!response.ok){
+            throw new Error(`Response Status: ${response.status}`)
+        }
+        const json = await response.json()
+            console.log(json)
+            return json;
+        }
+        catch(err){
+            console.error(err.message);
+        }
+    };
+
     return (
         <>
             <Header size="6xl" bg={theme.sideBarBg} color={theme.ButtonColor} text="What was on your mind?" />
             <Box margin={10}>
-            <JournalForm entry={entry} onUpdate={handleUpdate} />
+            <JournalForm entry={entry} onUpdate={handleUpdate} theme={theme}/>
             </Box>
-           
         </>
     )
 };

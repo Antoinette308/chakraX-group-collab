@@ -11,6 +11,8 @@ function JournalForm({ entry = null, onUpdate, theme }) {
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
     const user = 1;
+
+
     async function handleSave() {
         const url = "http://localhost:3000/journal/new-entry";
 
@@ -36,15 +38,15 @@ function JournalForm({ entry = null, onUpdate, theme }) {
         catch(err){
             console.error(err.message);
         }
-        
-        
+
+
 
     }
 
     useEffect(() => {
         if (entry) {
             setTitle(entry.title || "");
-            setText(entry.text || "");
+            setText(entry.entry || "");
         }
     }, [entry]);
 
@@ -52,7 +54,8 @@ function JournalForm({ entry = null, onUpdate, theme }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(entry){
-            onUpdate({...entry, title, text})
+            console.log(title, text)
+            onUpdate({title, text, user})
             console.log("Journal updated");
         } else {
             const newEntry = {title, text};

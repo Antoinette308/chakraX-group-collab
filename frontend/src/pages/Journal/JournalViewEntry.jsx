@@ -15,7 +15,7 @@ function ViewEntry() {
         <>
             <Header size="6xl" bg={theme.sideBarBg} color={theme.ButtonColor} text={location.state.entry.title} />
                 <Box margin={10}>
-                    <Text>{location.state.entry.text}</Text>
+                    <Text>{location.state.entry.entry}</Text>
                 </Box> 
         </>
     );
