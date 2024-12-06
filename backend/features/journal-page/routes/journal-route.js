@@ -16,7 +16,7 @@ router.put("/", controller.updateJournalEntry);
 
 
 //This will delete journal entry using the entry id 
-router.delete("/", controller.deleteJournalEntry);
+router.delete("/:id", controller.deleteJournalEntry);
 
 
 export default router;

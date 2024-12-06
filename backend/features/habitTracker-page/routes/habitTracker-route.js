@@ -24,7 +24,7 @@ router.post('/new-habit', validateHabit, checkValidationResult, createHabitContr
 
 router.get('/habit/:id', getHabitByIdController);
 
-router.put('/update-habit/:id', validateHabit, checkValidationResult, updateHabitByIdController);
+router.put('/update-habit/:id',/* validateHabit, checkValidationResult,*/ updateHabitByIdController);
 
 router.delete('/delete-habit/:id', deleteHabitByIdController);
 

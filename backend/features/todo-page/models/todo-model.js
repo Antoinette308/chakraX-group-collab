@@ -8,8 +8,8 @@ import connection from "../../../config/database.js";
 
 // Create new todo
 export const createTodo = (todo, callback) => {
-    const query = 'INSERT INTO todos (tasks, completed) VALUES (?, ?)';
-    connection.query(query, [todo.tasks, todo.completed], (error, results) => {
+    const query = 'INSERT INTO todos (user_id, tasks, completed) VALUES (?, ?)';
+    connection.query(query, [todo.user_id, todo.tasks, todo.completed], (error, results) => {
         if (error) return callback(error);
         callback(null, { id: results.insertId, ...todo });
     });
@@ -17,7 +17,7 @@ export const createTodo = (todo, callback) => {
 
 // Read all todos
 export const getTodos = (callback) => {
-    const query = 'SELECT * FROM todos';
+    const query = 'SELECT * FROM todos WHERE user_id = ?';
     connection.query(query, (error, results) => {
         if (error) return callback(error);
         callback(null, results);
