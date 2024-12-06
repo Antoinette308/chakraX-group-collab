@@ -15,16 +15,11 @@ function WeeklyProgress({ habits }) {
     // target = 
 
     function calculateProgress(habit) {
-        const { status, frequency, unit } = habit;
+        const { monday, tuesday, wednesday, thursday, friday, saturday, sunday, frequency, unit } = habit;
+        const weekDays = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+        const completed = weekDays.filter(day => day === true).length;
 
-        let completed = 0;
-        for (const [day, value] of Object.entries(status)) {
-            if (value === true) {
-                completed++
-            }
-        }
-        
-        let percentageCompleted;
+        let percentageCompleted = 0;
         if (habit.unit === "day") {
             percentageCompleted = (completed / 7) * 100;
         } else {
@@ -34,35 +29,37 @@ function WeeklyProgress({ habits }) {
     }
 
     return (
-        <>
+        <div className="weekly-progress">
             {habits.map((habit) => {
                 const percentageCompleted = calculateProgress(habit);
 
                 return (
-                    <ProgressRoot
-                        key={habit.id}
-                        value={percentageCompleted}
-                        maxW="sm"
-                    >
-                        <HStack gap="5">
-                            <ProgressLabel>{habit.text}</ProgressLabel>
-                            <ProgressBar
-                                flex="1"
-                                sx={{
-                                    "& div[role='progressbar']": {
-                                      backgroundColor: habit.color, // Use the rgba() color directly
-                                    },
-                                    backgroundColor: "rgba(0, 0, 0, 0.1)", // Progress track background
-                                }}
-                            />
-                            <ProgressValueText>
-                                {percentageCompleted === 100 ? "Complete" : `${percentageCompleted.toFixed(0)}%`}
-                            </ProgressValueText>
-                        </HStack>
-                    </ProgressRoot>
+                    <div className="weekly-progress-bars">
+                        <ProgressRoot
+                            key={habit.id}
+                            value={percentageCompleted}
+                            maxW="sm"
+                        >
+                            <HStack gap="5">
+                                <ProgressLabel>{habit.text}</ProgressLabel>
+                                <ProgressBar
+                                    flex="1"
+                                    sx={{
+                                        "& div[role='progressbar']": {
+                                        backgroundColor: habit.color, // Use the rgba() color directly
+                                        },
+                                        backgroundColor: "rgba(0, 0, 0, 0.1)", // Progress track background
+                                    }}
+                                />
+                                <ProgressValueText>
+                                    {percentageCompleted === 100 ? "Complete" : `${percentageCompleted.toFixed(0)}%`}
+                                </ProgressValueText>
+                            </HStack>
+                        </ProgressRoot>
+                    </div>
                 );
             })}
-        </>
+        </div>
     );
 }
 

@@ -11,7 +11,7 @@ function HabitTrackerPage(){
     return (
     <>
         <Header size="6xl" bg={theme.sideBarBg} color={theme.ButtonColor} text="Habit Tracker"/>
-        <Text id="habit-text" textAlign={"center"} fontSize={20}>What habits would you like to track?</Text>
+        {/*<Text id="habit-text" textAlign={"center"} fontSize={20}>What habits would you like to track?</Text>*/}
         <HabitTracker theme={theme} />
     </>
     );

@@ -18,10 +18,15 @@ USE exec_function_db;
 CREATE TABLE habits ( 
     habits_id INT PRIMARY KEY AUTO_INCREMENT, 
     user_id FOREIGN KEY INT NOT NULL,
-    habit_name VARCHAR(255) NOT NULL, 
-    description TEXT, 
+    text VARCHAR(255) NOT NULL,
+    colour VARCHAR(255) NOT NULL,
     frequency INT, 
-    recurrence ENUM('daily', 'weekly', 'monthly', 'yearly'), 
-    start_date DATE, 
-    last_completed DATE 
+    unit ENUM('day', 'week'), 
+    monday BOOLEAN,
+    tuesday BOOLEAN,
+    wednesday BOOLEAN,
+    thursday BOOLEAN,
+    friday BOOLEAN,
+    saturday BOOLEAN,
+    sunday BOOLEAN 
 );

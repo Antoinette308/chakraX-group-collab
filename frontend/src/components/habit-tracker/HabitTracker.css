@@ -10,6 +10,7 @@
     background-color: lightgrey;
     border-radius: 20px;
     padding: 10px;
+    margin-top: 20px;
 }
 
 /*Styling for the add habit input*/
@@ -58,6 +59,12 @@
     margin-left: 0;
 }
 
+#add {
+    background-color: grey;
+    border-radius: 50%;
+    padding: 7px;
+}
+
 /*styling for habits added*/
 .habit-items {
     display: grid;
@@ -92,11 +99,23 @@
     margin: 0; flex-grow: 1; /* Allow paragraph to take available space */
 }
 
+/* Flexbox for ViewWeekly and Progress*/
+
+
 /*Styling for ViewWeekly*/
 table {
     width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 20px auto;
+}
+
+@media screen and (min-width: 1024px) {
+    .view-weekly {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: 20px auto;
+        align-items: center;
+    }
 }
 
 .table th, td {
@@ -106,8 +125,29 @@ table {
     vertical-align: middle;
 }
 
+.table th {
+    font-weight: 500;
+}
+
 .icons-div {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/*Styling weekly progress*/
+.weekly-progress {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media screen and (min-width: 1024px) {
+    .weekly-progress {
+        width: 80%;
+        margin: auto;
+    }
+}
+
+.weekly-progress-bars {
+    margin: 20px
 }

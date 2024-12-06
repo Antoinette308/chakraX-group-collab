@@ -14,7 +14,7 @@ function HabitItem({ habit, deleteHabit }) {
                 <FaCircle style={{ color: habit.colour }} />
                 <p>{habit.text} {habit.frequency} {habit.frequency == 1 ? "time per" : "times per"} {habit.unit}</p>
                 <DeleteHabit
-                    habitId={habit.id}
+                    habitId={habit.habits_id}
                     deleteHabit={deleteHabit}
                 />
             </button>

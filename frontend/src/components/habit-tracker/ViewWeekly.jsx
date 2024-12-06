@@ -1,15 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCircle, FaTimes } from 'react-icons/fa';
 import './HabitTracker.css'
 
+async function updateHabitAPI(habit) {
+    console.log(habit)
+    try {
+        await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.habits_id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(habit),
+        });
+    } catch (error) {
+        console.error('Error updating habit via API:', error)
+    }
+};
+
 function ViewWeekly({ habits, setHabits }) {
 
-const toggleStatus = (habitIndex,day) => {
-    const updatedHabits = [...habits];
-    updatedHabits[habitIndex].status[day] = !updatedHabits[habitIndex].status[day];
-    setHabits(updatedHabits);
-    localStorage.setItem('habits', JSON.stringify(updatedHabits));
-};
+    const toggleStatus = async (habitId, habitIndex, day) => {
+        console.log(habitId, habitIndex, day)
+        const updatedHabits = [...habits];
+        console.log(updatedHabits)
+        const habitToUpdate = updatedHabits[habitIndex];
+        const dayKey = day.toLowerCase();
+        habitToUpdate[dayKey] = !habitToUpdate[dayKey];
+        
+        const updatedHabitFromAPI = await updateHabitAPI(habitToUpdate);
+        try {
+            await updateHabitAPI(habitToUpdate);
+            setHabits(updatedHabits);
+            localStorage.setItem('habits', JSON.stringify(updatedHabits))
+        } catch (error) {
+            console.error("Error toggling habit status:", error);
+        }
+    };
+
+    // Set all completed days to false when logging on for the first time in a new week
+    async function NewWeekReset() {
+        const currentDate = new Date();
+        const dayOfWeek = currentDate.getDay();
+        const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+        const monday = (new Date(currentDate.setDate(currentDate.getDate() + diff))).toISOString().slice(0, 10);
+
+        let latestMonday = localStorage.getItem("latestMonday");
+        if (monday !== latestMonday) {
+            // Reset all completed habit days to false
+            const updatedHabits = habits.map(habit => {
+                const resetHabit = { ...habit };
+                ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].forEach(day => {
+                    resetHabit[day] = false;
+                });
+                return resetHabit;
+            });
+            //update habits in database
+            try {
+                await Promise.all(updatedHabits.map((habit) => updateHabitAPI(habit)));
+                setHabits(updatedHabits);
+                localStorage.setItem('habits', JSON.stringify(updatedHabits));
+                localStorage.setItem('latestMonday', monday);
+            } catch (error) {
+                console.error("Error resetting habits for the new week:", error)
+            }
+        }
+    };
+
+    useEffect(() => {
+        NewWeekReset();
+    }, [])
 
     // Get week dates starting from Monday
     function getWeekDates() {
@@ -55,18 +112,20 @@ return (
                         <td>
                             <h4 style={{ color: habit.colour}}>{habit.text}</h4>
                         </td>
-                        {Object.keys(habit.status).map((day) => (
+                        {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => (
                             <td
                                 key={day}
                                 className='text-center'
                                 style={{ cursor: 'pointer' }}
-                                onClick={() => toggleStatus(habitIndex, day)}
-                            ><div className='icons-div'>
-                                {habit.status[day] ? (
+                                onClick={() => toggleStatus(habit.habits_id, habitIndex, day)}
+                            >
+                                <div className='icons-div'>
+                                {habit[day] ? (
                                     <FaCircle className='text-sucess' title='Mark undone' size={30} style={{color: habit.colour}}/>
                                 ) : (
                                     <FaTimes className='text-danger' title="Mark done" size={40} style={{ opacity: 0 }}/>
-                                )}</div>
+                                )}
+                                </div>
                             </td>
                         ))}
                     </tr>
