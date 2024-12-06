@@ -15,6 +15,7 @@ USE exec_function_db;
 --     last_completed DATE 
 -- );
 
+/*
 CREATE TABLE habits ( 
     habits_id INT AUTO_INCREMENT PRIMARY KEY, 
     user_id INT NOT NULL,
@@ -25,4 +26,22 @@ CREATE TABLE habits (
     start_date DATE, 
     last_completed DATE,
 	FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+*/
+
+   CREATE TABLE habits (  
+    habits_id INT PRIMARY KEY AUTO_INCREMENT, 
+    user_id INT NOT NULL,
+    text VARCHAR(255) NOT NULL,
+    colour VARCHAR(255) NOT NULL,
+    frequency INT, -- Number of times the habit should be done 
+    unit ENUM('day', 'week'), -- Time period in which the frequency applies 
+    monday BOOLEAN,
+    tuesday BOOLEAN,
+    wednesday BOOLEAN,
+    thursday BOOLEAN,
+    friday BOOLEAN,
+    saturday BOOLEAN,
+    sunday BOOLEAN,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) 
 );
