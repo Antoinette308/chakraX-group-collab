@@ -6,7 +6,7 @@ import Instructions from "../components/energy-tracker/Instructions";
 import DailyEnergyV2 from "../components/energy-tracker/DailyEnergyV2";
 import AddActivityDialog from "../components/energy-tracker/addActivityDialog";
 import { useOutletContext } from "react-router-dom";
-import { nanoid } from "nanoid";
+
 
 function EnergyTracker() {
     //state 
@@ -29,32 +29,32 @@ function EnergyTracker() {
 
 
     const initialActivities = [
-        { name: "Have a cold", spoons: 4, isActive: false},
-        {  name: "Slept Badly", spoons: 1, isActive: false},
-        { name: "Missed Meds", spoons: 1, isActive: false},
-        { name: "Skipped A Meal", spoons: 1, isactive: false},
-        { name: "Get Out Of Bed", spoons: 1, isactive: false},
-        { name: "Take Pills", spoons: 1, isActive: false},
-        { name: "Watch TV", spoons: 1, isActive: false},
-        {name: "Bathe", spoons: 2, isActive: false},
-        {name: "Style Hair", spoons: 2, isActive: false},
-        {name: "Use Internet", spoons: 2, isActive: false},
-        {name: "Study", spoons: 2, isActive: false},
-        { name: "Make Dinner", spoons: 3, isActive: false},
-        { name: "Socialise", spoons: 3, isActive: false},
-        { name: "Housework", spoons: 3, isActive: false},
-        { name: "Go for a Drive", spoons: 3, isActive: false},
-        { name: "Go to Work", spoons: 4, isActive: false},
-        { name: "Go Shopping", spoons: 4, isActive: false},
-        { name: "Exercise", spoons: 5, isActive: false}
+        { name: "Have a cold", spoons: 4, is_active: false},
+        {  name: "Slept Badly", spoons: 1, is_active: false},
+        { name: "Missed Meds", spoons: 1, is_active: false},
+        { name: "Skipped A Meal", spoons: 1, is_active: false},
+        { name: "Get Out Of Bed", spoons: 1, is_active: false},
+        { name: "Take Pills", spoons: 1, is_active: false},
+        { name: "Watch TV", spoons: 1, is_active: false},
+        {name: "Bathe", spoons: 2, is_active: false},
+        {name: "Style Hair", spoons: 2, is_active: false},
+        {name: "Use Internet", spoons: 2, is_active: false},
+        {name: "Study", spoons: 2, is_active: false},
+        { name: "Make Dinner", spoons: 3, is_active: false},
+        { name: "Socialise", spoons: 3, is_active: false},
+        { name: "Housework", spoons: 3, is_active: false},
+        { name: "Go for a Drive", spoons: 3, is_active: false},
+        { name: "Go to Work", spoons: 4, is_active: false},
+        { name: "Go Shopping", spoons: 4, is_active: false},
+        { name: "Exercise", spoons: 5, is_active: false}
     ];
 const [activities, setActivities] = useState([]);
-const [token, setToken] = useState(2);
+const [userId, setUserId] = useState(1);
 
     async function getUserData(){
-        if(token){
-            console.log(token)
-            const url = `http://localhost:3000/energy-tracker/${token}`
+        
+            console.log(userId)
+            const url = `http://localhost:3000/energy-tracker/${userId}`
         try {
             const response =  await fetch(url);
             if(!response.ok){
@@ -66,12 +66,8 @@ const [token, setToken] = useState(2);
         } catch(error) {
             console.error(error.message)
         }
-        
-        
-        } else {
-            return [];
-        }
     }
+
 
     async function postActivityData(a) {
         const url = "http://localhost:3000/energy-tracker/";
@@ -80,11 +76,10 @@ const [token, setToken] = useState(2);
                 {
                     method: "POST",
                 body: JSON.stringify({
-                    userId: 2,
-                    activityId: a.activityId,
+                    user_id: userId,
                     name: a.name,
                     spoons: a.spoons,
-                    isActive: a.isActive ? 1 : 0
+                    is_active: a.is_active 
                 }),
                 headers: {
                     "Content-Type": "application/json",
@@ -106,16 +101,16 @@ const [token, setToken] = useState(2);
     }
 
     async function updateActivityData(a){
-        const url = `http://localhost:3000/energy-tracker/${a.activityId}`;
+        const url = `http://localhost:3000/energy-tracker/${a.activity_id}`;
             try{
                 const response = await fetch(url, 
                 {
                     method: "PUT",
                 body: JSON.stringify({
-                    activityId: a.activityId,
+                    activity_id: a.activity_id,
                     name: a.name,
                     spoons: a.spoons,
-                    isActive: a.isActive ? 1 : 0
+                    is_active: a.is_active 
                 }),
                 headers: {
                     "Content-Type": "application/json",
@@ -137,7 +132,7 @@ const [token, setToken] = useState(2);
     }
 
     async function deleteActivityData(a){
-        const url = `http://localhost:3000/energy-tracker/${a.activityId}`;
+        const url = `http://localhost:3000/energy-tracker/${a.activity_id}`;
             try{
                 const response = await fetch(url, 
                 {
@@ -172,26 +167,26 @@ const [token, setToken] = useState(2);
     }
 
     function addActivity(a){
-        postActivityData(a);
-        setActivities([...activities, a]);
+        postActivityData(a).then((res) => {
+            setActivities([...activities, {...a, activity_id: res}]) 
+        })
+        
     }
 
     function deleteActivity(a){
-        if(token){
             deleteActivityData(a);
-        }
-        setActivities(activities.filter((activity) => activity.activityId !== a.activityId))
+            setActivities(activities.filter((activity) => activity.activity_id !== a.activity_id))
     }
 
     function editActivities(a){
-        if(token){
+        {
         updateActivityData(a);
         }
         setActivities(activities.map((activity) => {
-            if(a.activityId === activity.activityId){
+            if(a.activity_id === activity.activity_id){
                 return {...activity,
                 spoons: a.spoons,
-                isActive: a.isActive,
+                is_active: a.is_active,
                 name: a.name
                 }
             } else {
@@ -207,19 +202,11 @@ const [token, setToken] = useState(2);
             console.log(res)
             if(!res.length){
                 console.log("no response")
-                const activitiesWithId = initialActivities.map((a) => {
-                        return {...a, 
-                        activityId: nanoid()}
-                    }) 
-                console.log(activitiesWithId)
-                setActivities(() => [
-                    JSON.parse(localStorage.getItem('activities')) || 
-                    activitiesWithId])
-                activitiesWithId.forEach((a) => {
-                    postActivityData(a);
+                initialActivities.forEach((a) => {
+                    setActivities(... postActivityData(a));
                 })
                 res.map((a) => {
-                    if(a.isActive){
+                    if(a.is_active){
                         /*This will activate twice but it's an issue with strict mode. 
                         In production(without strict mode) it works. */
                         console.log("subtracting spoons", a.spoons)
@@ -230,14 +217,13 @@ const [token, setToken] = useState(2);
             else {
                 setActivities(res);
             }
-                
+            
             
         })
 } , [])
 
 useEffect(() => {
     console.log(activities)
-        localStorage.setItem('activities', JSON.stringify(activities));
 },[activities])
 
 
@@ -245,7 +231,7 @@ useEffect(() => {
     return (
         <Box bg={theme.pageBg}>
             <Header size="6xl" 
-            bg={theme.sideBarBg} color={theme.buttonColor} 
+            bg={theme.sideBarBg} color={theme.ButtonColor} 
             text="Energy Tracker"/>
 
             <Flex justifyContent={"center"} 
@@ -268,7 +254,7 @@ useEffect(() => {
                             return <ActivityButton key={a.activityId} 
                                 index={index}
                                 id={a.activityId} text={a.name} 
-                                active={a.isActive}
+                                active={a.is_active}
                                 value={a.spoons}
                                 activity={a} 
                                 setActivities={setActivities} 

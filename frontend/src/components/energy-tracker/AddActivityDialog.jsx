@@ -70,10 +70,10 @@ function AddActivityDialog(props){
                     </DialogActionTrigger>
                     <Button onClick={() => 
                         {handleDialog(false);
-                            const newActivity = {activityId: nanoid(), 
+                            const newActivity = {
                                 name: activity, 
                                 spoons: energy, 
-                                isActive:0}
+                                is_active:0}
                         props.addActivity(newActivity)
                     }}>
                         {"Add Activity"}
