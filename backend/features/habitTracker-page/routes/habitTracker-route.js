@@ -12,7 +12,8 @@ import {
     updateHabitByIdController,
     deleteHabitByIdController
  } from '../controllers/habitTracker-controller.js';
-//import { validateHabit, checkValidationResult } from '../validators/habitTracker-validator.js';
+ import { validateHabit, checkValidationResult } from '../validators/habitTracker-validator.js';
+ import { authenticateToken } from '../../authentication/middleware/auth-middleware.js';
 
 // declare router
 const router = express.Router();
@@ -21,14 +22,12 @@ const router = express.Router();
 router.get('/', welcomeMessage);
 
 // CRUD routes
-router.post('/new-habit', createHabitController);
+router.post('/new-habit', authenticateToken, validateHabit, checkValidationResult, createHabitController);
 
-router.get('/habit/:id', getHabitByIdController);
+router.get('/habit/:id', authenticateToken, getHabitByIdController);
 
-router.get('/habit', getAllHabitsController);
+router.put('/update-habit/:id',/* validateHabit, checkValidationResult,*/ authenticateToken, updateHabitByIdController);
 
-router.put('/update-habit/:id', updateHabitByIdController);
-
-router.delete('/delete-habit/:id', deleteHabitByIdController);
+router.delete('/delete-habit/:id', authenticateToken, deleteHabitByIdController);
 
 export default router;

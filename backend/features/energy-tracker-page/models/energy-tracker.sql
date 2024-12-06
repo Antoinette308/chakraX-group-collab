@@ -16,9 +16,11 @@
 -- )
 
 CREATE TABLE energy_activity (
-    activity_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id FOREIGN KEY INT NOT NULL,
-    name VARCHAR(100) NOT NULL,
+    activity_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     spoons INT NOT NULL CHECK (spoons >= 1 AND spoons <= 5),
-    is_active BOOLEAN NOT NULL DEFAULT 0
+    is_active BOOLEAN NOT NULL DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+

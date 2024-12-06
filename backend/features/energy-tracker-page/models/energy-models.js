@@ -13,16 +13,16 @@ function getAllActivities(userId, response) {
 }
 
 function createNewActivity(activityInfo, response) {
-    const query = "INSERT INTO energy_activity (user_id, name, spoons, is_active, activity_id) VALUES (?, ?, ?, ?, ?)";
-    connection.query(query, [activityInfo.user_id, activityInfo.name, activityInfo.spoons, activityInfo.is_active, activityInfo.activity_id], (err, results) => {
+    const query = "INSERT INTO energy_activity (user_id, name, spoons, is_active) VALUES (?, ?, ?, ?)"; // , activity_id , ?
+    connection.query(query, [activityInfo.user_id, activityInfo.name, activityInfo.spoons, activityInfo.is_active/*, activityInfo.activity_id*/], (err, results) => {
         return err ? response(err) : response(null, (results, activityInfo))
     });
 }
 
-function updateActivity(spoons, name, isActive, activityId, response) {
+function updateActivity(activityInfo, response) {
     const query = "UPDATE energy_activity SET spoons = ?, name = ?,  is_active = ? WHERE activity_id = ?"
-    connection.query(query, [spoons, name, isActive, activityId], (err, results) => {
-        return err ? response(err) : response(null, (results, activityId));
+    connection.query(query, [activityInfo.spoons, activityInfo.name, activityInfo.is_active, activityInfo.activity_id], (err, results) => {
+        return err ? response(err) : response(null, (results, activityInfo));
     });
 }
 
