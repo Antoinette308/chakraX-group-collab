@@ -27,7 +27,7 @@ function JournalForm({ entry = null, onSave, onUpdate, theme }) {
         } else {
             const newEntry = {title, text};
             onSave(newEntry)
-            console.log("New entry saved");
+            console.log("New entry saved", newEntry);
         }
         setTitle("");
         setText("");

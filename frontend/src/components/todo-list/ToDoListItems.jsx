@@ -53,7 +53,7 @@ export default ToDoList;
 // New code 01/12/24 onwards
 
 
-import React from 'react';
+
 import { VStack, HStack } from "@chakra-ui/react";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { FaRegTrashCan } from "react-icons/fa6";

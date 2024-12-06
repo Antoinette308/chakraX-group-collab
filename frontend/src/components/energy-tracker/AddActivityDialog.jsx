@@ -10,7 +10,7 @@ import { Rating } from "../ui/rating";
 import { Field } from "../ui/field"
 import { FaPlus, FaUtensilSpoon } from "react-icons/fa";
 import { useState } from "react";
-import {nanoid} from "nanoid";
+// import {nanoid} from "nanoid";
 
 
 function AddActivityDialog(props){
