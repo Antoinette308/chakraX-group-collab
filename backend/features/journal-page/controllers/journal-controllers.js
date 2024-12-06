@@ -42,7 +42,7 @@ function updateJournalEntry(req, res){
 
 function deleteJournalEntry(req, res){
     //Delete the journal entry from the database using the id of the entry
-    const {entryId} = req.body;
+    const entryId = req.params.id;
     models.deleteJournalEntry(entryId, (err, results) => {
         if(err){
             console.log("Error deleting journal entry", err);
