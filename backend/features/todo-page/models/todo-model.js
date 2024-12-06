@@ -15,7 +15,7 @@ export const createTodo = (todo, callback) => {
     });
 };
 
-// Read all todos
+// Read all todos by user id
 export const getTodos = (id, callback) => {
     const query = 'SELECT * FROM todos WHERE user_id = ?';
     connection.query(query, [id], (error, results) => {
