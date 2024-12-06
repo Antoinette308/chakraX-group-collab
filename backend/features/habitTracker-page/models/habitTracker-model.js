@@ -42,7 +42,7 @@ export const createHabit = (habit, callback) => {
     connection.query(query, values, (error, results) => {
         if (error) return callback(error);
         const formattedHabit = {
-            id: results.insertId,
+            habits_id: results.insertId,
             ...habit
         };
         callback(null, formattedHabit);
@@ -88,7 +88,7 @@ export const updateHabitById = (id, updatedHabit, callback) => {
         updatedHabit.friday ? 1 : 0,
         updatedHabit.saturday ? 1 : 0,
         updatedHabit.sunday ? 1 : 0,
-        id,
+        habits_id,
     ];
 
     connection.query(query, values, (error, results) => {
