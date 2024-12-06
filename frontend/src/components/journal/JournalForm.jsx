@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Button, Input, Stack, Textarea } from "@chakra-ui/react"
 import { Field } from "../ui/field"
+import { useNavigate } from "react-router-dom";
 
 // Keely-Ann notes: Journal 'form' created to submit journal entries.
 
@@ -11,7 +12,7 @@ function JournalForm({ entry = null, onUpdate, theme }) {
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
     const user = 1;
-
+    const navigate = useNavigate();
 
     async function handleSave() {
         const url = "http://localhost:3000/journal/new-entry";
@@ -60,6 +61,7 @@ function JournalForm({ entry = null, onUpdate, theme }) {
         } else {
             const newEntry = {title, text};
             handleSave(newEntry)
+            navigate('/journal')
             console.log("New entry saved", newEntry);
         }
         setTitle("");

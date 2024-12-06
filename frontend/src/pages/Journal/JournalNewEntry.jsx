@@ -7,6 +7,7 @@ import { Box } from "@chakra-ui/react";
 
 function NewEntry({ handleSave, handleUpdate}) {
     const theme = useOutletContext();
+
     
 
     return (
