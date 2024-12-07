@@ -8,6 +8,7 @@ import EditEntry from "./pages/Journal/JournalEditEntry.jsx";
 import EnergyTracker from './pages/EnergyTracker.jsx'
 import HabitTrackerPage from "./pages/HabitTrackerPage.jsx";
 import Test from './pages/testPage.jsx';
+import SignInPage from "./pages/SignInPage.jsx";
 import Rewards from "./pages/Rewards.jsx";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="energy-tracker" element={<EnergyTracker />}/>
           <Route path="habit-tracker" element={<HabitTrackerPage />} />
           <Route path="test" element={<Test />} />
+          <Route path="sign-in" element={<SignInPage />} />
           <Route path="rewards" element={<Rewards />} />
           {/* <Route path="to-do" element={<ToDo />} />
           <Route path="home" element={<Home />} />

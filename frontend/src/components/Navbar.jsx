@@ -25,7 +25,7 @@ function NavBar(props) {
                 <ButtonLink 
                         className='topButtons' 
                         text="Sign In" 
-                        route="test" 
+                        route="sign-in" 
                         bg={props.theme.navButtonBg}
                         color={props.theme.ButtonColor}
                         />
