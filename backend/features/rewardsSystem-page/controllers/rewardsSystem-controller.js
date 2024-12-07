@@ -13,7 +13,8 @@ export const welcomeMessage = (req, res) => {
 
 // Get all rewards
 export const getAllRewardsController = (req, res) => {
-    getAllRewards((error, results) => {
+    const { user_id } = req.params;
+    getAllRewards(user_id, (error, results) => {
         if (error) return res.status(500).json({ error:error.message });
         res.status(200).json(results);
     });
@@ -21,7 +22,12 @@ export const getAllRewardsController = (req, res) => {
 
 // Create a new reward
 export const createRewardController = (req, res) => {
-    const reward = req.body;
+    const { user_id, forks, reward_name } = res.body;
+    if (!user_id || !forks || !reward_name) {
+        return res.status(400).json({ error: 'Missing required fields '});
+    }
+
+    const reward = { user_id, forks, reward_name };
     createReward(reward, (error, results) => {
         if (error) {
             console.error('Error creating reward:', error);

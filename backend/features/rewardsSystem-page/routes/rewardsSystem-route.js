@@ -1,12 +1,12 @@
 import express from 'express';
 import { welcomeMessage } from '../controllers/rewardsSystem-controller';
-import import {
+import {
     getAllRewardsController,
     createRewardController,
     deleteRewardController,
     getDailyLoginController,
     updateDailyLoginController
-} from "../models/rewardsSystem-controller";
+} from "../controllers/rewardsSystem-controller";
 
 // Declare router
 const router = express.Router();
@@ -15,14 +15,17 @@ const router = express.Router();
 router.get('/', welcomeMessage);
 
 // CRUD routes
-router.get('/rewards', getAllRewardsController);
+// Rewards
+router.get('/rewards/:user_id', getAllRewardsController);
 
 router.post('/new-reward', createRewardController);
 
-router.delete('/delete-reward', deleteRewardController);
+router.delete('/delete-reward/:reward_id', deleteRewardController);
 
-router.get('/daily-login', getDailyLoginController);
 
-router.put('/update-daily-login', updateDailyLoginController);
+// Daily login 
+router.get('/daily-login/:user_id', getDailyLoginController);
+
+router.put('/update-daily-login/:user_id', updateDailyLoginController);
 
 export default router;

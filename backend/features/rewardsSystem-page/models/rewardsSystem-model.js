@@ -34,7 +34,7 @@ export const createReward = (reward, callback) => {
 export const deleteReward = (reward_id, callback) => {
     const query = 'DELETE FROM user_rewards WHERE rewards_id = ?';
 
-    connection.query = (query, [reward_id], (error, results) => {
+    connection.query(query, [reward_id], (error, results) => {
         if (error) return callback(error);
         callback(null, results);
     });
