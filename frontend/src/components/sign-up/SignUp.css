@@ -1,0 +1,29 @@
+.messages {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto 0 auto;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 20px;
+}
+
+input {
+    margin: 0 auto 15px auto;
+    padding: 5px;
+    border-radius: 10px;
+    width: 70%;
+}
+
+@media screen and (min-width: 1024px) {
+    input {
+        width: 40%;
+    }   
+}

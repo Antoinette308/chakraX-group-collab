@@ -6,8 +6,8 @@ import connection from "../../../config/database.js";
 
 // Create
 export const createUser = (user, callback) => {
-    const query = 'INSERT INTO users (email, password) VALUES ( ?, ?)';
-    connection.query(query, [user.email, user.password], (error, results) => {
+    const query = 'INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)';
+    connection.query(query, [user.first_name, user.last_name, user.email, user.password], (error, results) => {
         if (error) {
             console.error('Error executing query:', error);
             return callback(error)
