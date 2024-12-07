@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../ui/button';
-import './SignUp.css'
+import { Button } from '@chakra-ui/react';
+import ButtonLink from '../ButtonLink';
+import './SignUp.css';
 
 // Create a new user via API
 const createUser = async (userDetails) => {
@@ -181,6 +182,11 @@ function SignUpForm() {
                         type='submit'>
                         Submit
                     </Button>
+                    <ButtonLink
+                        route='sign-in' 
+                        text ='Already have an account? Click here to sign in'
+                        style ={{margin: '10px'}}
+                        />
                 </form>
             )}
             <div className='messages'>{errorMessage()}{emailErrorMessage()}{passwordErrorMessage()}{successMessage()}</div>
