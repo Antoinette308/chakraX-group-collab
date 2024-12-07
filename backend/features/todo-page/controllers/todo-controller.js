@@ -26,7 +26,8 @@ export const createTodoController = (req, res) => {
 
 // read all todos by 
 export const getTodosController = (req, res) => {
-    const { id } = req.params;
+    // const { id } = req.params;
+    const id = req.body;
     getTodos(id, (error, results) => {
         if (error) return res.status(500).json({ error: error.message });
         res.status(200).json(results);

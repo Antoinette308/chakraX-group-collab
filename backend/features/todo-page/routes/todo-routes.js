@@ -26,7 +26,7 @@ console.log(welcomeMessage);
 // CRUD routes
 router.post('/new-task', /*validateTodo, checkValidationResult,*/ authenticateToken, createTodoController);
 
-router.get('/all-tasks/:id', /*authenticateToken,*/  getTodosController);
+router.get('/all-tasks', authenticateToken,  getTodosController);
 
 router.get('/task/:id', authenticateToken,  getTodoByIdController);
 
