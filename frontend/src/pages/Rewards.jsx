@@ -42,7 +42,7 @@ function Rewards(){
         } else {
             setStreak(0);
         } if(streak > 7){
-            calculateWeeks()
+            setWeeks(prev => prev + 1);
         }
         setLastVisit(today.toISOString());
 
@@ -70,6 +70,9 @@ function Rewards(){
         }
     }
     
+    function subtractForks(amount){
+        setForks(prev => prev - amount);
+    }
 
 
 
@@ -83,7 +86,7 @@ function Rewards(){
                     return <DailyVisitBox key={d} theme={theme} text={`Day ${d}`} isChecked={streak >= d ? true: false}/>
                 })}
             </Flex>
-            <RewardShop theme={theme} forks={forks}></RewardShop>
+            <RewardShop theme={theme} forks={forks} subtractForks={subtractForks}></RewardShop>
         </Box>
     )
 };
