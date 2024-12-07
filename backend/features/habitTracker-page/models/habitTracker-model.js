@@ -11,8 +11,7 @@ export const createHabit = (habit, callback) => {
     connection.query(query, [habit.user_id, habit.habit_name, habit.description, habit.frequency, habit.recurrence, habit.start_date, habit.last_completed], (error, results) => {
         if (error) return callback(error);
         const formattedHabit = {
-            id: results.insertId,
-
+            habits_id: results.insertId,
             ...habit
             // start_date: format(new Date(habit.start_date), 'yyyy-MM-dd')
         };
