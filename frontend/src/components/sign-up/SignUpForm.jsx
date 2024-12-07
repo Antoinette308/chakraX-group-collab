@@ -183,7 +183,7 @@ function SignUpForm() {
                         Submit
                     </Button>
                     <ButtonLink
-                        route='sign-in' 
+                        route='/sign-in' 
                         text ='Already have an account? Click here to sign in'
                         style ={{margin: '10px'}}
                         />
