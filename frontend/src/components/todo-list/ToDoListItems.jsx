@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // My original code:
 
@@ -71,16 +72,23 @@ function ToDoListItems({theme}) {
         // readAllTodos(); // Call the function to test if it works
         const [todos, setTodos] = useState([]);
         const [isLoading, setIsLoading] = useState(true); // Add loading state to display a loading message while fetching data
-        const [fetchTrigger, setFetchTrigger] = useState(false); // State to fetch new tasks created by the user
-        
+        const [fetchTrigger, setFetchTrigger] = useState(false);
+         // State to fetch new tasks created by the user
+        const user = 1;
+        const token = JSON.parse(localStorage.getItem("token"));
         // async/await to fetch all todos from exec_function_db    
         async function readAllTodos() {
             console.log('Calling API to read all todos');
-            const url = 'http://localhost:3000/todo/all-tasks'; // Initially, I was calling the wrong local host and the wrong endpoint. The correct endpoints are in todo.routes.js
+
+            const url = `http://localhost:3000/todo/all-tasks/${user}`; // Initially, I was calling the wrong local host and the wrong endpoint. The correct endpoints are in todo.routes.js
             try {   // Wrap code in a try block to catch any errors
-                const response = await fetch(url);
+                const response = await fetch(url, {
+                    headers: {
+                        "Authorization": `Bearer ${token.token}`
+                    }
+                });
                 const data = await response.json();
-                console.log(data);
+                console.log(data)
                 return data; // Initially I wasn't returning the data, but I've now added a return statement to return the data
             } catch (error) {
                 console.error('Error fetching tasks:', error.message);
@@ -94,11 +102,16 @@ function ToDoListItems({theme}) {
         useEffect(() => {
             readAllTodos()
             .then((data) => {
-                setTodos(data); // Initially I was setting the todos to an empty array, but I've now set the todos to the data
+                console.log(data)
+                setTodos(data) // Initially I was setting the todos to an empty array, but I've now set the todos to the data
                 setIsLoading(false); 
             });
         }, [fetchTrigger]); // Run useEffect on mount and when fetchTrigger changes (when a new task is created by the user)
 
+    useEffect(() => {
+        readAllTodos().then((data) =>
+        setTodos(data))
+    },[])
 
         // If a new task has been created by the user, fetch the todos again from exec_function_db
         // Created this FetchTrigger to avoid infinite loops when fetching data. Initially I was passing data as a dependency to the useEffect function, but it caused an infinite loop
@@ -119,6 +132,7 @@ function ToDoListItems({theme}) {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization": `Bearer ${token.token}`
                     },
                 });
                 if (!response.ok) {
@@ -132,27 +146,29 @@ function ToDoListItems({theme}) {
         };
         
 
-        // If the data is still loading, display a loading message.
-        if (isLoading) {
-            return <p>Loading...</p>;
-        }
+        // // If the data is still loading, display a loading message.
+        // if (isLoading) {
+        //     return <p>Loading...</p>;
+        // }
             
 
         
 
     return (
         <>
-            <AddToDoForm onTaskAdded={handleNewTaskCreatedByUser} theme={theme} /> {/* Returning the AddToDoForm component here, and not in the todopage retrurn statement. This is to avoid the form & button rendering duplicates*/}
+            <AddToDoForm onTaskAdded={handleNewTaskCreatedByUser}  token={token} theme={theme} /> {/* Returning the AddToDoForm component here, and not in the todopage retrurn statement. This is to avoid the form & button rendering duplicates*/}
             <VStack width='100%' alignItems='stretch'>
-                {todos.map((todo) => (    // Initially I was mapping over the todos array, but I've now added an index to the map function. This also a key for the HStack
-                    <HStack key={todo.id} p={2} borderWidth={1} borderRadius="30px">  {/* Initially I was using the todo.id as the key, but I've now used the index as the key */}
+                {/* { isLoading ? 
+                    <p>Loading...</p> */
+                 todos.map((todo) => (    // Initially I was mapping over the todos array, but I've now added an index to the map function. This also a key for the HStack
+                    <HStack key={todo.todo_id} p={2} borderWidth={1} borderRadius="30px">  {/* Initially I was using the todo.id as the key, but I've now used the index as the key */}
                         <input type="checkbox" />
                         <Text>{todo.tasks}</Text>   {/* Initially I was using todo.body, but I've now used todo.tasks */}
                         <Spacer />
                         <HiOutlinePencilSquare />
                         <FaRegTrashCan onClick={() => {
-                            console.log(`Clicked delete for todo with id: ${todo.id}`);
-                            deleteTodoById(todo.id);
+                            console.log(`Clicked delete for todo with id: ${todo.todo_id}`);
+                            deleteTodoById(todo.todo_id);
                         }} />
                     </HStack>
                 ))}

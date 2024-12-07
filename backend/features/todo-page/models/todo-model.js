@@ -20,7 +20,7 @@ export const getTodos = (id, callback) => {
     const query = 'SELECT * FROM todos WHERE user_id = ?';
     connection.query(query, [id], (error, results) => {
         if (error) return callback(error);
-        callback(null, results[0]);
+        callback(null, results);
     });
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // My original code:
 
 /* 
@@ -56,19 +57,21 @@ export default AddToDo;
 // New code 01/12/24 onwards
 
 
-import React from 'react';
+
 import styles from '../../styles/AddToDoForm.module.css';
 import { Button } from '@chakra-ui/react';
 // Trying to add functionality
 import { useState } from 'react';
-import ToDoListItems from './ToDoListItems';
+// import ToDoListItems from './ToDoListItems';
 
 
-function AddToDoForm({ onTaskAdded, theme }) {   // Extract onTaskAdded as a prop for fetching the new tasks. This calls the handleNewTaskCreatedByUser function in ToDoListItems.jsx
+function AddToDoForm({ onTaskAdded, theme, token }) {   // Extract onTaskAdded as a prop for fetching the new tasks. This calls the handleNewTaskCreatedByUser function in ToDoListItems.jsx
     console.log('AddToDoForm and Add Task button component rendered');
 
 
     const [content, setContent] = useState(''); // Store the content of the input field
+    const user = 1;
+    
 
     const handleSubmit = (e) => {
         e.preventDefault(); // Prevents a default form submission
@@ -84,9 +87,10 @@ function AddToDoForm({ onTaskAdded, theme }) {   // Extract onTaskAdded as a pro
         fetch('http://localhost:3000/todo/new-task', {  // Fetching the data from the API, and sending the data to the server
             method: 'POST',  // Using the POST method to send data to the server
             headers: {   // Setting the headers to accept JSON data
-                'Content-Type': 'application/json',   // Setting the content type to JSON
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token.token}`   // Setting the content type to JSON
             },
-            body: JSON.stringify({ tasks: content, completed: false }),   // Stringify the content of the input field. Set tasks to be the content. Set completed to false.
+            body: JSON.stringify({ tasks: content, completed: false, user_id: user }),   // Stringify the content of the input field. Set tasks to be the content. Set completed to false.
         })
         .then(response => {
             if (!response.ok) {

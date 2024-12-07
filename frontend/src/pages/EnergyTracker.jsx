@@ -49,14 +49,17 @@ function EnergyTracker() {
         { name: "Exercise", spoons: 5, is_active: false}
     ];
 const [activities, setActivities] = useState([]);
-const [userId, setUserId] = useState(1);
+const userId = 2;
+const token = JSON.parse(localStorage.getItem("token"))
 
     async function getUserData(){
         
             console.log(userId)
             const url = `http://localhost:3000/energy-tracker/${userId}`
         try {
-            const response =  await fetch(url);
+            const response =  await fetch(url, { 
+                headers: {"Authorization": `Bearer ${token.token}`}
+            });
             if(!response.ok){
             throw new Error(`Response Status: ${response.status}`)
             }
@@ -83,6 +86,7 @@ const [userId, setUserId] = useState(1);
                 }),
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token.token}`
                 },
                 });
 
@@ -107,13 +111,14 @@ const [userId, setUserId] = useState(1);
                 {
                     method: "PUT",
                 body: JSON.stringify({
-                    activity_id: a.activity_id,
+                    user_id: userId,
                     name: a.name,
                     spoons: a.spoons,
                     is_active: a.is_active 
                 }),
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token.token}`
                 },
                 })
 
@@ -139,6 +144,7 @@ const [userId, setUserId] = useState(1);
                     method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token.token}`
                 },
                 })
 
@@ -202,8 +208,10 @@ const [userId, setUserId] = useState(1);
             console.log(res)
             if(!res.length){
                 console.log("no response")
+
                 initialActivities.forEach((a) => {
-                    setActivities(... postActivityData(a));
+                    const ActivityWithId = postActivityData(a);
+                    setActivities([...activities, ActivityWithId]);
                 })
                 res.map((a) => {
                     if(a.is_active){

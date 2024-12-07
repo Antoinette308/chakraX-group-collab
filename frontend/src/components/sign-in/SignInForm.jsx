@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from '../../styles/SignIn.module.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function SignInForm() {
 
     // States for sign in
-    const [username, setUsername] = useState('');  // Would username be a combination of the first and last name from SignUpForm.jsx?
+    // const [username, setUsername] = useState('');  // Would username be a combination of the first and last name from SignUpForm.jsx?
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');  // Use the email input from the SignUpForm page?
 
@@ -31,6 +31,33 @@ function SignInForm() {
         setSubmitted(false); // If the user is typing then set to false
     };
 
+    async function loginUser(){
+        const url = "http://localhost:3000/accounts/login";
+
+        try{
+            const response = await fetch(url, 
+                {
+                    method: "POST",
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                });
+                if(!response.ok){
+                    throw new Error(`Response Status: ${response.status}`)
+                }
+                const json = await response.json()
+                    console.log(json)
+                    return json;
+                }
+                catch(err){
+                    console.error(err.message);
+                }
+        }
+
 
     // Funtion to handle the form submission
     const handleSubmit = (e) => {
@@ -40,9 +67,12 @@ function SignInForm() {
         } else {
             setSubmitted(true);
             setError(false);
-
-
+            
             // The sign-in functionallity will be added here
+            loginUser().then(res => {
+                console.log(res);
+                localStorage.setItem("token", JSON.stringify(res))
+            })
         }
     };
 

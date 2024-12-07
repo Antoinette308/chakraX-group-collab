@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from 'react';
 import { FaCircle, FaTimes } from 'react-icons/fa';
 import './HabitTracker.css'
+
+const token = JSON.parse(localStorage.getItem("token"))
 
 async function updateHabitAPI(habit) {
     console.log(habit)
     try {
         await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.habits_id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json', 
+                        "Authorization": `Bearer ${token.token}`
+            },
             body: JSON.stringify(habit),
         });
     } catch (error) {

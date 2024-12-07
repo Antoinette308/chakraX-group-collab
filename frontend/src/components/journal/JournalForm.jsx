@@ -11,7 +11,8 @@ function JournalForm({ entry = null, onUpdate, theme }) {
     // Store the title and body of the journal entry
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
-    const user = 1;
+    const user = 2;
+    const token = JSON.parse(localStorage.getItem("token"));
     const navigate = useNavigate();
 
     async function handleSave() {
@@ -27,6 +28,9 @@ function JournalForm({ entry = null, onUpdate, theme }) {
             }),
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": 
+                        `Bearer ${token.token}`
+            
             },
         });
         if(!response.ok){

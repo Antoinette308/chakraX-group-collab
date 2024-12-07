@@ -24,15 +24,15 @@ router.get('/', welcomeMessage);
 console.log(welcomeMessage);
 
 // CRUD routes
-router.post('/new-task', /*validateTodo, checkValidationResult,*/ authenticateToken, createTodoController);
+router.post('/new-task', /*validateTodo, checkValidationResult,authenticateToken,*/ createTodoController);
 
 router.get('/all-tasks/:id', /*authenticateToken,*/  getTodosController);
 
-router.get('/task/:id', authenticateToken,  getTodoByIdController);
+router.get('/task/:id', /*authenticateToken,*/  getTodoByIdController);
 
-router.put('/update-task/:id',  /*validateTodo, checkValidationResult,*/ authenticateToken, updateTodoController);
+router.put('/update-task/:id',  /*validateTodo, checkValidationResult,*/ /*authenticateToken,*/ updateTodoController);
 
-router.delete('/delete-task/:id', authenticateToken, deleteTodoByIdController);
+router.delete('/delete-task/:id', /*authenticateToken,*/ deleteTodoByIdController);
 
 // My new code by Antoinette in this code block. I've added a new route with the endpoint to create a new task that works for the frontend, because I kept recieving errors before.
 router.post('/new-task', (req, res) => { 

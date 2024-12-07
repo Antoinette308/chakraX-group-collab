@@ -7,6 +7,8 @@ import './HabitTracker.css';
 import ViewWeekly from './ViewWeekly';
 import WeeklyProgress from './WeeklyProgress'
 
+const token = JSON.parse(localStorage.getItem("token"));
+
 //save habits to storage
 // const saveHabitsToLocalStorage = (habits) => {
 //     try {
@@ -19,7 +21,9 @@ import WeeklyProgress from './WeeklyProgress'
 // fetch habits from API
 const fetchHabits = async () => {
     try {
-        const response = await fetch('http://localhost:3000/habit-tracker/habit');
+        const response = await fetch('http://localhost:3000/habit-tracker/habit', {
+            header: {"Authorization": `Bearer ${token.token}`}
+        });
         const data = await response.json();
         return data.map(habit => ({
             ...habit,
@@ -43,7 +47,9 @@ const addHabitAPI = async (habitDetails) => {
     try {
         const response = await fetch('http://localhost:3000/habit-tracker/new-habit', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json', 
+                "Authorization": `Bearer ${token.token}` },
             body: JSON.stringify(habitDetails),
         });
         return await response.json();
@@ -59,6 +65,8 @@ const deleteHabitAPI = async (id) => {
     try {
         const response = await fetch (`http://localhost:3000/habit-tracker/delete-habit/${id}`, {
             method: 'DELETE',
+            headers: {"Authorization": `Bearer ${token.token}`
+                    }
         });
         return id;
     } catch (error) {
@@ -70,9 +78,11 @@ const deleteHabitAPI = async (id) => {
 // update habits via API
 const updateHabitAPI = async (habit) => {
     try {
+        // eslint-disable-next-line no-unused-vars
         const response = await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 
+                        "Authorization": `Bearer ${token.token}` },
             body: JSON.stringify(habit),
         });
     } catch (error) {
