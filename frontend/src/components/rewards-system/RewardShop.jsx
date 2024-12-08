@@ -80,7 +80,7 @@ function RewardShop(props){
             bg={props.theme.sideBarBg} color={props.theme.ButtonColor}
             height="3rem" borderRadius={"25px"} width="20em"> Rewards</Heading>
                 <Flex gap="10px" alignItems={"center"}>
-                    <AddRewardDialog addReward={addReward} size={size} theme={props.theme}></AddRewardDialog>
+                    <AddRewardDialog addReward={addReward} theme={props.theme}></AddRewardDialog>
                     
                     <Text textStyle={"lg"} padding="5px">
                         {`Your Forks: ${props.forks}`}

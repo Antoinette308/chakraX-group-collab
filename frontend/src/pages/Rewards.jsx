@@ -16,6 +16,10 @@ function Rewards(){
     const [streak, setStreak] = useState(mockUserData.streak)
     const [lastVisit, setLastVisit] = useState(mockUserData.lastVisit)
     
+    async function getUserData(){
+        //With more time I would write an API call that 
+        //retrieves the user's last visit, current streak and how many forks they have 
+    }
     
     function calculateWeeks(){
         // This would be refactored once the API has been integrated as the weeks will be held in the database 

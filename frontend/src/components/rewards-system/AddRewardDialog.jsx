@@ -39,9 +39,9 @@ function AddRewardDialog(props){
                         <Input placeholder="Have a Spa Day" value={reward} 
                         onChange={(e) => setReward(e.target.value)} />
                         <RadioGroup onValueChange={(e) => setLevel(e.value)}>
-                            <Radio value="small" disabled={props.size.small === 4 ? true : false}>Small Reward</Radio> 
-                            <Radio value="medium" disabled={props.size.medium === 3 ? true : false}> Average Reward</Radio>
-                            <Radio value="large" disabled={props.size.large === 2 ? true : false}>Big Reward</Radio>
+                            <Radio value="small" >Small Reward</Radio> 
+                            <Radio value="medium"> Average Reward</Radio>
+                            <Radio value="large">Big Reward</Radio>
                         </RadioGroup>
             </DialogBody> 
             <DialogFooter>
