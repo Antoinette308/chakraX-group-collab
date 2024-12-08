@@ -12,16 +12,13 @@ import {
     updateHabitByIdController,
     deleteHabitByIdController
  } from '../controllers/habitTracker-controller.js';
-//  import { validateHabit, checkValidationResult } from '../validators/habitTracker-validator.js';
  import { authenticateToken } from '../../authentication/middleware/auth-middleware.js';
 
 // declare router
 const router = express.Router();
 
-// welcome message
 router.get('/', welcomeMessage);
 
-// CRUD routes
 router.post('/new-habit', authenticateToken, createHabitController);
 
 router.get('/habit/:id', authenticateToken, getHabitByIdController);

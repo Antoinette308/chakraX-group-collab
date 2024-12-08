@@ -78,7 +78,7 @@ export const existingUserController = (req, res) => {
                 return res.status(401).json({ error: 'Invalid credentials' });
             }
 
-            const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '4h' });
             console.log('Generated token:', token, user.user_id);
             res.json({ token, user: user.user_id});
         });

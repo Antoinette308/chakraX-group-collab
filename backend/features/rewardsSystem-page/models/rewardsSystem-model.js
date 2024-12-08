@@ -31,14 +31,14 @@ export const createReward = (reward, callback) => {
 };
 
 /*Third model: delete a reward based on reward_id*/
-export const deleteReward = (reward_id, callback) => {
+/*export const deleteReward = (id, callback) => {
     const query = 'DELETE FROM user_rewards WHERE rewards_id = ?';
 
-    connection.query(query, [reward_id], (error, results) => {
+    connection.query(query, [id], (error, results) => {
         if (error) return callback(error);
         callback(null, results);
     });
-};
+};*/
 
 
 
@@ -46,23 +46,23 @@ export const deleteReward = (reward_id, callback) => {
 /*
 this will need:
 First model to select all using user id as a WHERE clause*/
-export const getDailyLogin = (user_id, callback) => {
+export const getDailyLogin = (id, callback) => {
     const query = 'SELECT * FROM daily_login WHERE user_id = ?';
-    connection.query(query, [user_id], (error, results) => {
+    connection.query(query, [id], (error, results) => {
         if (error) return callback(error);
         callback(null, results[0]);
     })
 }
 
 /*Second model to update using user id as a WHERE clause: updates streaks, last_visit and weeks*/
-export const updateDailyLogin = (user_id, updates, callback) => {
-    const query = 'UPDATE daily-login SET streak =?, last_visit = ?, weeks = ? WHERE user_id = ?';
+export const updateDailyLogin = (id, updates, callback) => {
+    const query = 'UPDATE daily_login SET streak = ?, last_visit = ?, weeks = ? WHERE user_id = ?';
 
     const values = [
         updates.streak,
         updates.last_visit,
         updates.weeks,
-        user_id
+        id
     ];
 
     connection.query(query, values, (error, results) => {

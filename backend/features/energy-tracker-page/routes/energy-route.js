@@ -11,7 +11,7 @@ router.get("/:id", authenticateToken, controller.getAllActivities)
 router.post("/", authenticateToken, controller.createNewActivity)
 
 // update the spoon count of an activity
-router.put("/:id", /*authenticateToken,*/ controller.updateActivity)
+router.put("/:id", authenticateToken, controller.updateActivity)
 
 //delete a current activity using the activityId
 router.delete("/:id", authenticateToken, controller.deleteActivity)

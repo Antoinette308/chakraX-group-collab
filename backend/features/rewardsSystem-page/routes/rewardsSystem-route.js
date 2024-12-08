@@ -1,12 +1,13 @@
 import express from 'express';
-import { welcomeMessage } from '../controllers/rewardsSystem-controller';
+import { welcomeMessage } from '../controllers/rewardsSystem-controller.js';
 import {
     getAllRewardsController,
     createRewardController,
     deleteRewardController,
     getDailyLoginController,
     updateDailyLoginController
-} from "../controllers/rewardsSystem-controller";
+} from "../controllers/rewardsSystem-controller.js";
+import { authenticateToken } from '../../authentication/middleware/auth-middleware.js';
 
 // Declare router
 const router = express.Router();
@@ -14,18 +15,14 @@ const router = express.Router();
 // Welcome message
 router.get('/', welcomeMessage);
 
-// CRUD routes
-// Rewards
-router.get('/rewards/:user_id', getAllRewardsController);
+router.get('/:id', authenticateToken, getAllRewardsController);
 
-router.post('/new-reward', createRewardController);
+router.post('/new-reward', authenticateToken, createRewardController);
 
-router.delete('/delete-reward/:reward_id', deleteRewardController);
+// router.delete('/delete-reward/:id', deleteRewardController);
 
+router.get('/login-streak/:id', authenticateToken, getDailyLoginController);
 
-// Daily login 
-router.get('/daily-login/:user_id', getDailyLoginController);
-
-router.put('/update-daily-login/:user_id', updateDailyLoginController);
+router.put('/login-streak/:id', authenticateToken, updateDailyLoginController);
 
 export default router;

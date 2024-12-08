@@ -4,7 +4,7 @@ import {
     deleteReward,
     getDailyLogin,
     updateDailyLogin
-} from "../models/rewardsSystem-model";
+} from "../models/rewardsSystem-model.js";
 
 // Welcome message
 export const welcomeMessage = (req, res) => {
@@ -13,8 +13,8 @@ export const welcomeMessage = (req, res) => {
 
 // Get all rewards
 export const getAllRewardsController = (req, res) => {
-    const { user_id } = req.params;
-    getAllRewards(user_id, (error, results) => {
+    const { id } = req.params;
+    getAllRewards(id, (error, results) => {
         if (error) return res.status(500).json({ error:error.message });
         res.status(200).json(results);
     });
@@ -22,7 +22,7 @@ export const getAllRewardsController = (req, res) => {
 
 // Create a new reward
 export const createRewardController = (req, res) => {
-    const { user_id, forks, reward_name } = res.body;
+    const { user_id, forks, reward_name } = req.body;
     if (!user_id || !forks || !reward_name) {
         return res.status(400).json({ error: 'Missing required fields '});
     }
@@ -38,19 +38,19 @@ export const createRewardController = (req, res) => {
 };
 
 // Delete a reward
-export const deleteRewardController = (req, res) => {
-    const { reward_id } = req.params;
-    deleteReward(reward_id, (error, results) => {
+/*export const deleteRewardController = (req, res) => {
+    const { id } = req.params;
+    deleteReward(id, (error, results) => {
         if (error) return res.status(500).json({ error: error.message });
         res.status(200).json(results);
     });
-};
+};*/
 
 
 // Get daily log in
 export const getDailyLoginController = (req, res) => {
-    const { user_id } = req.params;
-    getDailyLogin(user_id, (error, results) => {
+    const { id } = req.params;
+    getDailyLogin(id, (error, results) => {
         if (error) return res.status(500).json({ error: error.message });
         res.status(200).json(results);
     });
@@ -58,9 +58,9 @@ export const getDailyLoginController = (req, res) => {
 
 // Update daily log in
 export const updateDailyLoginController = (req, res) => {
-    const { user_id } = req.params;
+    const { id } = req.params;
     const updatedDailyLogin = req.body;
-    updateDailyLogin(user_id, updatedDailyLogin, (error, results) => {
+    updateDailyLogin(id, updatedDailyLogin, (error, results) => {
         if (error) return res.status(500).json({ error: error.message });
         res.status(200).json(results);
     });
