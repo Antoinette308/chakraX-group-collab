@@ -11,9 +11,12 @@ function AddHabit({ addHabit, bg }) {
     const [unit, setUnit] = useState('day');
 
     function handleAddHabit() {
-        if (!text || !frequency) return; //Prevent empty habit text and frequency
-        addHabit({ colour, text, frequency, unit });
+        if (!text || !frequency) 
+            return; //Prevent empty habit text and frequency
+        const habit_name = text;
+        addHabit({ colour, habit_name, frequency, unit });
 
+        
         //Reset inputs after habit is added
         setText(''); //resets input
         setFrequency(''); //resets frequency

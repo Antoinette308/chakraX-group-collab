@@ -74,7 +74,7 @@ function ToDoListItems({theme}) {
         const [isLoading, setIsLoading] = useState(true); // Add loading state to display a loading message while fetching data
         const [fetchTrigger, setFetchTrigger] = useState(false);
          // State to fetch new tasks created by the user
-        const user = 1;
+        const user = JSON.parse(localStorage.getItem('user'));
         const token = JSON.parse(localStorage.getItem("token"));
         // async/await to fetch all todos from exec_function_db    
         async function readAllTodos() {

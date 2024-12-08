@@ -7,13 +7,28 @@ import { format  } from "date-fns";
 
 // create new habit
 export const createHabit = (habit, callback) => {
-    const query = 'INSERT INTO habits (user_id, habit_name, description, frequency, recurrence, start_date, last_completed) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    connection.query(query, [habit.user_id, habit.habit_name, habit.description, habit.frequency, habit.recurrence, habit.start_date, habit.last_completed], (error, results) => {
+    const query = 'INSERT INTO habits (user_id, habit_name, colour, frequency, unit, monday, tuesday, wednesday, thursday, friday, saturday, sunday) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+
+    const values = [
+        habit.user_id,
+        habit.habit_name,
+        habit.colour,
+        habit.frequency,
+        habit.unit,
+        habit.monday || false,
+        habit.tuesday || false,
+        habit.wednesday || false,
+        habit.thursday || false,
+        habit.friday || false,
+        habit.saturday || false,
+        habit.sunday || false
+    ];
+
+    connection.query(query, values, (error, results) => {
         if (error) return callback(error);
         const formattedHabit = {
-            habits_id: results.insertId,
+            id: results.insertId,
             ...habit
-            // start_date: format(new Date(habit.start_date), 'yyyy-MM-dd')
         };
         callback(null, formattedHabit);
     });

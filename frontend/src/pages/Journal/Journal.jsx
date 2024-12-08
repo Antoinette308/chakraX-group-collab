@@ -9,7 +9,7 @@ import { useOutletContext } from "react-router-dom";
 function Journal() {
     const [entries, setEntries] = useState([]);
     const theme= useOutletContext()
-    const {user}= JSON.parse(localStorage.getItem('user'));
+    const user= JSON.parse(localStorage.getItem('user'));
     const token = JSON.parse(localStorage.getItem("token"));
     // Deleting an entry
     async function deleteEntry(id){
@@ -48,9 +48,9 @@ function Journal() {
                     "Content-Type": "application/json",
                     "Authorization": 
                         `Bearer ${token}`
-                
             }
         });
+        console.log(response)
             if(!response.ok){
                 throw new Error(`Response Status: ${response.status}`)
             }

@@ -61,6 +61,7 @@ function JournalForm({ entry = null, onUpdate, theme }) {
         if(entry){
             console.log(title, text)
             onUpdate({title, text, user})
+            navigate('/journal')
             console.log("Journal updated");
         } else {
             const newEntry = {title, text};

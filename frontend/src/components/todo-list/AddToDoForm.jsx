@@ -70,7 +70,7 @@ function AddToDoForm({ onTaskAdded, theme, token }) {   // Extract onTaskAdded a
 
 
     const [content, setContent] = useState(''); // Store the content of the input field
-    const user = 1;
+    const user = JSON.parse(localStorage.getItem('user'));
     
 
     const handleSubmit = (e) => {

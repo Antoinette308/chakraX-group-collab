@@ -11,6 +11,8 @@ function EditEntry() {
     const entry = location.state?.entry || null; 
     console.log("Current entry details: ", entry)
     const navigate = useNavigate();
+    const token = JSON.parse(localStorage.getItem("token"));
+
 
     async function handleUpdate (updatedEntry){
         const url = `http://localhost:3000/journal/`
@@ -25,7 +27,8 @@ function EditEntry() {
             }),
             headers: {
                 "Content-Type": "application/json",
-                
+                "Authorization": 
+                        `Bearer ${token}`
             },
         });
         if(!response.ok){
@@ -44,7 +47,7 @@ function EditEntry() {
         <>
             <Header size="6xl" bg={theme.sideBarBg} color={theme.ButtonColor} text="What was on your mind?" />
             <Box margin={10}>
-            <JournalForm entry={entry} onUpdate={() =>{handleUpdate; navigate("/journal")}} theme={theme}/>
+            <JournalForm entry={entry} onUpdate={handleUpdate} theme={theme}/>
             </Box>
         </>
     )

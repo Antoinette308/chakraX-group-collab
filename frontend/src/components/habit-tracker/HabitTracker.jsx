@@ -79,7 +79,7 @@ const deleteHabitAPI = async (id) => {
 const updateHabitAPI = async (habit) => {
     try {
         // eslint-disable-next-line no-unused-vars
-        const response = await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.id}`, {
+        const response = await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.habits_id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 
                         "Authorization": `Bearer ${token}` },
