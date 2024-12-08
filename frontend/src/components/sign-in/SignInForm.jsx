@@ -75,7 +75,7 @@ function SignInForm({theme}) {
                 console.log(res);
                 localStorage.setItem("token", JSON.stringify(res.token))
                 localStorage.setItem('user', res.user)
-                navigate("/test")
+                navigate("/home")
             })
         }
     };

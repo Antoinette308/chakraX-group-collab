@@ -23,7 +23,7 @@ router.post('/new-habit', authenticateToken, createHabitController);
 
 router.get('/habit/:id', authenticateToken, getHabitByIdController);
 
-router.get('/habit', authenticateToken, getAllHabitsController);
+router.get('/habits/:id', authenticateToken, getAllHabitsController);
 
 router.put('/update-habit/:id', authenticateToken, updateHabitByIdController);
 

@@ -1,4 +1,4 @@
-
+//The naming conventions in here aren't intuitive and with more time I would have refactored this to be more reusable 
 const themes = {
   blue: {
     navIcon: {base: "#8BABF1", _hover: "#7D98D4"},
@@ -22,7 +22,6 @@ const themes = {
     sideBarBg: "#79BC55",
     pageBg: {base: "#E6F4F1", _dark: "#2d564c"}, 
     // pageButtons: {base: "#79BC55", _dark:"#79BC55", _hover: "#68a348"},
-    pageButtonText: {base: "#05182A", _dark: "#05182A" },
     pageButtonText: {base: "#05182A", _dark: "#05182A" },
     pageButtons: {base: "#79BC55", _dark:"#79BC55", _hover:"#669c49"},
     pageButtonActive: {base: "#669c49", _dark: "#669c49", _hover: "#5a7c47"},

@@ -11,19 +11,27 @@ function RewardShop(props){
     const [rewards, setRewards] = useState([])
     /*This keeps the user from only having rewards of a certain size. 
     Once a threshold is hit, the reward size will become disabled */
-    const size = {
-        small: 0, //max of 4
-        medium: 0, //max of 3
-        large: 0 //max of 2
+
+    async function addRewardData(reward){
+        /*With more time I would integrate the API, using the formatted data 
+        from addReward to post the new data to the database. 
+        I would also get the token and the user id from the local storage for authorization.
+       */
     }
+
+    async function deleteRewardData(rewardId){
+        /* Code would go here to delete a reward from the database once it had been purchased, 
+        making use of the authorisation in local storage. This function would be called by buyReward
+        */
+    }
+
+
 
     //This is to ensure that users won't cheat the system and choose to have all rewards cost the lowest amount. 
     
     function calculateForks(level){
         if(level === "small"){
             //adds a count to the small size and chooses a random number between 5 & 10
-            size.small = (size.small +1)
-            
             return Math.floor(Math.random() * 5) + 5;
 
         } else if(level === "medium"){
@@ -31,8 +39,6 @@ function RewardShop(props){
             return Math.floor(Math.random() * 10) + 10;
         } else {
             //adds a count to the large size and chooses a random number between 20 & 40
-            size.large += 1;
-            console.log(size.large)
             return Math.floor(Math.random() * 20) + 20;
         }
     }
@@ -53,6 +59,7 @@ function RewardShop(props){
         setRewards(
             rewards.filter(r => r.reward_id !== reward.reward_id)
         )
+
     }
 
     const mockRewards = [

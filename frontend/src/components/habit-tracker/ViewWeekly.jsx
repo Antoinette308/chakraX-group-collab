@@ -115,9 +115,9 @@ return (
                 {habits.map((habit, habitIndex) => (
                     <tr key={habitIndex}>
                         <td>
-                            <h4 style={{ color: habit.colour}}>{habit.text}</h4>
+                            <h4 style={{ color: habit.colour}}>{habit.habit_name}</h4>
                         </td>
-                        {Object.keys(habit.status).map((day) => (
+                        {['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].map((day) => (
                             <td
                                 key={day}
                                 className='text-center'
@@ -129,7 +129,8 @@ return (
                                     <FaCircle className='text-sucess' title='Mark undone' size={30} style={{color: habit.colour}}/>
                                 ) : (
                                     <FaTimes className='text-danger' title="Mark done" size={40} style={{ opacity: 0 }}/>
-                                )}</div>
+                                )}
+                                </div>
                             </td>
                         ))}
                     </tr>

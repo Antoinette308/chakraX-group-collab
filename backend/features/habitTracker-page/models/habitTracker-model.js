@@ -39,7 +39,7 @@ export const createHabit = (habit, callback) => {
         habit.sunday || false
     ];
 
-    connection.query(query, values, (error, results) => {
+    connection.query(query,[...values], (error, results) => {
         if (error) return callback(error);
         const formattedHabit = {
             habits_id: results.insertId,
@@ -60,9 +60,9 @@ export const getHabitById = (id, callback) => {
 };
 
 // get all habits
-export const getAllHabits = (callback) => {
-    const query = 'SELECT * FROM habits';
-    connection.query(query, (error, results) => {
+export const getAllHabits = (id, callback) => {
+    const query = 'SELECT * FROM habits WHERE user_id = ?';
+    connection.query(query, [id], (error, results) => {
         if (error) return callback (error);
         callback(null, results);
     });
@@ -79,7 +79,7 @@ export const updateHabitById = (id, updatedHabit, callback) => {
  }; 
  */
 
-export const updateHabitById = (id, updatedHabit, callback) => {
+export const updateHabitById = (habits_id, updatedHabit, callback) => {
     const query = 'UPDATE habits SET monday = ?, tuesday = ?, wednesday = ?, thursday = ?, friday = ?, saturday = ?, sunday = ? WHERE habits_id = ?';
     const values = [
         updatedHabit.monday ? 1 : 0,

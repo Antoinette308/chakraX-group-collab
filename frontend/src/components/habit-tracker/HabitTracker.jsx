@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 import HabitItem from './HabitItem';
 import AddHabitButton from './AddHabitButton';
 import './HabitTracker.css';
 import ViewWeekly from './ViewWeekly';
 import WeeklyProgress from './WeeklyProgress'
-
+const user = JSON.parse(localStorage.getItem("user"))
 const token = JSON.parse(localStorage.getItem("token"));
 
 //save habits to storage
@@ -21,8 +21,13 @@ const token = JSON.parse(localStorage.getItem("token"));
 // fetch habits from API
 const fetchHabits = async () => {
     try {
-        const response = await fetch('http://localhost:3000/habit-tracker/habit', {
-            header: {"Authorization": `Bearer ${token}`}
+        /*This is returning unauthorized at this time. 
+        This was working on the 7/12 but it has now stopped working. 
+        I believe it is an issue with the authorization header but do not have the time to debug */
+        console.log(token)
+        const response = await fetch(`http://localhost:3000/habit-tracker/habits/${user}`, {
+            headers: {'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`}
         });
         const data = await response.json();
         return data.map(habit => ({
@@ -56,7 +61,6 @@ const addHabitAPI = async (habitDetails) => {
     } catch (error) {
         console.log("Error adding a new habit via API", error);
         throw error;
-        return null;
     }
 };
 
@@ -104,7 +108,7 @@ function HabitTracker({theme}) {
         }
     });
 
-    //Save habits to local storage on state change
+    //fetch habits from API and sync w local storage
     useEffect(() => {
         const initialiseHabits = async () => {
             const apiHabits = await fetchHabits();
@@ -119,20 +123,11 @@ function HabitTracker({theme}) {
         // saveHabitsToLocalStorage(habits);
     }, [habits]);
     
-    //Function to add new habit, a unique id is created with uuid
-    async function addHabit(habitDetails) {
-        const status = {
-            Monday: false,
-            Tuesday: false,
-            Wednesday: false,
-            Thursday: false,
-            Friday: false,
-            Saturday: false,
-            Sunday: false,
-        };
-
+    //Add new habit (via API and local storage)
+    const addHabit = async (habitDetails) => {
+        console.log(habitDetails)
         const newHabit = {
-            id: uuidv4(),
+            /*id: uuidv4(),*/
             ...habitDetails,
             user_id: user,
             monday: false,
@@ -189,8 +184,10 @@ function HabitTracker({theme}) {
                     />
                 ))}
             </div>
-            <ViewWeekly habits={habits} setHabits={setHabits} />
-            <WeeklyProgress habits={habits} />
+            <div className='weekly-progress-div'>
+                <ViewWeekly habits={habits} setHabits={setHabits} />
+                <WeeklyProgress habits={habits} />
+            </div>
         </div>
     );
 }

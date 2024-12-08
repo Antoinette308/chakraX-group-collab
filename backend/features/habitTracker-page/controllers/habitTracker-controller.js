@@ -41,7 +41,8 @@ export const getHabitByIdController = (req, res) => {
 
 // get all habits
 export const getAllHabitsController = (req, res) => {
-    getAllHabits((error, results) => {
+    const { id } = req.params;
+    getAllHabits(id, (error, results) => {
         if (error) return res.status(500).json({ error: error.message });
         res.status(200).json(results);
     });

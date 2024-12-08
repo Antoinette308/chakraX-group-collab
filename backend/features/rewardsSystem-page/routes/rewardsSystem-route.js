@@ -3,7 +3,7 @@ import { welcomeMessage } from '../controllers/rewardsSystem-controller.js';
 import {
     getAllRewardsController,
     createRewardController,
-    deleteRewardController,
+    // deleteRewardController,
     getDailyLoginController,
     updateDailyLoginController
 } from "../controllers/rewardsSystem-controller.js";

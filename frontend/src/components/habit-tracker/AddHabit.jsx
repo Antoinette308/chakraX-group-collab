@@ -13,7 +13,9 @@ function AddHabit({ addHabit, bg }) {
     function handleAddHabit() {
         if (!text || !frequency) 
             return; //Prevent empty habit text and frequency
+        console.log(colour)
         const habit_name = text;
+    
         addHabit({ colour, habit_name, frequency, unit });
 
         
@@ -46,7 +48,7 @@ function AddHabit({ addHabit, bg }) {
                     placeholder='1'
                     min="1"
                 />
-                <label htmlFor="number">{(frequency == 1) ? " time" : " times"}</label>
+                <label htmlFor="number">{frequency === 1 ? " time" : " times"}</label>
                 <label htmlFor="select">per</label>
                 <select
                     id="unit"
@@ -57,7 +59,7 @@ function AddHabit({ addHabit, bg }) {
                     <option value="week">week</option>
                     <option value="month">month</option>
                 </select>
-                <button onClick={handleAddHabit}><IoMdAdd /></button>
+                <button id="add" onClick={handleAddHabit}><IoMdAdd /></button>
             </div>
         </div>
     );

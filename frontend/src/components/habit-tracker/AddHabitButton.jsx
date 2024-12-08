@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { Button } from '@chakra-ui/react';
 import AddHabit from './AddHabit'

@@ -18,6 +18,7 @@ function Rewards(){
     
     
     function calculateWeeks(){
+        // This would be refactored once the API has been integrated as the weeks will be held in the database 
         let thisStreak = streak;
         while(thisStreak > 7){
             console.log(streak)
@@ -28,6 +29,7 @@ function Rewards(){
     }
 
     function checkStreak(){
+        //This would be used with the data from the database once API is integrated 
         const oldDate = new Date(lastVisit)
         const date = Date.now();
         const today = new Date(date);
@@ -49,6 +51,7 @@ function Rewards(){
     }
 
     function addForks(){
+        //This would be used with the API integration to add forks to the user's total based on streak 
         switch(streak){
             case 0: 
             break;

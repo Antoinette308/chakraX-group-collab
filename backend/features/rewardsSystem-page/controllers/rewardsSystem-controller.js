@@ -1,7 +1,7 @@
 import {
     getAllRewards,
     createReward,
-    deleteReward,
+    // deleteReward,
     getDailyLogin,
     updateDailyLogin
 } from "../models/rewardsSystem-model.js";
