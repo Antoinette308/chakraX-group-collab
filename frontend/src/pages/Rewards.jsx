@@ -10,7 +10,7 @@ function Rewards(){
 
     const theme= useOutletContext()
     const days = [1,2,3,4,5,6,7]
-    const [forks, setForks] = useState(0)
+    const [forks, setForks] = useState(6)
     const mockUserData = {userId: 1, forks: 6, lastVisit: "2024-12-04", streak: 1}
     const [weeks, setWeeks] = useState(1);
     const [streak, setStreak] = useState(mockUserData.streak)
@@ -42,7 +42,7 @@ function Rewards(){
         } else {
             setStreak(0);
         } if(streak > 7){
-            calculateWeeks()
+            setWeeks(prev => prev + 1);
         }
         setLastVisit(today.toISOString());
 
@@ -70,6 +70,9 @@ function Rewards(){
         }
     }
     
+    function subtractForks(amount){
+        setForks(prev => prev - amount);
+    }
 
 
 
@@ -83,7 +86,7 @@ function Rewards(){
                     return <DailyVisitBox key={d} theme={theme} text={`Day ${d}`} isChecked={streak >= d ? true: false}/>
                 })}
             </Flex>
-            <RewardShop theme={theme} forks={forks}></RewardShop>
+            <RewardShop theme={theme} forks={forks} subtractForks={subtractForks}></RewardShop>
         </Box>
     )
 };

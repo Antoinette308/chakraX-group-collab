@@ -3,9 +3,11 @@ import Header from "../components/Header";
 // import JournalCard from "../components/JournalPreview";
 // import AddNewButton from "../components/AddNewEntry";
 import { useEffect, useState } from "react";
-
+import { Box, Text } from "@chakra-ui/react";
+import { useOutletContext } from "react-router-dom";
 function Test() {
     const [entries, setEntries] = useState([]);
+    const theme = useOutletContext()
 
     async function getJournals() {
         const userId = "1"

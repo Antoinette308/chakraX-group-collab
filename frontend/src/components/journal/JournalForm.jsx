@@ -1,22 +1,57 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { Button, Input, Stack, Textarea } from "@chakra-ui/react"
 import { Field } from "../ui/field"
+import { useNavigate } from "react-router-dom";
 
 // Keely-Ann notes: Journal 'form' created to submit journal entries.
 
-function JournalForm({ entry = null, onSave, onUpdate }) {
+function JournalForm({ entry = null, onUpdate, theme }) {
 
     // Store the title and body of the journal entry
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = JSON.parse(localStorage.getItem("token"));
+    const navigate = useNavigate();
+
+    async function handleSave() {
+        const url = "http://localhost:3000/journal/new-entry";
+
+        try{
+            const response = await fetch(url, {
+                method: "POST",
+            body: JSON.stringify({
+                user_id: user,
+                title: title,
+                entry: text,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                "authorization": 
+                        `Bearer ${token}`
+            
+            },
+        });
+        if(!response.ok){
+            throw new Error(`Response Status: ${response.status}`)
+        }
+        const json = await response.json()
+            console.log(json)
+            return json;
+        }
+        catch(err){
+            console.error(err.message);
+        }
+
+
+
+    }
 
     useEffect(() => {
         if (entry) {
-            setTitle(entry.title);
-            setText(entry.text);
-        } else {
-            setTitle("");
-            setText("");
+            setTitle(entry.title || "");
+            setText(entry.entry || "");
         }
     }, [entry]);
 
@@ -24,12 +59,15 @@ function JournalForm({ entry = null, onSave, onUpdate }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         if(entry){
-            onUpdate({...entry, title, text})
+            console.log(title, text)
+            onUpdate({title, text, user})
+            navigate('/journal')
             console.log("Journal updated");
         } else {
             const newEntry = {title, text};
-            onSave(newEntry)
-            console.log("New entry saved");
+            handleSave(newEntry)
+            navigate('/journal')
+            console.log("New entry saved", newEntry);
         }
         setTitle("");
         setText("");
@@ -38,10 +76,11 @@ function JournalForm({ entry = null, onSave, onUpdate }) {
     // Setting up the journal form
     return (
         <form onSubmit={handleSubmit}>
-            <Stack gap="4" align="center" width="1800px">
-                <Field>
+            <Stack gap="4" align="center">
+                <Field >
                     {/* Title Input */}
-                    <Input placeholder="Enter title"
+                    <Input 
+                        placeholder="Enter title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
@@ -55,7 +94,8 @@ function JournalForm({ entry = null, onSave, onUpdate }) {
                 </Field>
                 <Button type="submit"
                     borderRadius="30px"
-                    colorPalette="teal.500"
+                    color={theme.ButtonColor}
+                    bg={theme.pageButtons}
                     width="250px">Submit</Button>
             </Stack>
         </form>

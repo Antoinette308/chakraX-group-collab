@@ -29,10 +29,10 @@ function createNewActivity(req, res) {
 
 function updateActivity(req, res) {
     // Update the energy for an activity based on it's spoon count
-    // const activityId = req.params.id;
+    const activityId = req.params.id;
     const activityInfo = req.body;
 
-    models.updateActivity(activityInfo, (err, results) => {
+    models.updateActivity(activityId, activityInfo, (err, results) => {
         if (err) {
             console.log("Error update the spoon count", err);
             res.status(500).json({ error: err.message });
