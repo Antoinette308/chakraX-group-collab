@@ -79,8 +79,8 @@ export const existingUserController = (req, res) => {
             }
 
             const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '1h' });
-            console.log('Generated token:', token);
-            res.json({ token });
+            console.log('Generated token:', token, user.user_id);
+            res.json({ token, user: user.user_id});
         });
         // });
     });

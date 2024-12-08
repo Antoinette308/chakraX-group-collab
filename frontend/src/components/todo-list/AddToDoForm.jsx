@@ -88,7 +88,7 @@ function AddToDoForm({ onTaskAdded, theme, token }) {   // Extract onTaskAdded a
             method: 'POST',  // Using the POST method to send data to the server
             headers: {   // Setting the headers to accept JSON data
                 'Content-Type': 'application/json',
-                "Authorization": `Bearer ${token.token}`   // Setting the content type to JSON
+                "Authorization": `Bearer ${token}`   // Setting the content type to JSON
             },
             body: JSON.stringify({ tasks: content, completed: false, user_id: user }),   // Stringify the content of the input field. Set tasks to be the content. Set completed to false.
         })

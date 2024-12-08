@@ -94,6 +94,7 @@ function SignUpForm() {
                 setError(false);
                 setEmailError(false);
                 setPasswordError(false);
+                setSignUpSuccessful(true);
             } else {
                 console.error('Failed to create user:', error);
             }
@@ -102,6 +103,7 @@ function SignUpForm() {
 
     // Successfully signed-up message
     function successMessage() {
+        
         return (
             <div 
                 className="success"
@@ -152,27 +154,31 @@ function SignUpForm() {
     return (
         <div className='sign-up-div'>
             { !submitted && (
-                <form>
+                <form className='sign-up'>
                     <label>First name:</label>
                     <input
+                        className={'sign-up'}
                         onChange={handleFirstName}
                         value={firstName}
                         type='text'
                     />
                     <label>Last name:</label>
                     <input
+                        className={'sign-up'}
                         onChange={handleLastName}
                         value={lastName}
                         type='text'
                     />
                     <label>Email:</label>
                     <input
+                        className={'sign-up'}
                         onChange={handleEmail}
                         value={email}
                         type='email'
                     />
                     <label>Password:</label>
                     <input
+                        className={'sign-up'}
                         onChange={handlePassword}
                         value={password}
                         type='password'

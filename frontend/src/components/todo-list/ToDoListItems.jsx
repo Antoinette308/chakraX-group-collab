@@ -84,7 +84,7 @@ function ToDoListItems({theme}) {
             try {   // Wrap code in a try block to catch any errors
                 const response = await fetch(url, {
                     headers: {
-                        "Authorization": `Bearer ${token.token}`
+                        "Authorization": `Bearer ${token}`
                     }
                 });
                 const data = await response.json();
@@ -132,7 +132,7 @@ function ToDoListItems({theme}) {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
-                        "Authorization": `Bearer ${token.token}`
+                        "Authorization": `Bearer ${token}`
                     },
                 });
                 if (!response.ok) {

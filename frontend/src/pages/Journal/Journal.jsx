@@ -9,9 +9,9 @@ import { useOutletContext } from "react-router-dom";
 function Journal() {
     const [entries, setEntries] = useState([]);
     const theme= useOutletContext()
-    const user= 2;
+    const {user}= JSON.parse(localStorage.getItem('user'));
     const token = JSON.parse(localStorage.getItem("token"));
-    // Deleting an entry 
+    // Deleting an entry
     async function deleteEntry(id){
         const url = `http://localhost:3000/journal/${id}`
         try{
@@ -20,7 +20,7 @@ function Journal() {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": 
-                        `Bearer ${token.token}`
+                        `Bearer ${token}`
             },
         });
         if(!response.ok){
@@ -42,12 +42,12 @@ function Journal() {
     async function getEntries(){
         const url = `http://localhost:3000/journal/${user}`;
         try {
-            console.log(token.token)
+            console.log(token)
             const response = await fetch(url, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": 
-                        `Bearer ${token.token}`
+                        `Bearer ${token}`
                 
             }
         });

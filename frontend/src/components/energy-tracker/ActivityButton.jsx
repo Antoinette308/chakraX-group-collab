@@ -62,10 +62,10 @@ function ActivityButton(props){
         }
     }
 
-    useEffect(()=> {
-        {console.log(activityInfo)
-        props.editActivities(activityInfo)}
-    },[activityInfo])
+    // useEffect(()=> {
+    //     console.log(activityInfo)
+    //     props.editActivities(activityInfo)
+    // },[activityInfo])
 
     return  ( 
         <Box width="125px" height={'125px'} 

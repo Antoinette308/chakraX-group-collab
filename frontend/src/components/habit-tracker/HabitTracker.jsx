@@ -22,7 +22,7 @@ const token = JSON.parse(localStorage.getItem("token"));
 const fetchHabits = async () => {
     try {
         const response = await fetch('http://localhost:3000/habit-tracker/habit', {
-            header: {"Authorization": `Bearer ${token.token}`}
+            header: {"Authorization": `Bearer ${token}`}
         });
         const data = await response.json();
         return data.map(habit => ({
@@ -49,7 +49,7 @@ const addHabitAPI = async (habitDetails) => {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json', 
-                "Authorization": `Bearer ${token.token}` },
+                "Authorization": `Bearer ${token}` },
             body: JSON.stringify(habitDetails),
         });
         return await response.json();
@@ -65,7 +65,7 @@ const deleteHabitAPI = async (id) => {
     try {
         const response = await fetch (`http://localhost:3000/habit-tracker/delete-habit/${id}`, {
             method: 'DELETE',
-            headers: {"Authorization": `Bearer ${token.token}`
+            headers: {"Authorization": `Bearer ${token}`
                     }
         });
         return id;
@@ -82,7 +82,7 @@ const updateHabitAPI = async (habit) => {
         const response = await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 
-                        "Authorization": `Bearer ${token.token}` },
+                        "Authorization": `Bearer ${token}` },
             body: JSON.stringify(habit),
         });
     } catch (error) {
@@ -91,7 +91,7 @@ const updateHabitAPI = async (habit) => {
 };
 
 function HabitTracker({theme}) {
-    const user = 1
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const [habits, setHabits] = useState(() => {
         try {

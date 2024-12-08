@@ -21,7 +21,9 @@ function SignInForm() {
 
     // Function to handle email
     const handleEmail = (e) => {
+        console.log(e.target.value)
         setEmail(e.target.value);
+
         setSubmitted(false); // If the user is typing then set to false
     };
 
@@ -71,7 +73,8 @@ function SignInForm() {
             // The sign-in functionallity will be added here
             loginUser().then(res => {
                 console.log(res);
-                localStorage.setItem("token", JSON.stringify(res))
+                localStorage.setItem("token", JSON.stringify(res.token))
+                localStorage.setItem('user', res.user)
             })
         }
     };

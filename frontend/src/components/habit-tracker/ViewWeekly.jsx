@@ -11,7 +11,7 @@ async function updateHabitAPI(habit) {
         await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.habits_id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 
-                        "Authorization": `Bearer ${token.token}`
+                        "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(habit),
         });

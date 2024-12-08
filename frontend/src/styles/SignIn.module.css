@@ -24,11 +24,13 @@
 .input{
     align-items: center;
     background: white;
+    color: black;
     outline: none; 
     margin-bottom: 15px;
     justify-content: space-between;
     margin-top: 15px;
-    padding: 16px 180px 16px 20px;
+    padding: 16px 18px 16px 20px;
+    width: 200px;
     border-radius: 20px;
 }
 

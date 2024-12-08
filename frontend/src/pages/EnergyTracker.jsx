@@ -49,16 +49,17 @@ function EnergyTracker() {
         { name: "Exercise", spoons: 5, is_active: false}
     ];
 const [activities, setActivities] = useState([]);
-const userId = 2;
+const user = JSON.parse(localStorage.getItem('user'));
 const token = JSON.parse(localStorage.getItem("token"))
 
     async function getUserData(){
         
-            console.log(userId)
-            const url = `http://localhost:3000/energy-tracker/${userId}`
+            console.log(user, token)
+            const url = `http://localhost:3000/energy-tracker/${user}`
         try {
             const response =  await fetch(url, { 
-                headers: {"Authorization": `Bearer ${token.token}`}
+                headers: {
+                    "Authorization": `Bearer ${token}`}
             });
             if(!response.ok){
             throw new Error(`Response Status: ${response.status}`)
@@ -79,14 +80,14 @@ const token = JSON.parse(localStorage.getItem("token"))
                 {
                     method: "POST",
                 body: JSON.stringify({
-                    user_id: userId,
+                    user_id: user,
                     name: a.name,
                     spoons: a.spoons,
                     is_active: a.is_active 
                 }),
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token.token}`
+                    "Authorization": `Bearer ${token}`
                 },
                 });
 
@@ -111,14 +112,14 @@ const token = JSON.parse(localStorage.getItem("token"))
                 {
                     method: "PUT",
                 body: JSON.stringify({
-                    user_id: userId,
+                    user_id: user,
                     name: a.name,
                     spoons: a.spoons,
                     is_active: a.is_active 
                 }),
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token.token}`
+                    "Authorization": `Bearer ${token}`
                 },
                 })
 
@@ -144,7 +145,7 @@ const token = JSON.parse(localStorage.getItem("token"))
                     method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token.token}`
+                    "Authorization": `Bearer ${token}`
                 },
                 })
 
@@ -174,12 +175,13 @@ const token = JSON.parse(localStorage.getItem("token"))
 
     function addActivity(a){
         postActivityData(a).then((res) => {
-            setActivities([...activities, {...a, activity_id: res}]) 
+            setActivities([...activities, {...a, activity_id: res.activity_id}]) 
         })
         
     }
 
     function deleteActivity(a){
+        console.log("deleting", a.activity_id, activities)
             deleteActivityData(a);
             setActivities(activities.filter((activity) => activity.activity_id !== a.activity_id))
     }
@@ -208,11 +210,11 @@ const token = JSON.parse(localStorage.getItem("token"))
             console.log(res)
             if(!res.length){
                 console.log("no response")
-
-                initialActivities.forEach((a) => {
-                    const ActivityWithId = postActivityData(a);
-                    setActivities([...activities, ActivityWithId]);
-                })
+                setActivities([]);
+            }
+            else {
+                console.log(res)
+                setActivities(res);
                 res.map((a) => {
                     if(a.is_active){
                         /*This will activate twice but it's an issue with strict mode. 
@@ -222,11 +224,6 @@ const token = JSON.parse(localStorage.getItem("token"))
                     }
                 })
             }
-            else {
-                setActivities(res);
-            }
-            
-            
         })
 } , [])
 
@@ -259,9 +256,10 @@ useEffect(() => {
                         <AddActivityDialog theme={theme} addActivity={addActivity}
                         activities={activities} setActivities={setActivities} />
                         {activities.map((a, index) => {
-                            return <ActivityButton key={a.activityId} 
+                            console.log("activity", a)
+                            return <ActivityButton key={a.activity_id} 
                                 index={index}
-                                id={a.activityId} text={a.name} 
+                                id={a.activity_id} text={a.name} 
                                 active={a.is_active}
                                 value={a.spoons}
                                 activity={a} 

@@ -25,6 +25,7 @@ function EditEntry() {
             }),
             headers: {
                 "Content-Type": "application/json",
+                
             },
         });
         if(!response.ok){
