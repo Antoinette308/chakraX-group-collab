@@ -19,7 +19,7 @@ const createUser = async (userDetails) => {
     }
 };
 
-function SignUpForm() {
+function SignUpForm(props) {
     // States for registration
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName]  = useState('');
@@ -185,13 +185,17 @@ function SignUpForm() {
                     />
                     <Button
                         onClick={handleSubmit}
-                        type='submit'>
+                        type='submit'
+                        bg={props.theme.pageButtons}
+                        color={props.theme.ButtonColor}
+                        marginBottom={"10px"}>
                         Submit
                     </Button>
                     <ButtonLink
                         route='/sign-in' 
                         text ='Already have an account? Click here to sign in'
-                        style ={{margin: '10px'}}
+                        bg={props.theme.navButtonBg}
+                        color={props.theme.ButtonColor}
                         />
                 </form>
             )}

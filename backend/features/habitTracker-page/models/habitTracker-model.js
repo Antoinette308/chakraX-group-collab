@@ -27,9 +27,10 @@ export const createHabit = (habit, callback) => {
     connection.query(query, values, (error, results) => {
         if (error) return callback(error);
         const formattedHabit = {
-            id: results.insertId,
+            habits_id: results.insertId,
             ...habit
         };
+        console.log(formattedHabit)
         callback(null, formattedHabit);
     });
 };

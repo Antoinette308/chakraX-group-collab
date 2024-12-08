@@ -78,6 +78,7 @@ const deleteHabitAPI = async (id) => {
 // update habits via API
 const updateHabitAPI = async (habit) => {
     try {
+        console.log(habit)
         // eslint-disable-next-line no-unused-vars
         const response = await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.habits_id}`, {
             method: 'PUT',
@@ -136,7 +137,7 @@ function HabitTracker({theme}) {
         const savedHabit = await addHabitAPI(newHabit);
         if (savedHabit) {
             console.log(savedHabit)
-            setHabits((prevHabits) => [...prevHabits, newHabit]);  
+            setHabits((prevHabits) => [...prevHabits, savedHabit]);  
         }
     };
 
@@ -172,7 +173,7 @@ function HabitTracker({theme}) {
             <div className='habit-items'>
                 {habits.map(habit => (
                     <HabitItem
-                        key={habit.id}
+                        key={habit.habits_id}
                         habit={habit}
                         deleteHabit={deleteHabit}
                     />

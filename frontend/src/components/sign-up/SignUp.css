@@ -20,10 +20,12 @@ input.sign-up {
     padding: 5px;
     border-radius: 10px;
     width: 70%;
+    background-color: white;
+    color: #05182A
 }
 
 @media screen and (min-width: 1024px) {
-    input {
+    input.sign-up {
         width: 40%;
     }   
 }

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaCircle } from "react-icons/fa";
 import DeleteHabit from './DeleteHabit';
 

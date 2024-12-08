@@ -6,7 +6,7 @@ import './HabitTracker.css'
 const token = JSON.parse(localStorage.getItem("token"))
 
 async function updateHabitAPI(habit) {
-    console.log(habit)
+    console.log(habit.habits_id)
     try {
         await fetch(`http://localhost:3000/habit-tracker/update-habit/${habit.habits_id}`, {
             method: 'PUT',

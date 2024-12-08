@@ -23,6 +23,7 @@ const themes = {
     pageBg: {base: "#E6F4F1", _dark: "#2d564c"}, 
     pageButtonText: {base: "#05182A", _dark: "#05182A" },
     pageButtons: {base: "#79BC55", _dark:"#79BC55", _hover:"#669c49"},
+    pageButtonActive: {base: "#669c49", _dark: "#669c49", _hover: "#5a7c47"},
     textColor: {base: "#05182A", _dark: "#E7EBF4"},
     footerBg: "#79BC55",
     footerColor: "#05182A",

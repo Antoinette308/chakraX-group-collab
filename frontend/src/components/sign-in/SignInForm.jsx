@@ -3,7 +3,7 @@ import styles from '../../styles/SignIn.module.css';
 import { useNavigate } from 'react-router-dom';
 
 
-function SignInForm() {
+function SignInForm({theme}) {
 
     // States for sign in
     // const [username, setUsername] = useState('');  // Would username be a combination of the first and last name from SignUpForm.jsx?
@@ -111,14 +111,14 @@ function SignInForm() {
     return (
         <>
             <form className={styles.form} onSubmit={handleSubmit}>
-                <label className={styles.label}>Email</label>
+                <label className={styles.label} style={{backgroundColor:theme.accentColor, color: "#05182A"}}>Email</label>
                 <input type="email" placeholder="Enter your email..." className={styles.input} onChange={handleEmail} value={email} />
-                <label className={styles.label}>Password</label>
+                <label className={styles.label} style={{backgroundColor:theme.accentColor, color: "#05182A"}}>Password</label>
                 <input type="password" placeholder="Enter your password..." className={styles.input} onChange={handlePassword} value={password} />
-                <button type="button" className={styles.forgotPassword}>Forgot Password?</button>
-                <button type="submit" className={styles.login}>LOGIN</button>  {/* Use the onClick event to send data to backend for auth and navigate to the home page? */}
-                <button type="button" className={styles.orSignUpUsing} onClick={() => navigate('/sign-up')}>Or Sign Up Using</button>  {/* This button will navigate to the sign-up page */}
-                <button type="button" className={styles.singUp} onClick={() => navigate('/sign-up')}>SIGN UP</button>  {/* This button will navigate also navigate to the sign-up page */}
+                <button type="button" className={styles.forgotPassword} style={{backgroundColor:theme.accentColor,  color: "#05182A"}}>Forgot Password?</button>
+                <button type="submit" className={styles.login} style={{backgroundColor:theme.accentColor,  color: "#05182A"}}>LOGIN</button>  {/* Use the onClick event to send data to backend for auth and navigate to the home page? */}
+                <button type="button" className={styles.orSignUpUsing} onClick={() => navigate('/sign-up')} style={{backgroundColor:theme.accentColor,  color: "#05182A"}}>Or Sign Up Using</button>  {/* This button will navigate to the sign-up page */}
+                <button type="button" className={styles.singUp} onClick={() => navigate('/sign-up')} style={{backgroundColor:theme.accentColor,  color: "#05182A"}}>SIGN UP</button>  {/* This button will navigate also navigate to the sign-up page */}
             </form>
             <div className='messages'>{errorMessage()}{successMessage()}</div>
         </>
