@@ -1,12 +1,11 @@
-
-import Header from '../components/Header';  
+import React from 'react';
+import Header from '../components/Universal/Header';  
 import { Box, Text, Button } from '@chakra-ui/react'; // Chakra UI components
 import { Link } from 'react-router-dom'; // For routing to other pages
 import heroImage from '../assets/hero-image.jpg'; // correcting the path
 import { useOutletContext } from 'react-router-dom';
 
-//This is Miriam's code. Due to merge conflicts, it was easier to create a copy and import it into the prototype branch
-
+//This page was made by Miriam. There were too many conflicts involved in merging so I've had to copy & paste the files.
 function HomePage() {
   const theme = useOutletContext();
   return (

@@ -1,5 +1,6 @@
-// import {useState} from 'react';
-import Header from "../components/Header"
+import React, { useState} from 'react';
+import Header from "../components/Universal/Header"
+import { Text } from "@chakra-ui/react";
 import HabitTracker from '../components/habit-tracker/HabitTracker';
 import { useOutletContext } from 'react-router-dom';
 

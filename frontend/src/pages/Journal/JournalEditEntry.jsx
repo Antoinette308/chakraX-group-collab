@@ -1,4 +1,4 @@
-import Header from "../../components/Header";
+import Header from "../../components/Universal/Header";
 import JournalForm from "../../components/journal/JournalForm";
 import { useParams, useLocation, useOutletContext, useNavigate} from "react-router-dom";
 import { Box } from "@chakra-ui/react";

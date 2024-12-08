@@ -8,7 +8,7 @@ import {
     SelectRoot,
     SelectTrigger,
     SelectValueText,
-    } from "./ui/select";
+    } from "../ui/select";
 import { createListCollection } from "@chakra-ui/react"
 
 

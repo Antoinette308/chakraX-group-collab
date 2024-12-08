@@ -1,12 +1,12 @@
 
 import { Outlet } from "react-router-dom";
-import Footer from "../components/Footer";
+import Footer from "../components/Universal/Footer";
 import { Grid, GridItem } from "@chakra-ui/react";
-import NavBarButton from "../components/NavBarButton";
+import NavBarButton from "../components/Universal/NavBarButton";
 import { useState } from "react";
-import NavBar from "../components/Navbar";
-import themes from "../components/themes";
-import ThemeDropDown from "../components/ThemeDropDown";
+import NavBar from "../components/Universal/Navbar";
+import themes from "../components/Universal/themes";
+import ThemeDropDown from "../components/Universal/ThemeDropDown";
 
 
 

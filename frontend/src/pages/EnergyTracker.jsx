@@ -1,6 +1,6 @@
 import { Box, Flex} from "@chakra-ui/react";
 import ActivityButton from "../components/energy-tracker/ActivityButton";
-import Header from "../components/Header";
+import Header from "../components/Universal/Header";
 import { useState, useEffect } from "react";
 import Instructions from "../components/energy-tracker/Instructions";
 import DailyEnergyV2 from "../components/energy-tracker/DailyEnergyV2";

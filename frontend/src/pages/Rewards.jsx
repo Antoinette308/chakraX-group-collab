@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import Header from "../components/Header";
+import Header from "../components/Universal/Header";
 import { useOutletContext } from "react-router-dom";
 import DailyVisitBox from "../components/rewards-system/DailyVisitBox";
 import RewardShop from "../components/rewards-system/RewardShop";

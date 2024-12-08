@@ -1,4 +1,4 @@
-import {Button} from "./ui/button";
+import {Button} from "../ui/button";
 /* eslint-disable react/prop-types */
 function UniButton(props){
     

@@ -1,5 +1,5 @@
 import { SimpleGrid } from "@chakra-ui/react";
-import Header from "../components/Header";
+import Header from "../components/Universal/Header";
 // import JournalCard from "../components/JournalPreview";
 // import AddNewButton from "../components/AddNewEntry";
 import { useEffect, useState } from "react";

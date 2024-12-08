@@ -1,6 +1,6 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import Header from "../../components/Header";
+import Header from "../../components/Universal/Header";
 import JournalCard from "../../components/journal/JournalCard";
 import AddNewEntry from "../../components/journal/AddNewEntry";
 import { useOutletContext } from "react-router-dom";

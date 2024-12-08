@@ -1,4 +1,4 @@
-import Header from "../components/Header"
+import Header from "../components/Universal/Header"
 import { Box, Text } from "@chakra-ui/react";
 import { useOutletContext } from "react-router-dom";
 import SignIn from "../components/sign-in/SignIn";

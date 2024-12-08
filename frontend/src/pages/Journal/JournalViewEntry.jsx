@@ -1,7 +1,7 @@
 
 import { useParams, useLocation } from "react-router-dom";
 import { Box, Text } from "@chakra-ui/react";
-import Header from "../../components/Header";
+import Header from "../../components/Universal/Header";
 import { useOutletContext } from "react-router-dom";
 // import { useEffect } from "react";
 
