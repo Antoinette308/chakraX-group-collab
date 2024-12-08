@@ -120,7 +120,7 @@ function HabitTracker({theme}) {
     }, [habits]);
     
     //Function to add new habit, a unique id is created with uuid
-    function addHabit(habitDetails) {
+    async function addHabit(habitDetails) {
         const status = {
             Monday: false,
             Tuesday: false,

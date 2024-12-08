@@ -11,6 +11,7 @@ import Test from './pages/testPage.jsx';
 import SignUpPage from "./pages/SignUpPage.jsx";
 import SignInPage from "./pages/SignInPage.jsx";
 import Rewards from "./pages/Rewards.jsx";
+import HomePage from "./pages/HomePage.jsx";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />} >
+        <Route path="home" element={<HomePage />} />
           <Route path="journal" element={<Journal />} />
           <Route path="journal/new-entry" element={<NewEntry  />} />
           <Route path="todo-list" element={<ToDoListPage />} />

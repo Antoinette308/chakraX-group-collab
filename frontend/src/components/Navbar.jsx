@@ -36,7 +36,7 @@ function NavBar(props) {
                         bg={props.theme.navButtonBg} 
                         color={props.theme.ButtonColor} />
             </Flex>
-
+            <ButtonLink text="Home" route="home" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
             <ButtonLink text="To Dos" route="todo-list" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
             <ButtonLink text="Journal" route="journal" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
             <ButtonLink text="Energy Tracker" route="energy-tracker" width="250px" bg={props.theme.navButtonBg} color={props.theme.ButtonColor} />
