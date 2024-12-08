@@ -12,6 +12,7 @@ import {
     updateHabitByIdController,
     deleteHabitByIdController
  } from '../controllers/habitTracker-controller.js';
+//  import { validateHabit, checkValidationResult } from '../validators/habitTracker-validator.js';
  import { authenticateToken } from '../../authentication/middleware/auth-middleware.js';
 
 // declare router
@@ -30,5 +31,6 @@ router.get('/habit', authenticateToken, getAllHabitsController);
 router.put('/update-habit/:id', authenticateToken, updateHabitByIdController);
 
 router.delete('/delete-habit/:id', authenticateToken, deleteHabitByIdController);
+
 
 export default router;

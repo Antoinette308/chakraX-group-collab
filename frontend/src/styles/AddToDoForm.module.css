@@ -5,11 +5,11 @@
     outline: none;
     padding: 10px 40px;
     background: #b8caf2;
+    
     font-size: 15px;
     white-space: nowrap;
     text-align: center;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 0 20px 20px 0;
 }
 
 .button:hover{
@@ -23,14 +23,24 @@
 
 .form {
     align-items: center;
-    background: #edeef0;
+    background: #dfe4e4;
+    color: #05182A;
+    outline: none; 
+    margin-bottom: 25px;
+    justify-content: space-between;
+    margin-top: 25px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 6px 200px 10px 20px;
+
+
 }
 
 .input {
     flex: 1;
     outline: none; 
     background: #edeef0;
-    padding: 8px 120px 10px 20px;
+    padding: 0px 20px 0px 20px;
     align-items: center;
     margin-bottom: 25px;
     justify-content: space-between;

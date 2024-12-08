@@ -31,7 +31,7 @@ export const welcomeMessage = (req, res) => {
 
 // Create new user
 export const createUserController = (req, res) => {
-    const { email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
     console.log('Register request body:', req.body);
 
     bcrypt.hash(password, 10, (err, hashedPassword) => {
@@ -40,13 +40,13 @@ export const createUserController = (req, res) => {
             return res.status(500).json({ error: err.message });
         }
 
-        createUser({ email, password: hashedPassword }, (error, user) => {
+        createUser({ first_name: firstName, last_name: lastName, email, password: hashedPassword }, (error, user) => {
             if (error) {
                 console.error('Error creating user:', error);
                 return res.status(500).json({ error: error.message });
             }
             // console.log('User registered:', user);
-            res.status(201).json({ id: user.user_id, email: user.email });
+            res.status(201).json({ id: user.user_id, first_name: user.firstName, last_name: user.lastName, email: user.email });
             console.log('Response:', { id: user.user_id, email: user.email });
         });
     });
@@ -79,8 +79,8 @@ export const existingUserController = (req, res) => {
             }
 
             const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: '1h' });
-            console.log('Generated token:', token);
-            res.json({ token });
+            console.log('Generated token:', token, user.user_id);
+            res.json({ token, user: user.user_id});
         });
         // });
     });

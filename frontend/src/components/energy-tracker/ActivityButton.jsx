@@ -12,27 +12,27 @@ function ActivityButton(props){
     const [activityInfo, setActivityInfo] = useState(props.activity)
 
     function handleEdit(energy, activity) {
-        if(activityInfo.isActive){
+        if(activityInfo.is_active){
             props.addSpoons(activityInfo)
         }
         if(energy !== activityInfo.spoons && activity === activityInfo.name){
             setActivityInfo(
                 {...activityInfo,
                     spoons: energy,
-                    isActive: 0
+                    is_active: 0
             })
         } else if(activity !== activityInfo.name && energy === activityInfo.spoons) {
             setActivityInfo(
                 {...activityInfo,
                     name: activity,
-                    isActive: 0
+                    is_active: 0
             })
         } else { 
             setActivityInfo(
                 {...activityInfo,
                     spoons: energy,
                     name: activity,
-                    isActive: 0
+                    is_active: 0
             })
         }
     }
@@ -40,39 +40,39 @@ function ActivityButton(props){
 
 
     function handleActiveChange() {
-            if(activityInfo.isActive){
+            if(activityInfo.is_active){
                 props.addSpoons(activityInfo)
                 setActivityInfo(
                     {...activityInfo,
-                        isActive: 0
+                        is_active: false
                     })
             } else {
                 props.subtractSpoons(activityInfo)
                 setActivityInfo(
                     {...activityInfo,
-                        isActive: 1
+                        is_active: true
                     })
             }
         };
 
     function handleDelete(e, a) {
-        if(activityInfo.isActive){
+        if(activityInfo.is_active){
             props.addSpoons(activityInfo)
             console.log(activityInfo)
         }
     }
 
-    useEffect(()=> {
-        {console.log(activityInfo)
-        props.editActivities(activityInfo)}
-    },[activityInfo])
+    // useEffect(()=> {
+    //     console.log(activityInfo)
+    //     props.editActivities(activityInfo)
+    // },[activityInfo])
 
     return  ( 
         <Box width="125px" height={'125px'} 
-        borderRadius="20px" bg={activityInfo.isActive ? props.theme.pageButtonActive : props.theme.pageButtons}
-        color={activityInfo.isActive ? {base: "gray.300", _hover: "white"} : props.theme.pageButtonText}
+        borderRadius="20px" bg={activityInfo.is_active ? props.theme.pageButtonActive : props.theme.pageButtons}
+        color={activityInfo.is_active ? {base: "gray.300", _hover: "white"} : props.theme.pageButtonText}
         textAlign="center" alignContent={"center"} 
-        onClick={ handleActiveChange}>
+        onClick={handleActiveChange}>
             <Text>{activityInfo.name}</Text>
             
             <Rating icon={<FaUtensilSpoon/>} 

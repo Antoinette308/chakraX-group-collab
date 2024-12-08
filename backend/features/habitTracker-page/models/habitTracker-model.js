@@ -45,6 +45,7 @@ export const createHabit = (habit, callback) => {
             habits_id: results.insertId,
             ...habit
         };
+        console.log(formattedHabit)
         callback(null, formattedHabit);
     });
 };

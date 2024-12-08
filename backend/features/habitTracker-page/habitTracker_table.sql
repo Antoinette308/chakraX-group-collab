@@ -34,8 +34,12 @@ CREATE TABLE habits (
     user_id INT NOT NULL,
     habit_name VARCHAR(255) NOT NULL,
     colour VARCHAR(255) NOT NULL,
-    frequency INT, -- Number of times the habit should be done 
-    unit ENUM('day', 'week'), -- Time period in which the frequency applies 
+    frequency INT, 
+    recurrence ENUM('daily', 'weekly', 'monthly', 'yearly'), 
+    start_date DATE, 
+    last_completed DATE,
+	FOREIGN KEY (user_id) REFERENCES users(user_id)
+    unit ENUM('day', 'week'), 
     monday BOOLEAN,
     tuesday BOOLEAN,
     wednesday BOOLEAN,
