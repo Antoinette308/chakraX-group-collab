@@ -1,0 +1,26 @@
+-- CREATE TABLE energy_activity (
+--     activityId INT NOT NULL AUTO_INCREMENT PRIMARY KEY 
+--     userId FOREIGN KEY INT NOT NULL
+--     name VARCHAR(100) NOT NULL UNIQUE
+--     spoons INT NOT NULL CHECK (spoon >= 1 AND spoon <= 5)
+--     isActive BOOLEAN NOT NULL DEFAULT 0
+-- )
+
+--The database currently working with the frontend
+-- CREATE TABLE energy_activity (
+--     activityId VARCHAR(100) NOT NULL PRIMARY KEY,
+--     userId INT NOT NULL,
+--     name VARCHAR(100) NOT NULL UNIQUE,
+--     spoons INT NOT NULL CHECK (spoons >= 1 AND spoons <= 5),
+--     isActive BOOLEAN NOT NULL DEFAULT 0
+-- )
+
+CREATE TABLE energy_activity (
+    activity_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    spoons INT NOT NULL CHECK (spoons >= 1 AND spoons <= 5),
+    is_active BOOLEAN NOT NULL DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+

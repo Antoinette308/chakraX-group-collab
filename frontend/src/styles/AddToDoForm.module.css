@@ -1,0 +1,55 @@
+/*Made by Antoinette*/
+/*Trying to style the AddToDo component*/
+.button{
+    border: none;
+    outline: none;
+    padding: 10px 40px;
+    background: #b8caf2;
+    
+    font-size: 15px;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 0 20px 20px 0;
+}
+
+.button:hover{
+    cursor: pointer;
+}
+
+.custom-hstack{
+    border-radius: 30px;
+}
+
+
+.form {
+    align-items: center;
+    background: #dfe4e4;
+    color: #05182A;
+    outline: none; 
+    margin-bottom: 25px;
+    justify-content: space-between;
+    margin-top: 25px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 6px 200px 10px 20px;
+
+
+}
+
+.input {
+    flex: 1;
+    outline: none; 
+    background: #edeef0;
+    padding: 0px 20px 0px 20px;
+    align-items: center;
+    margin-bottom: 25px;
+    justify-content: space-between;
+    margin-top: 25px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+
+
+
+
