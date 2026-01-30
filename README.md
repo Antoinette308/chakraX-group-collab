@@ -21,13 +21,23 @@ ChakraX is a fullstack JavaScript web application designed to support personal p
 
 This project was built collaboratively by a team of six developers over 4 weeks.
 
-### My Contributions:
-- 🔐 Built the full **Auth API** using Express, bcrypt, and JWT:
-  - Secure user registration and login
-  - Token-based password reset with expiry
-  - Account update and deletion logic
-- 🧪 Configured **Jest** to work with ES6 modules in the backend
-- 🧰 Assisted in debugging API integration and testing
+
+## 🎯 My Contributions
+
+I contributed primarily to the frontend development as well as the frontend and backend integration with APIs.
+
+### Frontend Development
+- Built the Sign In functionality using React, including reusable components, form state management, and routing to the Sign Up page.
+- Developed the ToDo feature UI, using useState and useEffect to render and manage tasks dynamically.
+- Styled components with CSS modules, improving layout, spacing, and overall UI consistency.
+
+### Backend Integration & API Work
+- Integrated frontend components with backend APIs using GET and POST requests to create and retrieve tasks.
+- Contributed to backend routing and controller-level debugging.
+
+### Collaboration & Workflow
+- Collaborated in a team environment using Git and GitHub, working with feature branches and pull requests.
+- Iterated on features through testing, debugging, and refinement alongside teammates.
 
 
 ## 🚀 Future Plans
