@@ -1,5 +1,7 @@
 # 🌿 ChakraX – Productivity & Wellness Tracker
 
+## About
+
 ChakraX is a fullstack JavaScript web application designed to support personal productivity, wellbeing, and goal setting through:
 
 - ✅ Daily Habit Tracker
